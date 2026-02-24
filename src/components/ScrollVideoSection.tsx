@@ -8,6 +8,7 @@ const ScrollVideoSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
+  const lastFrameRef = useRef<number>(-1);
   const [loadedCount, setLoadedCount] = useState(0);
   const [ready, setReady] = useState(false);
 
@@ -25,33 +26,40 @@ const ScrollVideoSection = () => {
     offset: ["start start", "end end"],
   });
 
+  // Ultra-smooth spring: low stiffness + high damping = buttery cinematic feel
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 30,
-    restDelta: 0.001,
+    stiffness: 30,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 1.5,
   });
 
   const loadProgress = (loadedCount / TOTAL_FRAMES) * 100;
 
-  // Text overlay opacity: fade in 0.1-0.2, fade out 0.4-0.5
   const textOpacity = useTransform(scrollYProgress, [0.05, 0.15, 0.4, 0.5], [0, 1, 1, 0]);
 
   const render = useCallback((index: number) => {
+    // Skip if same frame — avoids redundant draws
+    if (index === lastFrameRef.current) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { alpha: false });
     if (!context) return;
 
     const img = preloadedImages.current[index];
     if (!img || !img.complete) return;
 
+    lastFrameRef.current = index;
+
     cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => {
       const dpr = window.devicePixelRatio || 1;
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Cap DPR at 2 for mobile performance
+      const cappedDpr = Math.min(dpr, 2);
 
-      const displayW = canvas.width / dpr;
-      const displayH = canvas.height / dpr;
+      const displayW = canvas.width / cappedDpr;
+      const displayH = canvas.height / cappedDpr;
       const canvasAR = displayW / displayH;
       const imgAR = img.width / img.height;
 
@@ -69,7 +77,7 @@ const ScrollVideoSection = () => {
       }
 
       context.save();
-      context.scale(dpr, dpr);
+      context.scale(cappedDpr, cappedDpr);
       context.drawImage(img, offX, offY, drawW, drawH);
       context.restore();
     });
@@ -77,31 +85,46 @@ const ScrollVideoSection = () => {
 
   useEffect(() => {
     let loaded = 0;
+    let cancelled = false;
 
     const loadImage = (index: number): Promise<void> =>
       new Promise((resolve) => {
+        if (cancelled) { resolve(); return; }
         const img = new Image();
+        img.decoding = "async";
         img.src = images[index];
         img.onload = img.onerror = () => {
           preloadedImages.current[index] = img;
           loaded++;
-          setLoadedCount(loaded);
+          // Throttle state updates to avoid excessive re-renders
+          if (loaded % 5 === 0 || loaded === TOTAL_FRAMES) {
+            setLoadedCount(loaded);
+          }
           if (loaded >= TOTAL_FRAMES * 0.8) setReady(true);
           resolve();
         };
       });
 
     const preload = async () => {
-      // Priority: first N frames
+      // Priority: first N frames for instant usability
       const priorityPromises = images.slice(0, PRIORITY_FRAMES).map((_, i) => loadImage(i));
       await Promise.all(priorityPromises);
+      if (cancelled) return;
 
-      // Remainder in background
-      const rest = images.slice(PRIORITY_FRAMES).map((_, i) => loadImage(i + PRIORITY_FRAMES));
-      await Promise.all(rest);
+      // Load remainder in small batches to avoid overwhelming the network
+      const batchSize = 10;
+      for (let i = PRIORITY_FRAMES; i < TOTAL_FRAMES; i += batchSize) {
+        if (cancelled) return;
+        const batch = [];
+        for (let j = i; j < Math.min(i + batchSize, TOTAL_FRAMES); j++) {
+          batch.push(loadImage(j));
+        }
+        await Promise.all(batch);
+      }
     };
 
     preload();
+    return () => { cancelled = true; };
   }, [images]);
 
   useEffect(() => {
@@ -109,18 +132,18 @@ const ScrollVideoSection = () => {
     if (!canvas) return;
 
     const handleResize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
+      lastFrameRef.current = -1; // force redraw after resize
       render(Math.min(TOTAL_FRAMES - 1, Math.floor(smoothProgress.get() * TOTAL_FRAMES)));
     };
 
     window.addEventListener("resize", handleResize);
     handleResize();
 
-    // Initial render
     const firstImg = preloadedImages.current[0];
     if (firstImg?.complete) render(0);
 
@@ -141,7 +164,6 @@ const ScrollVideoSection = () => {
   return (
     <div ref={containerRef} className="relative h-[500vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Loading overlay */}
         {!ready && (
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background">
             <p className="text-foreground/70 text-sm font-medium mb-3">
@@ -156,14 +178,20 @@ const ScrollVideoSection = () => {
           </div>
         )}
 
-        <motion.div style={{ opacity: containerOpacity }} className="w-full h-full">
-          <canvas ref={canvasRef} className="w-full h-full" />
+        <motion.div
+          style={{ opacity: containerOpacity }}
+          className="w-full h-full will-change-transform"
+        >
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full"
+            style={{ willChange: "contents" }}
+          />
         </motion.div>
 
-        {/* Text overlay */}
         <motion.div
           style={{ opacity: textOpacity }}
-          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none will-change-opacity"
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg select-none tracking-wide">
             Discover Uganda
