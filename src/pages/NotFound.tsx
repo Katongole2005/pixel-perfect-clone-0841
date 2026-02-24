@@ -97,7 +97,7 @@ const NotFound = () => {
                 className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] select-none"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                draggable="false"
+                aria-hidden="true"
               >
                 {/* body */}
                 <path

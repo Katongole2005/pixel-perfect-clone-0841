@@ -1,15 +1,19 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState, useCallback } from "react";
 import { useScroll, useSpring, useTransform, motion } from "framer-motion";
+
+const TOTAL_FRAMES = 192;
+const PRIORITY_FRAMES = 20;
 
 const ScrollVideoSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const totalFrames = 192;
-  
-  // Create an array of image paths
+  const rafRef = useRef<number>(0);
+  const [loadedCount, setLoadedCount] = useState(0);
+  const [ready, setReady] = useState(false);
+
   const images = useMemo(() => {
-    return Array.from({ length: totalFrames }, (_, i) => {
-      const frameIndex = (i + 1).toString().padStart(3, '0');
+    return Array.from({ length: TOTAL_FRAMES }, (_, i) => {
+      const frameIndex = (i + 1).toString().padStart(3, "0");
       return `/videos/squence/ezgif-frame-${frameIndex}.jpg`;
     });
   }, []);
@@ -22,93 +26,148 @@ const ScrollVideoSection = () => {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
+    stiffness: 50,
     damping: 30,
     restDelta: 0.001,
   });
 
-  useEffect(() => {
-    // Preload images
-    images.forEach((src, index) => {
-      const img = new Image();
-      img.src = src;
-      preloadedImages.current[index] = img;
-    });
+  const loadProgress = (loadedCount / TOTAL_FRAMES) * 100;
 
+  // Text overlay opacity: fade in 0.1-0.2, fade out 0.4-0.5
+  const textOpacity = useTransform(scrollYProgress, [0.05, 0.15, 0.4, 0.5], [0, 1, 1, 0]);
+
+  const render = useCallback((index: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    const render = (index: number) => {
-      const img = preloadedImages.current[index];
-      if (img && img.complete) {
-        // Clear canvas and draw new frame
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Handle object-cover behavior manually on canvas
-        const canvasAspectRatio = canvas.width / canvas.height;
-        const imgAspectRatio = img.width / img.height;
-        
-        let drawWidth, drawHeight, offsetX, offsetY;
-        
-        if (canvasAspectRatio > imgAspectRatio) {
-          drawWidth = canvas.width;
-          drawHeight = canvas.width / imgAspectRatio;
-          offsetX = 0;
-          offsetY = (canvas.height - drawHeight) / 2;
-        } else {
-          drawWidth = canvas.height * imgAspectRatio;
-          drawHeight = canvas.height;
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        }
-        
-        context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    const img = preloadedImages.current[index];
+    if (!img || !img.complete) return;
+
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      const dpr = window.devicePixelRatio || 1;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      const displayW = canvas.width / dpr;
+      const displayH = canvas.height / dpr;
+      const canvasAR = displayW / displayH;
+      const imgAR = img.width / img.height;
+
+      let drawW: number, drawH: number, offX: number, offY: number;
+      if (canvasAR > imgAR) {
+        drawW = displayW;
+        drawH = displayW / imgAR;
+        offX = 0;
+        offY = (displayH - drawH) / 2;
+      } else {
+        drawW = displayH * imgAR;
+        drawH = displayH;
+        offX = (displayW - drawW) / 2;
+        offY = 0;
       }
+
+      context.save();
+      context.scale(dpr, dpr);
+      context.drawImage(img, offX, offY, drawW, drawH);
+      context.restore();
+    });
+  }, []);
+
+  useEffect(() => {
+    let loaded = 0;
+
+    const loadImage = (index: number): Promise<void> =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.src = images[index];
+        img.onload = img.onerror = () => {
+          preloadedImages.current[index] = img;
+          loaded++;
+          setLoadedCount(loaded);
+          if (loaded >= TOTAL_FRAMES * 0.8) setReady(true);
+          resolve();
+        };
+      });
+
+    const preload = async () => {
+      // Priority: first N frames
+      const priorityPromises = images.slice(0, PRIORITY_FRAMES).map((_, i) => loadImage(i));
+      await Promise.all(priorityPromises);
+
+      // Remainder in background
+      const rest = images.slice(PRIORITY_FRAMES).map((_, i) => loadImage(i + PRIORITY_FRAMES));
+      await Promise.all(rest);
     };
 
-    // Initial render
-    const img = new Image();
-    img.src = images[0];
-    img.onload = () => render(0);
+    preload();
+  }, [images]);
 
-    const unsubscribe = smoothProgress.on("change", (progress) => {
-      const frameIndex = Math.min(
-        totalFrames - 1,
-        Math.floor(progress * totalFrames)
-      );
-      render(frameIndex);
-    });
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // Resize handler to keep canvas full screen
     const handleResize = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        render(Math.min(totalFrames - 1, Math.floor(smoothProgress.get() * totalFrames)));
-      }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      render(Math.min(TOTAL_FRAMES - 1, Math.floor(smoothProgress.get() * TOTAL_FRAMES)));
     };
 
     window.addEventListener("resize", handleResize);
     handleResize();
 
+    // Initial render
+    const firstImg = preloadedImages.current[0];
+    if (firstImg?.complete) render(0);
+
+    const unsubscribe = smoothProgress.on("change", (progress) => {
+      const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
+      render(frameIndex);
+    });
+
     return () => {
       unsubscribe();
       window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(rafRef.current);
     };
-  }, [images, smoothProgress]);
+  }, [smoothProgress, render]);
 
-  const opacity = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]);
+  const containerOpacity = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]);
 
   return (
     <div ref={containerRef} className="relative h-[500vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <motion.div style={{ opacity }} className="w-full h-full">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full object-cover"
-          />
+        {/* Loading overlay */}
+        {!ready && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background">
+            <p className="text-foreground/70 text-sm font-medium mb-3">
+              Loading experience… {Math.round(loadProgress)}%
+            </p>
+            <div className="w-48 h-1.5 rounded-full bg-muted overflow-hidden">
+              <div
+                className="h-full bg-primary transition-all duration-200 rounded-full"
+                style={{ width: `${loadProgress}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        <motion.div style={{ opacity: containerOpacity }} className="w-full h-full">
+          <canvas ref={canvasRef} className="w-full h-full" />
+        </motion.div>
+
+        {/* Text overlay */}
+        <motion.div
+          style={{ opacity: textOpacity }}
+          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+        >
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg select-none tracking-wide">
+            Discover Uganda
+          </h2>
         </motion.div>
       </div>
     </div>
