@@ -513,50 +513,62 @@ export const FloatingParticles = ({
   );
 };
 
-/* ─── Custom Cursor ─── */
+/* ─── Custom Cursor — minimal trailing dot ─── */
 export const CustomCursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  const ringX = useMotionValue(-100);
-  const ringY = useMotionValue(-100);
 
-  const smoothRingX = useSpring(ringX, { stiffness: 150, damping: 15 });
-  const smoothRingY = useSpring(ringY, { stiffness: 150, damping: 15 });
+  const smoothX = useSpring(cursorX, { stiffness: 300, damping: 28 });
+  const smoothY = useSpring(cursorY, { stiffness: 300, damping: 28 });
 
   const [isHovering, setIsHovering] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 4);
-      cursorY.set(e.clientY - 4);
-      ringX.set(e.clientX - 20);
-      ringY.set(e.clientY - 20);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleHoverStart = () => setIsHovering(true);
     const handleHoverEnd = () => setIsHovering(false);
+    const handleDown = () => setIsPressed(true);
+    const handleUp = () => setIsPressed(false);
 
     window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousedown", handleDown);
+    window.addEventListener("mouseup", handleUp);
 
-    const interactiveElements = document.querySelectorAll("a, button, [role='button'], input, textarea, select");
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleHoverStart);
-      el.addEventListener("mouseleave", handleHoverEnd);
-    });
+    // Use MutationObserver to keep interactive listeners up-to-date
+    const addListeners = () => {
+      const els = document.querySelectorAll("a, button, [role='button'], input, textarea, select");
+      els.forEach((el) => {
+        el.addEventListener("mouseenter", handleHoverStart);
+        el.addEventListener("mouseleave", handleHoverEnd);
+      });
+      return els;
+    };
+
+    const els = addListeners();
+    const observer = new MutationObserver(() => addListeners());
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      interactiveElements.forEach((el) => {
+      window.removeEventListener("mousedown", handleDown);
+      window.removeEventListener("mouseup", handleUp);
+      els.forEach((el) => {
         el.removeEventListener("mouseenter", handleHoverStart);
         el.removeEventListener("mouseleave", handleHoverEnd);
       });
+      observer.disconnect();
     };
-  }, [cursorX, cursorY, ringX, ringY]);
+  }, [cursorX, cursorY]);
 
-  // Only show on desktop
+  // Only show on desktop (no touch)
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => setIsMobile(window.innerWidth < 768 || "ontouchstart" in window);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -564,31 +576,24 @@ export const CustomCursor = () => {
 
   if (isMobile) return null;
 
+  const size = isPressed ? 6 : isHovering ? 14 : 10;
+
   return (
-    <>
-      {/* Dot */}
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-secondary z-[10000] pointer-events-none mix-blend-difference"
-        style={{ x: cursorX, y: cursorY }}
-      />
-      {/* Ring */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full border-2 border-secondary/50 z-[10000] pointer-events-none"
-        style={{
-          x: smoothRingX,
-          y: smoothRingY,
-          width: isHovering ? 50 : 40,
-          height: isHovering ? 50 : 40,
-          marginLeft: isHovering ? -5 : 0,
-          marginTop: isHovering ? -5 : 0,
-        }}
-        animate={{
-          scale: isHovering ? 1.3 : 1,
-          borderColor: isHovering ? "hsl(38 75% 55% / 0.9)" : "hsl(38 75% 55% / 0.4)",
-        }}
-        transition={{ duration: 0.2 }}
-      />
-    </>
+    <motion.div
+      className="fixed top-0 left-0 z-[10000] pointer-events-none rounded-full"
+      style={{
+        x: smoothX,
+        y: smoothY,
+        translateX: "-50%",
+        translateY: "-50%",
+        width: size,
+        height: size,
+        backgroundColor: isHovering
+          ? "hsl(38 75% 55% / 0.9)"
+          : "hsl(var(--foreground) / 0.7)",
+        transition: "width 0.2s ease, height 0.2s ease, background-color 0.2s ease",
+      }}
+    />
   );
 };
 

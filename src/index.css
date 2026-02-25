@@ -109,17 +109,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Source Sans 3', sans-serif;
-    cursor: none;
   }
 
-  /* Hide default cursor on interactive elements */
+  /* Let interactive elements keep their native cursors for usability */
   a,
   button,
-  [role="button"],
-  input,
-  textarea,
-  select {
-    cursor: none;
+  [role="button"] {
+    cursor: pointer;
   }
 
   h1,
