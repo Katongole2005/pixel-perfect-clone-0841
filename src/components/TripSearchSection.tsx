@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MapPin, Compass, Clock, DollarSign, Calendar, Search } from "lucide-react";
 import {
   Select,
@@ -50,6 +51,7 @@ const travelMonths = [
 ];
 
 const TripSearchSection = () => {
+  const navigate = useNavigate();
   const [destination, setDestination] = useState("");
   const [theme, setTheme] = useState("");
   const [duration, setDuration] = useState([3, 15]);
@@ -57,8 +59,15 @@ const TripSearchSection = () => {
   const [travelMonth, setTravelMonth] = useState("");
 
   const handleSearch = () => {
-    console.log({ destination, theme, duration, budget, travelMonth });
-    // Future: navigate to search results page
+    const params = new URLSearchParams();
+    if (destination) params.set("destination", destination);
+    if (theme) params.set("theme", theme);
+    if (travelMonth) params.set("month", travelMonth);
+    params.set("minDuration", String(duration[0]));
+    params.set("maxDuration", String(duration[1]));
+    params.set("minBudget", String(budget[0]));
+    params.set("maxBudget", String(budget[1]));
+    navigate(`/trip-search?${params.toString()}`);
   };
 
   return (
