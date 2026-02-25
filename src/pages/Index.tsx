@@ -3,6 +3,7 @@ import TopBar from "@/components/TopBar";
 import HeaderBar from "@/components/HeaderBar";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import TripSearchSection from "@/components/TripSearchSection";
 import ExperiencesSection from "@/components/ExperiencesSection";
 import PressRelease from "@/components/PressRelease";
 import AfconSection from "@/components/AfconSection";
@@ -33,6 +34,7 @@ const Index = () => {
       </header>
       <main>
         <HeroSection />
+        <TripSearchSection />
         <ExperiencesSection />
         <PressRelease />
         <AfconSection />
