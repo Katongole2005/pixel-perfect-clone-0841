@@ -51,10 +51,10 @@ export function SignInCard({ onSubmit, isLoading, logoUrl }: SignInCardProps) {
         mouseY.set(0);
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         if (email && password) {
-            onSubmit(email, password);
+            await onSubmit(email, password);
         }
     };
 
