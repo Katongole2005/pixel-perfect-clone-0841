@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 const destinations = [
   { value: "bwindi", label: "Bwindi Impenetrable National Park" },
@@ -250,8 +251,8 @@ export default function AdminTrips() {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">Image URL</label>
-              <Input placeholder="/videos/squence/ezgif-frame-020.jpg" value={form.image_url || ""} onChange={(e) => setForm({ ...form, image_url: e.target.value })} />
+              <label className="text-sm font-medium text-foreground mb-1 block">Image</label>
+              <ImageUpload value={form.image_url || ""} onChange={(url) => setForm({ ...form, image_url: url })} folder="trips" />
             </div>
 
             <div>

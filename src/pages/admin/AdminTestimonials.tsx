@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Plus, Pencil, Trash2, Star } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface Testimonial {
   id: string;
@@ -97,7 +98,7 @@ export default function AdminTestimonials() {
             <Input placeholder="Author title (optional)" value={form.author_title} onChange={(e) => setForm({ ...form, author_title: e.target.value })} />
             <Textarea placeholder="Testimonial content" rows={4} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} />
             <Input type="number" min={1} max={5} placeholder="Rating (1-5)" value={form.rating} onChange={(e) => setForm({ ...form, rating: parseInt(e.target.value) || 5 })} />
-            <Input placeholder="Image URL (optional)" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} />
+            <ImageUpload value={form.image_url} onChange={(url) => setForm({ ...form, image_url: url })} folder="testimonials" />
             <div className="flex items-center gap-3">
               <Switch checked={form.is_published} onCheckedChange={(v) => setForm({ ...form, is_published: v })} />
               <span className="text-sm">Published</span>

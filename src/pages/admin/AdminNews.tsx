@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface NewsItem {
   id: string;
@@ -110,7 +111,7 @@ export default function AdminNews() {
           <DialogHeader><DialogTitle>{editing ? "Edit Article" : "Create Article"}</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <Input placeholder="Article title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
-            <Input placeholder="Image URL" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} />
+            <ImageUpload value={form.image_url} onChange={(url) => setForm({ ...form, image_url: url })} folder="news" />
             <Input placeholder="Category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
             <Textarea placeholder="Excerpt / summary" rows={2} value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} />
             <Textarea placeholder="Full content" rows={8} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} />

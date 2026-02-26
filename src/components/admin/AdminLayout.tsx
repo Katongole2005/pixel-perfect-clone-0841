@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
+import AdminThemeToggle from "./AdminThemeToggle";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/admin" },
@@ -177,6 +178,7 @@ export default function AdminLayout() {
             {navItems.find((n) => n.path === location.pathname)?.label || "Admin"}
           </h2>
           <div className="flex items-center gap-2">
+            <AdminThemeToggle />
             <span className="text-sm text-muted-foreground hidden sm:block">{user.email}</span>
             <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-sm font-bold">
               {user.email?.[0].toUpperCase()}

@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface Partner {
   id: string;
@@ -81,7 +82,7 @@ export default function AdminPartners() {
           <DialogHeader><DialogTitle>{editing ? "Edit Partner" : "Add Partner"}</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <Input placeholder="Partner name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-            <Input placeholder="Logo URL" value={form.logo_url} onChange={(e) => setForm({ ...form, logo_url: e.target.value })} />
+            <ImageUpload value={form.logo_url} onChange={(url) => setForm({ ...form, logo_url: url })} folder="partners" />
             <Input placeholder="Website URL" value={form.website_url} onChange={(e) => setForm({ ...form, website_url: e.target.value })} />
             <Input type="number" placeholder="Sort order" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} />
             <div className="flex items-center gap-3">
