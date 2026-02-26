@@ -54,16 +54,18 @@ export const AnimatedTestimonials = ({
                             <motion.div
                                 key={testimonial.src}
                                 animate={{
-                                    opacity: isActive(index) ? 1 : index < active ? 0 : 0.5,
-                                    scale: isActive(index) ? 1 : index < active ? 0.3 : 0.93,
-                                    rotate: isActive(index) ? 0 : index < active ? -20 : randomRotateY(),
-                                    zIndex: isActive(index) ? 999 : index < active ? -1 : testimonials.length + 2 - index,
-                                    x: isActive(index) ? 0 : index < active ? "-130%" : 0,
-                                    y: isActive(index) ? [0, -60, 0] : index < active ? "-90%" : 0,
-                                    filter: isActive(index) ? "brightness(1)" : "brightness(0.7)",
-                                    
+                                    opacity: isActive(index) ? 1 : index < active ? [1, 0.9, 0.7, 0.4, 0] : 0.5,
+                                    scale: isActive(index) ? 1 : index < active ? [1, 0.85, 0.6, 0.4, 0.25] : 0.93,
+                                    rotate: isActive(index) ? 0 : index < active ? [0, -8, -18, -28, -35] : randomRotateY(),
+                                    zIndex: isActive(index) ? 999 : index < active ? 998 - index : testimonials.length + 2 - index,
+                                    x: isActive(index) ? 0 : index < active ? [0, "-30%", "-70%", "-110%", "-140%"] : 0,
+                                    y: isActive(index) ? [0, -60, 0] : index < active ? [0, "-15%", "-40%", "-65%", "-85%"] : 0,
+                                    filter: isActive(index) ? "brightness(1)" : index < active ? "brightness(0.85)" : "brightness(0.7)",
                                 }}
-                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{
+                                    duration: isActive(index) ? 0.6 : index < active ? 1.2 : 0.6,
+                                    ease: [0.15, 0.8, 0.3, 1],
+                                }}
                                 className="absolute inset-0 origin-bottom-right"
                             >
                                 <img
