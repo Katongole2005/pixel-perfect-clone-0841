@@ -162,19 +162,19 @@ const PlanYourTrip = () => {
       <main>
         {/* Hero */}
         <div className="relative overflow-hidden bg-primary py-16 md:py-20 px-4">
-          <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 opacity-15">
             <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-secondary blur-3xl" />
-            <div className="absolute bottom-0 left-10 w-48 h-48 rounded-full bg-godka-gold-light blur-3xl" />
+            <div className="absolute bottom-0 left-10 w-48 h-48 rounded-full bg-secondary blur-3xl" />
           </div>
           <div className="relative max-w-3xl mx-auto text-center">
             <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
-              <span className="inline-flex items-center gap-2 bg-secondary/20 text-secondary font-body font-semibold text-sm px-4 py-1.5 rounded-full mb-5">
+              <span className="inline-flex items-center gap-2 bg-secondary/25 text-secondary font-body font-semibold text-sm px-4 py-1.5 rounded-full mb-5">
                 <Compass className="w-4 h-4" /> Individual Trip Request
               </span>
-              <h1 className="text-3xl md:text-5xl font-display font-bold text-primary-foreground mb-4">
+              <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">
                 Plan Your Dream Safari
               </h1>
-              <p className="text-primary-foreground/60 font-body text-lg max-w-lg mx-auto">
+              <p className="text-white/75 font-body text-lg max-w-lg mx-auto">
                 Share your vision and our experts will craft a bespoke itinerary tailored just for you.
               </p>
             </motion.div>
@@ -183,7 +183,7 @@ const PlanYourTrip = () => {
 
         <div className="max-w-3xl mx-auto px-4 -mt-6 relative z-10 pb-16">
           {/* Step progress bar */}
-          <div className="bg-card border border-border rounded-2xl p-6 mb-6 shadow-lg">
+          <div className="bg-card border border-border rounded-2xl p-6 mb-6 shadow-xl">
             <div className="flex items-center justify-between mb-4">
               {STEPS.map((s, i) => {
                 const Icon = s.icon;
@@ -196,7 +196,7 @@ const PlanYourTrip = () => {
                     className={`flex items-center gap-3 transition-all duration-300 ${isDone ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                      isActive ? "bg-secondary text-secondary-foreground shadow-md scale-110" :
+                      isActive ? "bg-secondary text-white shadow-md scale-110" :
                       isDone ? "bg-secondary/20 text-secondary" :
                       "bg-muted text-muted-foreground"
                     }`}>
@@ -213,7 +213,7 @@ const PlanYourTrip = () => {
               })}
             </div>
             {/* Progress bar */}
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="h-2 bg-muted rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-secondary rounded-full"
                 initial={{ width: 0 }}
@@ -231,7 +231,7 @@ const PlanYourTrip = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.35 }}
-              className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-lg"
+              className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-xl"
             >
               {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren }} />}
               {step === 2 && <StepTwo {...{ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }} />}
@@ -254,7 +254,7 @@ const PlanYourTrip = () => {
               <Button
                 onClick={() => setStep((s) => s + 1)}
                 disabled={!canNext()}
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
+                className="bg-secondary text-white hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
               >
                 Continue <ChevronRight className="w-4 h-4" />
               </Button>
@@ -262,7 +262,7 @@ const PlanYourTrip = () => {
               <Button
                 onClick={handleSubmit}
                 disabled={!canNext() || submitting}
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
+                className="bg-secondary text-white hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
               >
                 {submitting ? (
                   <span className="flex items-center gap-2">
@@ -292,7 +292,7 @@ const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatest
         </div>
         <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">The Most Important Details</h2>
       </div>
-      <p className="text-sm text-muted-foreground font-body ml-11">Tell us about your dream trip to Uganda & East Africa!</p>
+      <p className="text-sm text-muted-foreground font-body ml-11">Tell us about your dream trip to Uganda &amp; East Africa!</p>
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -436,7 +436,7 @@ const StepThree = ({ name, setName, email, setEmail, phone, setPhone, message, s
 /* ─── Reusable Field Wrapper ─── */
 const FieldWrapper = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
   <div className="space-y-2">
-    <Label className="font-body font-semibold text-foreground text-sm">
+  <Label className="font-body font-semibold text-foreground text-[13px] tracking-wide uppercase">
       {label} {required && <span className="text-destructive">*</span>}
     </Label>
     {children}
@@ -448,8 +448,8 @@ const PillGroup = ({
   label, items, selected, onToggle,
 }: { label: string; items: { label: string; icon: string }[]; selected: string[]; onToggle: (v: string) => void }) => (
   <div className="space-y-3">
-    <Label className="font-body font-semibold text-foreground text-sm">{label}</Label>
-    <div className="flex flex-wrap gap-2">
+    <Label className="font-body font-semibold text-foreground text-[13px] tracking-wide uppercase">{label}</Label>
+    <div className="flex flex-wrap gap-2.5">
       {items.map((item) => {
         const isSelected = selected.includes(item.label);
         return (
@@ -460,8 +460,8 @@ const PillGroup = ({
             whileTap={{ scale: 0.95 }}
             className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-body font-medium border-2 transition-all duration-300 ${
               isSelected
-                ? "bg-secondary/15 border-secondary text-secondary shadow-sm"
-                : "bg-card border-border text-muted-foreground hover:border-secondary/40 hover:text-foreground"
+                ? "bg-secondary/15 border-secondary text-foreground shadow-sm"
+                : "bg-muted/50 border-transparent text-muted-foreground hover:border-secondary/30 hover:text-foreground hover:bg-muted"
             }`}
           >
             <span className="text-base">{item.icon}</span>
