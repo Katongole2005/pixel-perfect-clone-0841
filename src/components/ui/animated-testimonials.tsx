@@ -49,33 +49,43 @@ export const AnimatedTestimonials = ({
             <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
                 {/* Image stack */}
                 <div>
-                    <div className="relative h-80 md:h-[420px] w-full" style={{ perspective: 1000 }}>
-                        {testimonials.map((testimonial, index) => (
-                            <motion.div
-                                key={testimonial.src}
-                                animate={{
-                                    opacity: isActive(index) ? 1 : index < active ? [1, 0.9, 0.7, 0.4, 0] : 0.5,
-                                    scale: isActive(index) ? 1 : index < active ? [1, 0.85, 0.6, 0.4, 0.25] : 0.93,
-                                    rotate: isActive(index) ? 0 : index < active ? [0, -8, -18, -28, -35] : randomRotateY(),
-                                    zIndex: isActive(index) ? 999 : index < active ? 998 - index : testimonials.length + 2 - index,
-                                    x: isActive(index) ? 0 : index < active ? [0, "-30%", "-70%", "-110%", "-140%"] : 0,
-                                    y: isActive(index) ? [0, -60, 0] : index < active ? [0, "-15%", "-40%", "-65%", "-85%"] : 0,
-                                    filter: isActive(index) ? "brightness(1)" : index < active ? "brightness(0.85)" : "brightness(0.7)",
-                                }}
-                                transition={{
-                                    duration: isActive(index) ? 0.6 : index < active ? 1.2 : 0.6,
-                                    ease: [0.15, 0.8, 0.3, 1],
-                                }}
-                                className="absolute inset-0 origin-bottom-right"
-                            >
-                                <img
-                                    src={testimonial.src}
-                                    alt={testimonial.name}
-                                    draggable={false}
-                                    className="h-full w-full rounded-3xl object-cover object-center"
-                                />
-                            </motion.div>
-                        ))}
+                    <div className="relative h-80 md:h-[420px] w-full overflow-visible" style={{ perspective: 1200 }}>
+                        {testimonials.map((testimonial, index) => {
+                            const gone = index < active;
+                            const isCurrent = isActive(index);
+                            const waiting = !isCurrent && !gone;
+
+                            return (
+                                <motion.div
+                                    key={testimonial.src}
+                                    initial={false}
+                                    animate={{
+                                        opacity: isCurrent ? 1 : gone ? [1, 1, 0.85, 0.5, 0] : 0.5,
+                                        scale: isCurrent ? 1 : gone ? [1, 0.92, 0.75, 0.55, 0.35] : 0.93,
+                                        rotate: isCurrent ? 0 : gone ? [0, -5, -15, -25, -40] : randomRotateY(),
+                                        rotateX: isCurrent ? 0 : gone ? [0, 8, 12, 8, 0] : 0,
+                                        zIndex: isCurrent ? 999 : gone ? 998 - index : testimonials.length + 2 - index,
+                                        x: isCurrent ? 0 : gone ? ["0%", "-25%", "-60%", "-100%", "-145%"] : 0,
+                                        y: isCurrent ? [0, -60, 0] : gone ? ["0%", "-10%", "-35%", "-60%", "-90%"] : 0,
+                                        filter: isCurrent ? "brightness(1)" : gone ? "brightness(0.9)" : "brightness(0.7)",
+                                    }}
+                                    transition={{
+                                        duration: isCurrent ? 0.5 : gone ? 1.4 : 0.5,
+                                        ease: gone ? [0.12, 0.7, 0.3, 1] : [0.22, 1, 0.36, 1],
+                                        opacity: gone ? { duration: 1.6, ease: "easeIn" } : undefined,
+                                    }}
+                                    className="absolute inset-0 origin-bottom-right"
+                                    style={{ transformStyle: "preserve-3d" }}
+                                >
+                                    <img
+                                        src={testimonial.src}
+                                        alt={testimonial.name}
+                                        draggable={false}
+                                        className="h-full w-full rounded-3xl object-cover object-center shadow-2xl"
+                                    />
+                                </motion.div>
+                            );
+                        })}
 
                         {/* Dot indicators */}
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
