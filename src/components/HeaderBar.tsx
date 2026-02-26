@@ -39,7 +39,7 @@ const HeaderBar = () => (
 
       {/* CTA */}
       <a
-        href="#"
+        href="/plan-your-trip"
         className="bg-secondary text-secondary-foreground px-5 sm:px-7 py-2.5 sm:py-3 text-xs sm:text-sm font-body font-bold tracking-wide hover:bg-godka-amber transition-colors"
       >
         Plan Your Trip!

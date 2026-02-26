@@ -12,6 +12,7 @@ import AboutPage from "./pages/About";
 import FAQPage from "./pages/FAQ";
 import NationalParksPage from "./pages/NationalParks";
 import TripSearchResults from "./pages/TripSearchResults";
+import PlanYourTrip from "./pages/PlanYourTrip";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminLayout from "./components/admin/AdminLayout";
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/national-parks" element={<NationalParksPage />} />
             <Route path="/trip-search" element={<TripSearchResults />} />
+            <Route path="/plan-your-trip" element={<PlanYourTrip />} />
             
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
