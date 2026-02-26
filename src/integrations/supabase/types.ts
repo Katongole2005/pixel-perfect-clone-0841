@@ -266,6 +266,72 @@ export type Database = {
         }
         Relationships: []
       }
+      trip_requests: {
+        Row: {
+          animals: string[] | null
+          budget_per_person: number
+          created_at: string
+          duration_days: number
+          earliest_arrival: string
+          email: string
+          guide_language: string
+          id: string
+          is_read: boolean | null
+          latest_arrival: string
+          message: string | null
+          name: string
+          num_adults: number
+          num_children: number
+          other_destinations: string[] | null
+          phone: string
+          privacy_accepted: boolean
+          travel_experience: string[] | null
+          travel_types: string[] | null
+        }
+        Insert: {
+          animals?: string[] | null
+          budget_per_person: number
+          created_at?: string
+          duration_days: number
+          earliest_arrival: string
+          email: string
+          guide_language?: string
+          id?: string
+          is_read?: boolean | null
+          latest_arrival: string
+          message?: string | null
+          name: string
+          num_adults?: number
+          num_children?: number
+          other_destinations?: string[] | null
+          phone: string
+          privacy_accepted?: boolean
+          travel_experience?: string[] | null
+          travel_types?: string[] | null
+        }
+        Update: {
+          animals?: string[] | null
+          budget_per_person?: number
+          created_at?: string
+          duration_days?: number
+          earliest_arrival?: string
+          email?: string
+          guide_language?: string
+          id?: string
+          is_read?: boolean | null
+          latest_arrival?: string
+          message?: string | null
+          name?: string
+          num_adults?: number
+          num_children?: number
+          other_destinations?: string[] | null
+          phone?: string
+          privacy_accepted?: boolean
+          travel_experience?: string[] | null
+          travel_types?: string[] | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
