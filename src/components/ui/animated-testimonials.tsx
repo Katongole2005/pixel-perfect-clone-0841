@@ -54,13 +54,14 @@ export const AnimatedTestimonials = ({
                             <motion.div
                                 key={testimonial.src}
                                 animate={{
-                                    opacity: isActive(index) ? 1 : index < active ? 0 : 0.5,
-                                    scale: isActive(index) ? 1 : index < active ? 0.4 : 0.93,
-                                    rotate: isActive(index) ? 0 : index < active ? -12 : randomRotateY(),
-                                    zIndex: isActive(index) ? 999 : index < active ? 1 : testimonials.length + 2 - index,
-                                    x: isActive(index) ? 0 : index < active ? "-120%" : 0,
-                                    y: isActive(index) ? [0, -60, 0] : index < active ? "-80%" : 0,
-                                    filter: isActive(index) ? "brightness(1)" : "brightness(0.7)",
+                                    opacity: isActive(index) ? 1 : index < active ? 0.7 : 0.5,
+                                    scale: isActive(index) ? 1 : index < active ? 0.35 : 0.93,
+                                    rotate: isActive(index) ? 0 : index < active ? -15 : randomRotateY(),
+                                    zIndex: isActive(index) ? 999 : index < active ? 998 - index : testimonials.length + 2 - index,
+                                    x: isActive(index) ? 0 : index < active ? "-100%" : 0,
+                                    y: isActive(index) ? [0, -60, 0] : index < active ? "-70%" : 0,
+                                    filter: isActive(index) ? "brightness(1)" : index < active ? "brightness(0.85)" : "brightness(0.7)",
+                                    
                                 }}
                                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                                 className="absolute inset-0 origin-bottom-right"
