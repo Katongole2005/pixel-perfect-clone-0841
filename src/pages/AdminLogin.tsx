@@ -38,7 +38,7 @@ const AdminLogin = () => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) return;
     setIsLoading(true);
-    const { error } = await signIn(email.trim(), password);
+    const { error } = await signIn(email.trim(), password.trim());
     setIsLoading(false);
     if (error) {
       toast({ title: "Login failed", description: error.message, variant: "destructive" });
