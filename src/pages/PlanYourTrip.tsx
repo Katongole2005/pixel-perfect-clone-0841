@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Users, MapPin, Compass, User, Send, ChevronRight, ChevronLeft, Check } from "lucide-react";
+import { Calendar, Users, Compass, User, Send, ChevronRight, ChevronLeft, Check, MapPin, Heart, Globe } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import TopBar from "@/components/TopBar";
@@ -16,15 +16,47 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 
 const STEPS = [
-  { number: 1, title: "Trip Details", icon: Calendar },
-  { number: 2, title: "Preferences", icon: Compass },
-  { number: 3, title: "Contact Info", icon: User },
+  { number: 1, title: "Trip Details", icon: Calendar, description: "Dates & logistics" },
+  { number: 2, title: "Preferences", icon: Heart, description: "Your dream trip" },
+  { number: 3, title: "Contact Info", icon: Send, description: "Let's connect" },
 ];
 
-const TRAVEL_TYPES = ["Gorilla Trekking", "Mountain Bike Safari", "Nature Walk", "Safari", "Trekking", "Cultural Tour", "Bird Watching"];
-const ANIMALS = ["Gorillas", "Chimpanzees", "Elephants", "Lions", "Rhinos", "Giraffes", "Hippos", "Leopards"];
-const EXPERIENCES = ["Off the Beaten Track", "Relaxation", "Guided Tour", "Luxury Travel", "Budget Friendly", "Adventure"];
-const OTHER_DESTINATIONS = ["Rwanda", "Tanzania", "Kenya", "DR Congo"];
+const TRAVEL_TYPES = [
+  { label: "Gorilla Trekking", icon: "🦍" },
+  { label: "Mountain Bike Safari", icon: "🚵" },
+  { label: "Nature Walk", icon: "🌿" },
+  { label: "Safari", icon: "🦁" },
+  { label: "Trekking", icon: "🏔️" },
+  { label: "Cultural Tour", icon: "🎭" },
+  { label: "Bird Watching", icon: "🦅" },
+];
+
+const ANIMALS = [
+  { label: "Gorillas", icon: "🦍" },
+  { label: "Chimpanzees", icon: "🐒" },
+  { label: "Elephants", icon: "🐘" },
+  { label: "Lions", icon: "🦁" },
+  { label: "Rhinos", icon: "🦏" },
+  { label: "Giraffes", icon: "🦒" },
+  { label: "Hippos", icon: "🦛" },
+  { label: "Leopards", icon: "🐆" },
+];
+
+const EXPERIENCES = [
+  { label: "Off the Beaten Track", icon: "🗺️" },
+  { label: "Relaxation", icon: "🧘" },
+  { label: "Guided Tour", icon: "🧭" },
+  { label: "Luxury Travel", icon: "✨" },
+  { label: "Budget Friendly", icon: "💰" },
+  { label: "Adventure", icon: "⛰️" },
+];
+
+const OTHER_DESTINATIONS = [
+  { label: "Rwanda", icon: "🇷🇼" },
+  { label: "Tanzania", icon: "🇹🇿" },
+  { label: "Kenya", icon: "🇰🇪" },
+  { label: "DR Congo", icon: "🇨🇩" },
+];
 
 const PlanYourTrip = () => {
   const [step, setStep] = useState(1);
@@ -99,16 +131,16 @@ const PlanYourTrip = () => {
     return (
       <div className="min-h-screen bg-background">
         <header><TopBar /><HeaderBar /><Navbar /></header>
-        <main className="max-w-2xl mx-auto py-20 px-4 text-center">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}>
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-              <Check className="w-10 h-10 text-primary" />
+        <main className="max-w-2xl mx-auto py-24 px-4 text-center">
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
+            <div className="w-24 h-24 rounded-full bg-godka-gold/20 flex items-center justify-center mx-auto mb-8 animate-pulse-glow">
+              <Check className="w-12 h-12 text-secondary" />
             </div>
-            <h1 className="text-3xl font-heading font-bold text-foreground mb-4">Thank You!</h1>
-            <p className="text-muted-foreground font-body text-lg mb-8">
-              Your individual trip request has been submitted successfully. Our team of safari experts will review your preferences and get back to you within 24 hours with a customized itinerary.
+            <h1 className="text-4xl font-display font-bold text-foreground mb-4">Thank You!</h1>
+            <p className="text-muted-foreground font-body text-lg mb-10 max-w-md mx-auto leading-relaxed">
+              Your trip request has been submitted. Our safari experts will craft a personalized itinerary and get back to you within <strong className="text-foreground">24 hours</strong>.
             </p>
-            <Button onClick={() => navigate("/")} className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-bold">
+            <Button onClick={() => navigate("/")} className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold px-8 h-12 text-base">
               Back to Home
             </Button>
           </motion.div>
@@ -118,175 +150,98 @@ const PlanYourTrip = () => {
     );
   }
 
+  const progress = ((step - 1) / (STEPS.length - 1)) * 100;
+
   return (
     <div className="min-h-screen bg-background">
       <header><TopBar /><HeaderBar /><Navbar /></header>
       <main>
-        {/* Hero banner */}
-        <div className="bg-primary py-12 px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.h1
-              className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-3"
-              initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-            >
-              Plan Your Dream Safari
-            </motion.h1>
-            <p className="text-primary-foreground/70 font-body text-lg">
-              Tell us about your ideal trip and our experts will craft a personalized itinerary just for you.
-            </p>
+        {/* Hero */}
+        <div className="relative overflow-hidden bg-primary py-16 md:py-20 px-4">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-secondary blur-3xl" />
+            <div className="absolute bottom-0 left-10 w-48 h-48 rounded-full bg-godka-gold-light blur-3xl" />
+          </div>
+          <div className="relative max-w-3xl mx-auto text-center">
+            <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
+              <span className="inline-flex items-center gap-2 bg-secondary/20 text-secondary font-body font-semibold text-sm px-4 py-1.5 rounded-full mb-5">
+                <Compass className="w-4 h-4" /> Individual Trip Request
+              </span>
+              <h1 className="text-3xl md:text-5xl font-display font-bold text-primary-foreground mb-4">
+                Plan Your Dream Safari
+              </h1>
+              <p className="text-primary-foreground/60 font-body text-lg max-w-lg mx-auto">
+                Share your vision and our experts will craft a bespoke itinerary tailored just for you.
+              </p>
+            </motion.div>
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto px-4 py-10">
-          {/* Step indicators */}
-          <div className="flex items-center justify-center mb-10">
-            {STEPS.map((s, i) => {
-              const Icon = s.icon;
-              const isActive = step === s.number;
-              const isDone = step > s.number;
-              return (
-                <div key={s.number} className="flex items-center">
-                  <div className="flex flex-col items-center">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isActive ? "bg-primary text-primary-foreground shadow-lg" :
-                      isDone ? "bg-primary/20 text-primary" :
+        <div className="max-w-3xl mx-auto px-4 -mt-6 relative z-10 pb-16">
+          {/* Step progress bar */}
+          <div className="bg-card border border-border rounded-2xl p-6 mb-6 shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              {STEPS.map((s, i) => {
+                const Icon = s.icon;
+                const isActive = step === s.number;
+                const isDone = step > s.number;
+                return (
+                  <button
+                    key={s.number}
+                    onClick={() => { if (isDone) setStep(s.number); }}
+                    className={`flex items-center gap-3 transition-all duration-300 ${isDone ? "cursor-pointer" : "cursor-default"}`}
+                  >
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                      isActive ? "bg-secondary text-secondary-foreground shadow-md scale-110" :
+                      isDone ? "bg-secondary/20 text-secondary" :
                       "bg-muted text-muted-foreground"
                     }`}>
                       {isDone ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                     </div>
-                    <span className={`text-xs font-body font-bold mt-2 ${isActive ? "text-primary" : "text-muted-foreground"}`}>
-                      {s.title}
-                    </span>
-                  </div>
-                  {i < STEPS.length - 1 && (
-                    <div className={`w-16 sm:w-24 h-0.5 mx-2 mb-5 transition-colors duration-300 ${step > s.number ? "bg-primary" : "bg-border"}`} />
-                  )}
-                </div>
-              );
-            })}
+                    <div className="hidden sm:block text-left">
+                      <p className={`text-sm font-body font-bold leading-tight ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                        {s.title}
+                      </p>
+                      <p className="text-xs font-body text-muted-foreground">{s.description}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            {/* Progress bar */}
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-secondary rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              />
+            </div>
           </div>
 
           {/* Form steps */}
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
-              initial={{ x: 30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -30, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-card border border-border rounded-lg p-6 md:p-8 shadow-sm"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-lg"
             >
-              {step === 1 && (
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-heading font-bold text-foreground mb-1">The Most Important Details</h2>
-                    <p className="text-sm text-muted-foreground font-body">Tell us about your dream trip to Uganda & East Africa!</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Earliest Arrival *</Label>
-                      <Input type="date" value={earliestArrival} onChange={(e) => setEarliestArrival(e.target.value)} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Latest Arrival *</Label>
-                      <Input type="date" value={latestArrival} onChange={(e) => setLatestArrival(e.target.value)} />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Duration (days) *</Label>
-                      <Input type="number" min={1} placeholder="e.g. 10" value={duration} onChange={(e) => setDuration(e.target.value)} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Budget per Person (USD, excl. flights) *</Label>
-                      <Input type="number" min={1} placeholder="e.g. 3000" value={budget} onChange={(e) => setBudget(e.target.value)} />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label className="font-body font-semibold">Preferred Guide Language *</Label>
-                    <Select value={guideLanguage} onValueChange={setGuideLanguage}>
-                      <SelectTrigger><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="English">English</SelectItem>
-                        <SelectItem value="German">German</SelectItem>
-                        <SelectItem value="French">French</SelectItem>
-                        <SelectItem value="No preference">No Preference</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Number of Adults *</Label>
-                      <Input type="number" min={1} value={numAdults} onChange={(e) => setNumAdults(e.target.value)} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="font-body font-semibold">Number of Children (up to 12 yrs)</Label>
-                      <Input type="number" min={0} value={numChildren} onChange={(e) => setNumChildren(e.target.value)} />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-heading font-bold text-foreground mb-1">How Do You Envision Your Trip?</h2>
-                    <p className="text-sm text-muted-foreground font-body">Select everything that appeals to you — the more we know, the better!</p>
-                  </div>
-
-                  <CheckboxGroup label="Which type of travel appeals to you most?" items={TRAVEL_TYPES} selected={travelTypes} onToggle={(v) => toggleArray(travelTypes, v, setTravelTypes)} />
-                  <CheckboxGroup label="Which animals would you like to see?" items={ANIMALS} selected={animals} onToggle={(v) => toggleArray(animals, v, setAnimals)} />
-                  <CheckboxGroup label="What kind of travel experience?" items={EXPERIENCES} selected={experiences} onToggle={(v) => toggleArray(experiences, v, setExperiences)} />
-                  <CheckboxGroup label="Other destinations besides Uganda?" items={OTHER_DESTINATIONS} selected={otherDestinations} onToggle={(v) => toggleArray(otherDestinations, v, setOtherDestinations)} />
-                </div>
-              )}
-
-              {step === 3 && (
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-heading font-bold text-foreground mb-1">How Can We Reach You?</h2>
-                    <p className="text-sm text-muted-foreground font-body">We'll use this to send you a personalized trip proposal.</p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label className="font-body font-semibold">Full Name *</Label>
-                    <Input placeholder="Your full name" value={name} onChange={(e) => setName(e.target.value)} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="font-body font-semibold">Email *</Label>
-                    <Input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="font-body font-semibold">Phone Number *</Label>
-                    <Input type="tel" placeholder="+1 234 567 8901" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="font-body font-semibold">Your Message to Our Experts</Label>
-                    <Textarea placeholder="Share your individual wishes for your dream trip..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} />
-                  </div>
-
-                  <div className="flex items-start gap-3 pt-2">
-                    <Checkbox id="privacy" checked={privacyAccepted} onCheckedChange={(v) => setPrivacyAccepted(v === true)} />
-                    <label htmlFor="privacy" className="text-sm font-body text-muted-foreground cursor-pointer leading-snug">
-                      I agree that my information will be collected and stored electronically to answer this request. I have read the privacy policy. *
-                    </label>
-                  </div>
-                </div>
-              )}
+              {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren }} />}
+              {step === 2 && <StepTwo {...{ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }} />}
+              {step === 3 && <StepThree {...{ name, setName, email, setEmail, phone, setPhone, message, setMessage, privacyAccepted, setPrivacyAccepted }} />}
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation buttons */}
+          {/* Navigation */}
           <div className="flex items-center justify-between mt-6">
             <Button
               variant="outline"
               onClick={() => setStep((s) => s - 1)}
               disabled={step === 1}
-              className="font-body font-bold gap-2"
+              className="font-body font-semibold gap-2 h-12 px-6 rounded-xl border-border"
             >
               <ChevronLeft className="w-4 h-4" /> Back
             </Button>
@@ -295,17 +250,24 @@ const PlanYourTrip = () => {
               <Button
                 onClick={() => setStep((s) => s + 1)}
                 disabled={!canNext()}
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-bold gap-2"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
               >
-                Next <ChevronRight className="w-4 h-4" />
+                Continue <ChevronRight className="w-4 h-4" />
               </Button>
             ) : (
               <Button
                 onClick={handleSubmit}
                 disabled={!canNext() || submitting}
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-bold gap-2"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-semibold gap-2 h-12 px-8 rounded-xl shadow-md"
               >
-                {submitting ? "Submitting..." : <>Submit Request <Send className="w-4 h-4" /></>}
+                {submitting ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-secondary-foreground/30 border-t-secondary-foreground rounded-full animate-spin" />
+                    Submitting...
+                  </span>
+                ) : (
+                  <>Submit Request <Send className="w-4 h-4" /></>
+                )}
               </Button>
             )}
           </div>
@@ -316,27 +278,156 @@ const PlanYourTrip = () => {
   );
 };
 
-/* Reusable checkbox group */
-const CheckboxGroup = ({
+/* ─── Step 1: Trip Details ─── */
+const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren }: any) => (
+  <div className="space-y-7">
+    <div>
+      <div className="flex items-center gap-3 mb-1">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <MapPin className="w-4 h-4 text-primary" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">The Most Important Details</h2>
+      </div>
+      <p className="text-sm text-muted-foreground font-body ml-11">Tell us about your dream trip to Uganda & East Africa!</p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <FieldWrapper label="Earliest Arrival" required>
+        <Input type="date" value={earliestArrival} onChange={(e) => setEarliestArrival(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+      <FieldWrapper label="Latest Arrival" required>
+        <Input type="date" value={latestArrival} onChange={(e) => setLatestArrival(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <FieldWrapper label="Duration (days)" required>
+        <Input type="number" min={1} placeholder="e.g. 10" value={duration} onChange={(e) => setDuration(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+      <FieldWrapper label="Budget per Person (USD, excl. flights)" required>
+        <Input type="number" min={1} placeholder="e.g. 3000" value={budget} onChange={(e) => setBudget(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+    </div>
+
+    <FieldWrapper label="Preferred Guide Language" required>
+      <Select value={guideLanguage} onValueChange={setGuideLanguage}>
+        <SelectTrigger className="h-12 rounded-xl bg-background border-border font-body"><SelectValue /></SelectTrigger>
+        <SelectContent>
+          <SelectItem value="English">English</SelectItem>
+          <SelectItem value="German">German</SelectItem>
+          <SelectItem value="French">French</SelectItem>
+          <SelectItem value="No preference">No Preference</SelectItem>
+        </SelectContent>
+      </Select>
+    </FieldWrapper>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <FieldWrapper label="Number of Adults" required>
+        <Input type="number" min={1} value={numAdults} onChange={(e) => setNumAdults(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+      <FieldWrapper label="Number of Children (up to 12 yrs)">
+        <Input type="number" min={0} value={numChildren} onChange={(e) => setNumChildren(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+      </FieldWrapper>
+    </div>
+  </div>
+);
+
+/* ─── Step 2: Preferences ─── */
+const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }: any) => (
+  <div className="space-y-8">
+    <div>
+      <div className="flex items-center gap-3 mb-1">
+        <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+          <Heart className="w-4 h-4 text-secondary" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">How Do You Envision Your Trip?</h2>
+      </div>
+      <p className="text-sm text-muted-foreground font-body ml-11">Select everything that appeals to you — the more we know, the better!</p>
+    </div>
+
+    <PillGroup label="Which type of travel appeals to you most?" items={TRAVEL_TYPES} selected={travelTypes} onToggle={(v: string) => toggleArray(travelTypes, v, setTravelTypes)} />
+    <PillGroup label="Which animals would you like to see?" items={ANIMALS} selected={animals} onToggle={(v: string) => toggleArray(animals, v, setAnimals)} />
+    <PillGroup label="What kind of travel experience?" items={EXPERIENCES} selected={experiences} onToggle={(v: string) => toggleArray(experiences, v, setExperiences)} />
+    <PillGroup label="Other destinations besides Uganda?" items={OTHER_DESTINATIONS} selected={otherDestinations} onToggle={(v: string) => toggleArray(otherDestinations, v, setOtherDestinations)} />
+  </div>
+);
+
+/* ─── Step 3: Contact Info ─── */
+const StepThree = ({ name, setName, email, setEmail, phone, setPhone, message, setMessage, privacyAccepted, setPrivacyAccepted }: any) => (
+  <div className="space-y-6">
+    <div>
+      <div className="flex items-center gap-3 mb-1">
+        <div className="w-8 h-8 rounded-lg bg-godka-sage/10 flex items-center justify-center">
+          <User className="w-4 h-4 text-godka-sage" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">How Can We Reach You?</h2>
+      </div>
+      <p className="text-sm text-muted-foreground font-body ml-11">We'll use this to send you a personalized trip proposal.</p>
+    </div>
+
+    <FieldWrapper label="Full Name" required>
+      <Input placeholder="Your full name" value={name} onChange={(e) => setName(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+    </FieldWrapper>
+    <FieldWrapper label="Email" required>
+      <Input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+    </FieldWrapper>
+    <FieldWrapper label="Phone Number" required>
+      <Input type="tel" placeholder="+1 234 567 8901" value={phone} onChange={(e) => setPhone(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+    </FieldWrapper>
+    <FieldWrapper label="Your Message to Our Experts">
+      <Textarea placeholder="Share your individual wishes for your dream trip..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} className="rounded-xl bg-background border-border font-body resize-none" />
+    </FieldWrapper>
+
+    <div className="flex items-start gap-3 pt-2 p-4 rounded-xl bg-muted/50 border border-border">
+      <Checkbox id="privacy" checked={privacyAccepted} onCheckedChange={(v) => setPrivacyAccepted(v === true)} className="mt-0.5" />
+      <label htmlFor="privacy" className="text-sm font-body text-muted-foreground cursor-pointer leading-relaxed">
+        I agree that my information will be collected and stored electronically to answer this request. I have read the <span className="text-primary font-semibold underline underline-offset-2">privacy policy</span>. *
+      </label>
+    </div>
+  </div>
+);
+
+/* ─── Reusable Field Wrapper ─── */
+const FieldWrapper = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
+  <div className="space-y-2">
+    <Label className="font-body font-semibold text-foreground text-sm">
+      {label} {required && <span className="text-destructive">*</span>}
+    </Label>
+    {children}
+  </div>
+);
+
+/* ─── Pill selection group with icons ─── */
+const PillGroup = ({
   label, items, selected, onToggle,
-}: { label: string; items: string[]; selected: string[]; onToggle: (v: string) => void }) => (
+}: { label: string; items: { label: string; icon: string }[]; selected: string[]; onToggle: (v: string) => void }) => (
   <div className="space-y-3">
-    <Label className="font-body font-semibold text-foreground">{label}</Label>
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {items.map((item) => (
-        <button
-          key={item}
-          type="button"
-          onClick={() => onToggle(item)}
-          className={`px-3 py-2.5 rounded-md text-sm font-body font-medium border transition-all text-left ${
-            selected.includes(item)
-              ? "bg-primary/10 border-primary text-primary"
-              : "bg-card border-border text-muted-foreground hover:border-primary/40"
-          }`}
-        >
-          {item}
-        </button>
-      ))}
+    <Label className="font-body font-semibold text-foreground text-sm">{label}</Label>
+    <div className="flex flex-wrap gap-2">
+      {items.map((item) => {
+        const isSelected = selected.includes(item.label);
+        return (
+          <motion.button
+            key={item.label}
+            type="button"
+            onClick={() => onToggle(item.label)}
+            whileTap={{ scale: 0.95 }}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-body font-medium border-2 transition-all duration-300 ${
+              isSelected
+                ? "bg-secondary/15 border-secondary text-secondary shadow-sm"
+                : "bg-card border-border text-muted-foreground hover:border-secondary/40 hover:text-foreground"
+            }`}
+          >
+            <span className="text-base">{item.icon}</span>
+            {item.label}
+            {isSelected && (
+              <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="ml-0.5">
+                <Check className="w-3.5 h-3.5" />
+              </motion.span>
+            )}
+          </motion.button>
+        );
+      })}
     </div>
   </div>
 );
