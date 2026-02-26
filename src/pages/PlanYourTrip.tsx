@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Users, Compass, User, Send, ChevronRight, ChevronLeft, Check, MapPin, Heart, Globe } from "lucide-react";
+import { Calendar as CalendarIcon, Users, Compass, User, Send, ChevronRight, ChevronLeft, Check, MapPin, Heart, Globe } from "lucide-react";
+import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import TopBar from "@/components/TopBar";
@@ -14,9 +15,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 const STEPS = [
-  { number: 1, title: "Trip Details", icon: Calendar, description: "Dates & logistics" },
+  { number: 1, title: "Trip Details", icon: CalendarIcon, description: "Dates & logistics" },
   { number: 2, title: "Preferences", icon: Heart, description: "Your dream trip" },
   { number: 3, title: "Contact Info", icon: Send, description: "Let's connect" },
 ];
@@ -66,8 +70,8 @@ const PlanYourTrip = () => {
   const navigate = useNavigate();
 
   // Step 1
-  const [earliestArrival, setEarliestArrival] = useState("");
-  const [latestArrival, setLatestArrival] = useState("");
+  const [earliestArrival, setEarliestArrival] = useState<Date | undefined>();
+  const [latestArrival, setLatestArrival] = useState<Date | undefined>();
   const [duration, setDuration] = useState("");
   const [budget, setBudget] = useState("");
   const [guideLanguage, setGuideLanguage] = useState("English");
@@ -101,8 +105,8 @@ const PlanYourTrip = () => {
   const handleSubmit = async () => {
     setSubmitting(true);
     const { error } = await supabase.from("trip_requests").insert({
-      earliest_arrival: earliestArrival,
-      latest_arrival: latestArrival,
+      earliest_arrival: earliestArrival ? format(earliestArrival, "yyyy-MM-dd") : "",
+      latest_arrival: latestArrival ? format(latestArrival, "yyyy-MM-dd") : "",
       duration_days: parseInt(duration),
       budget_per_person: parseFloat(budget),
       guide_language: guideLanguage,
@@ -293,10 +297,52 @@ const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatest
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <FieldWrapper label="Earliest Arrival" required>
-        <Input type="date" value={earliestArrival} onChange={(e) => setEarliestArrival(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full h-12 rounded-xl bg-background border-border font-body justify-start text-left",
+                !earliestArrival && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4 text-secondary" />
+              {earliestArrival ? format(earliestArrival, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={earliestArrival}
+              onSelect={setEarliestArrival}
+              disabled={(date) => date < new Date()}
+            />
+          </PopoverContent>
+        </Popover>
       </FieldWrapper>
       <FieldWrapper label="Latest Arrival" required>
-        <Input type="date" value={latestArrival} onChange={(e) => setLatestArrival(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full h-12 rounded-xl bg-background border-border font-body justify-start text-left",
+                !latestArrival && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4 text-secondary" />
+              {latestArrival ? format(latestArrival, "PPP") : <span>Pick a date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={latestArrival}
+              onSelect={setLatestArrival}
+              disabled={(date) => date < (earliestArrival || new Date())}
+            />
+          </PopoverContent>
+        </Popover>
       </FieldWrapper>
     </div>
 
