@@ -28,42 +28,42 @@ import AdminSettings from "./pages/admin/AdminSettings";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/gorilla-trekking" element={<GorillaTrekkingPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/national-parks" element={<NationalParksPage />} />
-            <Route path="/trip-search" element={<TripSearchResults />} />
-            <Route path="/plan-your-trip" element={<PlanYourTrip />} />
-            
-            {/* Admin routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="trips" element={<AdminTrips />} />
-              <Route path="news" element={<AdminNews />} />
-              <Route path="partners" element={<AdminPartners />} />
-              <Route path="testimonials" element={<AdminTestimonials />} />
-              <Route path="trip-requests" element={<AdminTripRequests />} />
-              <Route path="messages" element={<AdminMessages />} />
-              <Route path="settings" element={<AdminSettings />} />
-            </Route>
+  <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/gorilla-trekking" element={<GorillaTrekkingPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/national-parks" element={<NationalParksPage />} />
+              <Route path="/trip-search" element={<TripSearchResults />} />
+              <Route path="/plan-your-trip" element={<PlanYourTrip />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+              {/* Admin routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="trips" element={<AdminTrips />} />
+                <Route path="news" element={<AdminNews />} />
+                <Route path="partners" element={<AdminPartners />} />
+                <Route path="testimonials" element={<AdminTestimonials />} />
+                <Route path="trip-requests" element={<AdminTripRequests />} />
+                <Route path="messages" element={<AdminMessages />} />
+                <Route path="settings" element={<AdminSettings />} />
+              </Route>
+
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
   </ThemeProvider>
 );
 
