@@ -9,8 +9,7 @@ const ScrollVideoSection = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const lastFrameRef = useRef<number>(-1);
-  const [loadedCount, setLoadedCount] = useState(0);
-  const [ready, setReady] = useState(false);
+  const [ready] = useState(true);
 
   const images = useMemo(() => {
     return Array.from({ length: TOTAL_FRAMES }, (_, i) => {
@@ -34,7 +33,7 @@ const ScrollVideoSection = () => {
     mass: 1.5,
   });
 
-  const loadProgress = (loadedCount / TOTAL_FRAMES) * 100;
+  
 
   const textOpacity = useTransform(scrollYProgress, [0.05, 0.15, 0.4, 0.5], [0, 1, 1, 0]);
 
@@ -96,11 +95,6 @@ const ScrollVideoSection = () => {
         img.onload = img.onerror = () => {
           preloadedImages.current[index] = img;
           loaded++;
-          // Throttle state updates to avoid excessive re-renders
-          if (loaded % 5 === 0 || loaded === TOTAL_FRAMES) {
-            setLoadedCount(loaded);
-          }
-          if (loaded >= TOTAL_FRAMES * 0.8) setReady(true);
           resolve();
         };
       });
@@ -164,19 +158,6 @@ const ScrollVideoSection = () => {
   return (
     <div ref={containerRef} className="relative h-[500vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {!ready && (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-background">
-            <p className="text-foreground/70 text-sm font-medium mb-3">
-              Loading experience… {Math.round(loadProgress)}%
-            </p>
-            <div className="w-48 h-1.5 rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full bg-primary transition-all duration-200 rounded-full"
-                style={{ width: `${loadProgress}%` }}
-              />
-            </div>
-          </div>
-        )}
 
         <motion.div
           style={{ opacity: containerOpacity }}
