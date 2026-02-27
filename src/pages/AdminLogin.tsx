@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -7,9 +7,15 @@ import logo from "@/assets/logo.png";
 
 const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, user, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (!loading && user && isAdmin) {
+      navigate("/admin");
+    }
+  }, [loading, user, isAdmin, navigate]);
 
   const handleSignIn = async (email: string, password: string) => {
     setIsLoading(true);
@@ -22,8 +28,6 @@ const AdminLogin = () => {
         description: error.message,
         variant: "destructive"
       });
-    } else {
-      navigate("/admin");
     }
   };
 
