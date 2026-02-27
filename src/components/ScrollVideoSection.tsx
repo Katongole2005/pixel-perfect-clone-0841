@@ -1,24 +1,56 @@
-import { useRef, useEffect, useMemo, useState, useCallback } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useScroll, useSpring, useTransform, motion } from "framer-motion";
 
 const TOTAL_FRAMES = 192;
-const PRIORITY_FRAMES = 20;
+const PRIORITY_FRAMES = 30;
+
+// Module-level: build URLs and start preloading immediately on import
+const frameUrls = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
+  const frameIndex = (i + 1).toString().padStart(3, "0");
+  return `/videos/squence/ezgif-frame-${frameIndex}.jpg`;
+});
+
+const globalImages: HTMLImageElement[] = [];
+let preloadStarted = false;
+
+function startGlobalPreload() {
+  if (preloadStarted) return;
+  preloadStarted = true;
+
+  const loadImage = (index: number) =>
+    new Promise<void>((resolve) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = frameUrls[index];
+      img.onload = img.onerror = () => {
+        globalImages[index] = img;
+        resolve();
+      };
+    });
+
+  (async () => {
+    // Priority batch first
+    await Promise.all(frameUrls.slice(0, PRIORITY_FRAMES).map((_, i) => loadImage(i)));
+    // Rest in small batches
+    const batchSize = 10;
+    for (let i = PRIORITY_FRAMES; i < TOTAL_FRAMES; i += batchSize) {
+      const batch = [];
+      for (let j = i; j < Math.min(i + batchSize, TOTAL_FRAMES); j++) {
+        batch.push(loadImage(j));
+      }
+      await Promise.all(batch);
+    }
+  })();
+}
+
+// Start preloading the moment this module is imported
+startGlobalPreload();
 
 const ScrollVideoSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const lastFrameRef = useRef<number>(-1);
-  const [ready] = useState(true);
-
-  const images = useMemo(() => {
-    return Array.from({ length: TOTAL_FRAMES }, (_, i) => {
-      const frameIndex = (i + 1).toString().padStart(3, "0");
-      return `/videos/squence/ezgif-frame-${frameIndex}.jpg`;
-    });
-  }, []);
-
-  const preloadedImages = useRef<HTMLImageElement[]>([]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -46,7 +78,7 @@ const ScrollVideoSection = () => {
     const context = canvas.getContext("2d", { alpha: false });
     if (!context) return;
 
-    const img = preloadedImages.current[index];
+    const img = globalImages[index];
     if (!img || !img.complete) return;
 
     lastFrameRef.current = index;
@@ -82,44 +114,7 @@ const ScrollVideoSection = () => {
     });
   }, []);
 
-  useEffect(() => {
-    let loaded = 0;
-    let cancelled = false;
-
-    const loadImage = (index: number): Promise<void> =>
-      new Promise((resolve) => {
-        if (cancelled) { resolve(); return; }
-        const img = new Image();
-        img.decoding = "async";
-        img.src = images[index];
-        img.onload = img.onerror = () => {
-          preloadedImages.current[index] = img;
-          loaded++;
-          resolve();
-        };
-      });
-
-    const preload = async () => {
-      // Priority: first N frames for instant usability
-      const priorityPromises = images.slice(0, PRIORITY_FRAMES).map((_, i) => loadImage(i));
-      await Promise.all(priorityPromises);
-      if (cancelled) return;
-
-      // Load remainder in small batches to avoid overwhelming the network
-      const batchSize = 10;
-      for (let i = PRIORITY_FRAMES; i < TOTAL_FRAMES; i += batchSize) {
-        if (cancelled) return;
-        const batch = [];
-        for (let j = i; j < Math.min(i + batchSize, TOTAL_FRAMES); j++) {
-          batch.push(loadImage(j));
-        }
-        await Promise.all(batch);
-      }
-    };
-
-    preload();
-    return () => { cancelled = true; };
-  }, [images]);
+  // Preloading is handled at module level — no useEffect needed
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -138,7 +133,7 @@ const ScrollVideoSection = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
 
-    const firstImg = preloadedImages.current[0];
+    const firstImg = globalImages[0];
     if (firstImg?.complete) render(0);
 
     const unsubscribe = smoothProgress.on("change", (progress) => {
