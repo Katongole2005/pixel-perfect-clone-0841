@@ -5,7 +5,7 @@ const HeaderBar = () => (
   <div className="bg-card py-3 px-4 border-b border-border">
     <div className="max-w-7xl mx-auto flex items-center justify-between">
       {/* Logo */}
-      <a href="#" className="flex-shrink-0">
+      <a href="/" className="flex-shrink-0">
         <img
           src={logo}
           alt="Godka Tours and Travels Ltd. — Uganda & Rwanda safari tour operator"
