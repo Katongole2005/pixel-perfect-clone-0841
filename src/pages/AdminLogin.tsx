@@ -19,13 +19,22 @@ const AdminLogin = () => {
 
   const handleSignIn = async (email: string, password: string) => {
     setIsLoading(true);
-    const { error } = await signIn(email.trim(), password.trim());
-    setIsLoading(false);
-
-    if (error) {
+    const result = await signIn(email.trim(), password.trim());
+    
+    if (result.error) {
+      setIsLoading(false);
       toast({
         title: "Login failed",
-        description: error.message,
+        description: result.error.message,
+        variant: "destructive"
+      });
+    } else if (result.isAdmin) {
+      navigate("/admin");
+    } else {
+      setIsLoading(false);
+      toast({
+        title: "Access denied",
+        description: "You do not have admin privileges.",
         variant: "destructive"
       });
     }
