@@ -253,7 +253,7 @@ export function SignInCard({ onSubmit, isLoading, logoUrl }: SignInCardProps) {
                         <div className="absolute -inset-[0.5px] rounded-2xl bg-gradient-to-r from-white/3 via-white/7 to-white/3 opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
 
                         {/* Glass card background */}
-                        <div className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/[0.05] shadow-2xl overflow-hidden">
+                        <div className="relative bg-black/80 backdrop-blur-xl rounded-2xl p-6 border border-white/[0.08] shadow-2xl overflow-hidden">
                             {/* Subtle card inner patterns */}
                             <div className="absolute inset-0 opacity-[0.03]"
                                 style={{
@@ -290,7 +290,7 @@ export function SignInCard({ onSubmit, isLoading, logoUrl }: SignInCardProps) {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.3 }}
-                                    className="text-white/60 text-xs"
+                                    className="text-white/70 text-xs"
                                 >
                                     Sign in to access the admin dashboard
                                 </motion.p>
@@ -319,7 +319,7 @@ export function SignInCard({ onSubmit, isLoading, logoUrl }: SignInCardProps) {
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 onFocus={() => setFocusedInput("email")}
                                                 onBlur={() => setFocusedInput(null)}
-                                                className="w-full bg-white/5 border-transparent focus:border-white/20 text-white placeholder:text-white/30 h-10 transition-all duration-300 pl-10 pr-3 focus:bg-white/10"
+                                                className="w-full bg-white/10 border-white/10 focus:border-white/30 text-white placeholder:text-white/50 h-10 transition-all duration-300 pl-10 pr-3 focus:bg-white/15"
                                                 required
                                             />
 
@@ -357,7 +357,7 @@ export function SignInCard({ onSubmit, isLoading, logoUrl }: SignInCardProps) {
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 onFocus={() => setFocusedInput("password")}
                                                 onBlur={() => setFocusedInput(null)}
-                                                className="w-full bg-white/5 border-transparent focus:border-white/20 text-white placeholder:text-white/30 h-10 transition-all duration-300 pl-10 pr-10 focus:bg-white/10"
+                                                className="w-full bg-white/10 border-white/10 focus:border-white/30 text-white placeholder:text-white/50 h-10 transition-all duration-300 pl-10 pr-10 focus:bg-white/15"
                                                 required
                                             />
 
