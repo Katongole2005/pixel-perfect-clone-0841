@@ -90,8 +90,8 @@ export function Footer4Col() {
                         <div className="text-secondary flex justify-center gap-2 sm:justify-start">
                             <img
                                 src={data.company.logo}
-                                alt="logo"
-                                className="h-10 w-10 object-contain"
+                                alt="Godka Tours logo"
+                                className="h-20 sm:h-24 lg:h-28 w-auto object-contain"
                             />
                             <span className="text-2xl font-semibold flex items-center">
                                 {data.company.name}
