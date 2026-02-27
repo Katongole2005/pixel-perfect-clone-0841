@@ -84,12 +84,12 @@ const FooterSection = () => {
       </div>
 
       {/* Main footer */}
-      <div className="bg-primary pt-16 pb-12 px-4 relative">
+      <div className="bg-white pt-16 pb-12 px-4 relative">
         {/* Subtle animated glow */}
         <motion.div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px"
           style={{
-            background: "linear-gradient(90deg, transparent, hsl(var(--secondary) / 0.5), transparent)",
+            background: "linear-gradient(90deg, transparent, hsl(var(--godka-gold) / 0.5), transparent)",
           }}
           animate={{ scaleX: [0.5, 1.5, 0.5], opacity: [0.3, 0.7, 0.3] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -116,7 +116,7 @@ const FooterSection = () => {
                 <MagneticHover key={i} strength={0.4}>
                   <motion.a
                     href="#"
-                    className="w-10 h-10 rounded-full border border-primary-foreground/15 flex items-center justify-center text-primary-foreground/40 hover:bg-secondary hover:border-secondary hover:text-secondary-foreground transition-all duration-300"
+                    className="w-10 h-10 rounded-full border border-godka-navy/15 flex items-center justify-center text-godka-navy/50 hover:bg-secondary hover:border-secondary hover:text-white transition-all duration-300"
                     whileHover={{ rotate: 10 }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ const FooterSection = () => {
           </motion.div>
 
           {/* Divider */}
-          <LineDraw className="h-px bg-primary-foreground/10 mb-12" delay={0.2} />
+          <LineDraw className="h-px bg-godka-navy/10 mb-12" delay={0.2} />
 
           {/* Columns */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
@@ -142,10 +142,10 @@ const FooterSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h4 className="text-primary-foreground font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
+              <h4 className="text-godka-navy font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
                 About Us
               </h4>
-              <p className="text-primary-foreground/45 font-body text-sm leading-relaxed">
+              <p className="text-godka-warm-gray font-body text-sm leading-relaxed">
                 Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda & Rwanda.
               </p>
             </motion.div>
@@ -157,7 +157,7 @@ const FooterSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h4 className="text-primary-foreground font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
+              <h4 className="text-godka-navy font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
                 Quick Links
               </h4>
               {["Tours", "Destinations", "Gorilla Trekking", "National Parks", "Reviews"].map(
@@ -165,7 +165,7 @@ const FooterSection = () => {
                   <motion.a
                     key={link}
                     href="#"
-                    className="group flex items-center gap-2 text-primary-foreground/40 font-body text-sm py-2 hover:text-secondary transition-all duration-300 hover:pl-1"
+                    className="group flex items-center gap-2 text-godka-warm-gray font-body text-sm py-2 hover:text-secondary transition-all duration-300 hover:pl-1"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -185,7 +185,7 @@ const FooterSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h4 className="text-primary-foreground font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
+              <h4 className="text-godka-navy font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
                 Top Destinations
               </h4>
               {["Bwindi Forest", "Queen Elizabeth NP", "Murchison Falls", "Kibale Forest", "Lake Bunyonyi"].map(
@@ -193,7 +193,7 @@ const FooterSection = () => {
                   <motion.a
                     key={link}
                     href="#"
-                    className="group flex items-center gap-2 text-primary-foreground/40 font-body text-sm py-2 hover:text-secondary transition-all duration-300 hover:pl-1"
+                    className="group flex items-center gap-2 text-godka-warm-gray font-body text-sm py-2 hover:text-secondary transition-all duration-300 hover:pl-1"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -213,7 +213,7 @@ const FooterSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h4 className="text-primary-foreground font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
+              <h4 className="text-godka-navy font-body font-bold text-xs uppercase tracking-[0.2em] mb-6">
                 Get In Touch
               </h4>
               <div className="space-y-4">
@@ -231,10 +231,10 @@ const FooterSection = () => {
                     viewport={{ once: true }}
                     transition={{ delay: 0.35 + i * 0.08 }}
                   >
-                    <div className="w-9 h-9 rounded-full bg-primary-foreground/5 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 group-hover:scale-110 transition-all duration-300">
+                    <div className="w-9 h-9 rounded-full bg-godka-navy/5 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 group-hover:scale-110 transition-all duration-300">
                       <Icon className="w-4 h-4 text-secondary" />
                     </div>
-                    <span className="text-primary-foreground/45 font-body text-sm group-hover:text-primary-foreground/70 transition-colors duration-300">
+                    <span className="text-godka-warm-gray font-body text-sm group-hover:text-godka-navy transition-colors duration-300">
                       {text}
                     </span>
                   </motion.a>
@@ -246,7 +246,7 @@ const FooterSection = () => {
       </div>
 
       {/* Copyright */}
-      <div className="bg-primary border-t border-primary-foreground/[0.08] py-5 px-4">
+      <div className="bg-white border-t border-godka-navy/[0.08] py-5 px-4">
         <motion.div
           className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3"
           initial={{ opacity: 0 }}
@@ -254,7 +254,7 @@ const FooterSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-primary-foreground/30 font-body text-xs">
+          <p className="text-godka-warm-gray/60 font-body text-xs">
             © 2026 Godka Tours and Travels Ltd. All Rights Reserved.
           </p>
           <div className="flex gap-6">
@@ -262,7 +262,7 @@ const FooterSection = () => {
               <a
                 key={link}
                 href="#"
-                className="text-primary-foreground/30 font-body text-xs hover:text-secondary transition-colors duration-300"
+                className="text-godka-warm-gray/60 font-body text-xs hover:text-secondary transition-colors duration-300"
               >
                 {link}
               </a>
