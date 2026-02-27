@@ -8,7 +8,7 @@ type DropdownItem = { label: string; href: string; icon?: React.ElementType; des
 type NavItem = { label: string; href: string; dropdown?: DropdownItem[] };
 
 const navItems: NavItem[] = [
-  { label: "Tours", href: "#" },
+  { label: "Home", href: "/" },
   { label: "Destinations", href: "#" },
   { label: "National Parks", href: "/national-parks" },
   { label: "Gorilla Trekking", href: "/gorilla-trekking" },
