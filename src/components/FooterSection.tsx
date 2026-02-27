@@ -107,7 +107,7 @@ const FooterSection = () => {
             <motion.img
               src={logo}
               alt="Godka Tours and Travels Ltd."
-              className="h-16 w-auto"
+              className="h-20 w-auto"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             />
