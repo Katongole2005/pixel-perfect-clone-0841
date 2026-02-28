@@ -1,18 +1,12 @@
 import { motion } from "framer-motion";
 import { MailIcon, PhoneIcon, MapPinIcon, ClockIcon, Send } from "lucide-react";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import { ContactCard } from "@/components/ui/contact-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    ScrollProgress,
-    CustomCursor,
-    BackToTop,
     SplitTextReveal,
     ClipReveal,
     FloatingParticles,
@@ -20,18 +14,12 @@ import {
 
 const ContactPage = () => {
     return (
-        <div className="min-h-screen bg-background">
-            <ScrollProgress />
-            <CustomCursor />
-            <BackToTop />
-
-            <header>
-                <TopBar />
-                <HeaderBar />
-                <Navbar />
-            </header>
-
-            <main>
+        <>
+            <Helmet>
+                <title>Contact Us | Godka Tours</title>
+                <meta name="description" content="Get in touch with Godka Tours to plan your next African safari adventure." />
+            </Helmet>
+            <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-72 md:h-96 overflow-hidden">
                     <img
@@ -188,10 +176,8 @@ const ContactPage = () => {
                         ))}
                     </div>
                 </section>
-            </main>
-
-            <FooterSection />
-        </div>
+            </div>
+        </>
     );
 };
 

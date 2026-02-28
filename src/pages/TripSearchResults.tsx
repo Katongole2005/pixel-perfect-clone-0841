@@ -11,15 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
-import {
-  ScrollProgress,
-  CustomCursor,
-  BackToTop,
-} from "@/components/animations/AnimationUtils";
+import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 
 const destinations = [
@@ -268,17 +260,12 @@ const TripSearchResults = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <ScrollProgress />
-      <CustomCursor />
-      <BackToTop />
-      <header>
-        <TopBar />
-        <HeaderBar />
-        <Navbar />
-      </header>
-
-      <main className="pt-8 pb-16">
+    <>
+      <Helmet>
+        <title>Trip Search Results | Godka Tours</title>
+        <meta name="description" content="Find the best safari packages and gorilla trekking tours." />
+      </Helmet>
+      <div className="bg-background pt-8 pb-16">
         {/* Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors mb-4">
@@ -377,10 +364,8 @@ const TripSearchResults = () => {
             </div>
           </div>
         </div>
-      </main>
-
-      <FooterSection />
-    </div>
+      </div>
+    </>
   );
 };
 

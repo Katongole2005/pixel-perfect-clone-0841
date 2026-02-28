@@ -1,7 +1,5 @@
 import { useRef } from "react";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
+import { Helmet } from "react-helmet-async";
 import HeroSection from "@/components/HeroSection";
 import TripSearchSection from "@/components/TripSearchSection";
 import ExperiencesSection from "@/components/ExperiencesSection";
@@ -12,40 +10,25 @@ import ExploreSection from "@/components/ExploreSection";
 import ScrollVideoSection from "@/components/ScrollVideoSection";
 import AboutSection from "@/components/AboutSection";
 import PartnersSection from "@/components/PartnersSection";
-import FooterSection from "@/components/FooterSection";
-import {
-  ScrollProgress,
-  CustomCursor,
-  BackToTop,
-} from "@/components/animations/AnimationUtils";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Global UI overlays */}
-      <ScrollProgress />
-      <CustomCursor />
-      <BackToTop />
-
-      <header>
-        <TopBar />
-        <HeaderBar />
-        <Navbar />
-      </header>
-      <main>
-        <HeroSection />
-        <TripSearchSection />
-        <ExperiencesSection />
-        <PressRelease />
-        <AfconSection />
-        <NewsSection />
-        <ExploreSection />
-        <ScrollVideoSection />
-        <AboutSection />
-        <PartnersSection />
-      </main>
-      <FooterSection />
-    </div>
+    <>
+      <Helmet>
+        <title>Godka Tours & Travels | Gorilla Trekking & Safari Tours Uganda & Rwanda</title>
+        <meta name="description" content="Book gorilla trekking, wildlife safaris & cultural tours in Uganda and Rwanda with Godka Tours. ATTA-certified operator with 10+ years experience. Get a free quote today." />
+      </Helmet>
+      <HeroSection />
+      <TripSearchSection />
+      <ExperiencesSection />
+      <PressRelease />
+      <AfconSection />
+      <NewsSection />
+      <ExploreSection />
+      <ScrollVideoSection />
+      <AboutSection />
+      <PartnersSection />
+    </>
   );
 };
 

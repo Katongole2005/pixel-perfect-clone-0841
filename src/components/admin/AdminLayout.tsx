@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Map, Newspaper, Users, MessageSquare, Settings, LogOut, Menu, X,
-  ChevronLeft, Globe, Star, Handshake, Plane
+  ChevronLeft, Globe, Star, Handshake, Plane, Mountain, BookOpenText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
@@ -15,9 +15,11 @@ const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/admin" },
   { label: "Trip Requests", icon: Plane, path: "/admin/trip-requests" },
   { label: "Trips", icon: Map, path: "/admin/trips" },
+  { label: "Reviews", icon: Star, path: "/admin/reviews" },
+  { label: "Travel Topics", icon: Mountain, path: "/admin/travel-topics" },
   { label: "News", icon: Newspaper, path: "/admin/news" },
   { label: "Partners", icon: Handshake, path: "/admin/partners" },
-  { label: "Testimonials", icon: Star, path: "/admin/testimonials" },
+  { label: "Testimonials", icon: BookOpenText, path: "/admin/testimonials" },
   { label: "Messages", icon: MessageSquare, path: "/admin/messages" },
   { label: "Site Settings", icon: Settings, path: "/admin/settings" },
 ];

@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import {
   Map, Newspaper, MessageSquare, Handshake, Star, Eye, Plane,
-  ArrowRight, Clock, Users, DollarSign
+  ArrowRight, Clock, Users, DollarSign, Mountain
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -20,6 +20,8 @@ interface Stats {
   testimonials: number;
   tripRequests: number;
   unreadTripRequests: number;
+  reviews: number;
+  travelTopics: number;
 }
 
 interface RecentTripRequest {
@@ -49,6 +51,8 @@ const statCards = [
   { key: "news" as const, label: "News Articles", icon: Newspaper, color: "bg-muted-foreground/10 text-muted-foreground", path: "/admin/news" },
   { key: "messages" as const, label: "Contact Messages", icon: MessageSquare, color: "bg-primary/10 text-primary", path: "/admin/messages" },
   { key: "unreadMessages" as const, label: "Unread Messages", icon: Eye, color: "bg-destructive/10 text-destructive", path: "/admin/messages" },
+  { key: "reviews" as const, label: "Reviews", icon: Star, color: "bg-secondary/10 text-secondary", path: "/admin/reviews" },
+  { key: "travelTopics" as const, label: "Travel Topics", icon: Mountain, color: "bg-primary/10 text-primary", path: "/admin/travel-topics" },
   { key: "partners" as const, label: "Partners", icon: Handshake, color: "bg-secondary/10 text-secondary", path: "/admin/partners" },
   { key: "testimonials" as const, label: "Testimonials", icon: Star, color: "bg-secondary/10 text-secondary", path: "/admin/testimonials" },
 ];
@@ -56,8 +60,10 @@ const statCards = [
 const quickActions = [
   { label: "Trip Requests", desc: "View & manage incoming trip inquiries", icon: Plane, path: "/admin/trip-requests", accent: "bg-secondary/10 text-secondary" },
   { label: "Manage Trips", desc: "Add, edit or remove safari packages", icon: Map, path: "/admin/trips", accent: "bg-primary/10 text-primary" },
+  { label: "Reviews", desc: "Manage guest reviews and ratings", icon: Star, path: "/admin/reviews", accent: "bg-secondary/10 text-secondary" },
+  { label: "Travel Topics", desc: "Edit travel category cards", icon: Mountain, path: "/admin/travel-topics", accent: "bg-primary/10 text-primary" },
   { label: "News & Updates", desc: "Publish articles and press releases", icon: Newspaper, path: "/admin/news", accent: "bg-muted-foreground/10 text-muted-foreground" },
-  { label: "Testimonials", desc: "Curate traveler reviews", icon: Star, path: "/admin/testimonials", accent: "bg-secondary/10 text-secondary" },
+  { label: "Testimonials", desc: "Curate traveler testimonials", icon: Star, path: "/admin/testimonials", accent: "bg-secondary/10 text-secondary" },
   { label: "Partners", desc: "Manage partner logos & links", icon: Handshake, path: "/admin/partners", accent: "bg-primary/10 text-primary" },
   { label: "Contact Messages", desc: "Read customer inquiries", icon: MessageSquare, path: "/admin/messages", accent: "bg-muted-foreground/10 text-muted-foreground" },
 ];
@@ -67,13 +73,14 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats>({
     trips: 0, news: 0, messages: 0, unreadMessages: 0,
     partners: 0, testimonials: 0, tripRequests: 0, unreadTripRequests: 0,
+    reviews: 0, travelTopics: 0,
   });
   const [recentRequests, setRecentRequests] = useState<RecentTripRequest[]>([]);
   const [recentMessages, setRecentMessages] = useState<RecentMessage[]>([]);
 
   useEffect(() => {
     const fetchAll = async () => {
-      const [trips, news, messages, unread, partners, testimonials, tripReqs, unreadReqs, latestReqs, latestMsgs] =
+      const [trips, news, messages, unread, partners, testimonials, tripReqs, unreadReqs, reviews, travelTopics, latestReqs, latestMsgs] =
         await Promise.all([
           supabase.from("managed_trips").select("id", { count: "exact", head: true }),
           supabase.from("managed_news").select("id", { count: "exact", head: true }),
@@ -83,6 +90,8 @@ export default function AdminDashboard() {
           supabase.from("managed_testimonials").select("id", { count: "exact", head: true }),
           supabase.from("trip_requests").select("id", { count: "exact", head: true }),
           supabase.from("trip_requests").select("id", { count: "exact", head: true }).eq("is_read", false),
+          supabase.from("managed_reviews").select("id", { count: "exact", head: true }),
+          supabase.from("managed_travel_topics").select("id", { count: "exact", head: true }),
           supabase.from("trip_requests").select("id, name, email, duration_days, num_adults, num_children, budget_per_person, is_read, created_at").order("created_at", { ascending: false }).limit(5),
           supabase.from("contact_messages").select("id, name, subject, is_read, created_at").order("created_at", { ascending: false }).limit(5),
         ]);
@@ -96,6 +105,8 @@ export default function AdminDashboard() {
         testimonials: testimonials.count ?? 0,
         tripRequests: tripReqs.count ?? 0,
         unreadTripRequests: unreadReqs.count ?? 0,
+        reviews: reviews.count ?? 0,
+        travelTopics: travelTopics.count ?? 0,
       });
       if (latestReqs.data) setRecentRequests(latestReqs.data as RecentTripRequest[]);
       if (latestMsgs.data) setRecentMessages(latestMsgs.data as RecentMessage[]);
@@ -197,9 +208,8 @@ export default function AdminDashboard() {
                 recentRequests.map((req) => (
                   <div
                     key={req.id}
-                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${
-                      !req.is_read ? "bg-secondary/5 border border-secondary/20" : "border border-transparent"
-                    }`}
+                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${!req.is_read ? "bg-secondary/5 border border-secondary/20" : "border border-transparent"
+                      }`}
                     onClick={() => navigate("/admin/trip-requests")}
                   >
                     <div className="flex-1 min-w-0">
@@ -251,9 +261,8 @@ export default function AdminDashboard() {
                 recentMessages.map((msg) => (
                   <div
                     key={msg.id}
-                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${
-                      !msg.is_read ? "bg-secondary/5 border border-secondary/20" : "border border-transparent"
-                    }`}
+                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${!msg.is_read ? "bg-secondary/5 border border-secondary/20" : "border border-transparent"
+                      }`}
                     onClick={() => navigate("/admin/messages")}
                   >
                     <div className="flex-1 min-w-0">

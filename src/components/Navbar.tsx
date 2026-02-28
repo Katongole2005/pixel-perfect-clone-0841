@@ -9,7 +9,7 @@ type NavItem = { label: string; href: string; dropdown?: DropdownItem[] };
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Destinations", href: "#" },
+  { label: "Travel Topics", href: "/travel-topics" },
   { label: "National Parks", href: "/national-parks" },
   { label: "Gorilla Trekking", href: "/gorilla-trekking" },
   {
@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  { label: "Reviews", href: "#" },
+  { label: "Reviews", href: "/reviews" },
 ];
 
 const Navbar = () => {

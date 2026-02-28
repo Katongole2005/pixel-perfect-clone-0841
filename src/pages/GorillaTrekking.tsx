@@ -2,10 +2,7 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-mot
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Mountain, Clock, Users, Star, Shield, Camera } from "lucide-react";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import {
     SplitTextReveal,
@@ -13,9 +10,6 @@ import {
     StaggerGrid,
     StaggerItem,
     FloatingParticles,
-    ScrollProgress,
-    CustomCursor,
-    BackToTop,
     GlowCard,
     LineDraw,
 } from "@/components/animations/AnimationUtils";
@@ -144,18 +138,12 @@ const GorillaTrekkingPage = () => {
     });
 
     return (
-        <div className="min-h-screen bg-background">
-            <ScrollProgress />
-            <CustomCursor />
-            <BackToTop />
-
-            <header>
-                <TopBar />
-                <HeaderBar />
-                <Navbar />
-            </header>
-
-            <main>
+        <>
+            <Helmet>
+                <title>Gorilla Trekking Packages | Godka Tours</title>
+                <meta name="description" content="Experience thrilling gorilla trekking in Uganda and Rwanda. Book an unforgettable wildlife encounter with Godka Tours." />
+            </Helmet>
+            <div className="bg-background">
                 {/* ── Hero ── */}
                 <div ref={heroRef} className="relative h-[85vh] min-h-[600px] overflow-hidden">
                     <motion.div style={{ y: heroY }} className="absolute inset-0">
@@ -384,10 +372,8 @@ const GorillaTrekkingPage = () => {
                         </motion.a>
                     </div>
                 </section>
-            </main>
-
-            <FooterSection />
-        </div>
+            </div>
+        </>
     );
 };
 

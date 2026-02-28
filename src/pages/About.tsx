@@ -4,14 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { TimelineContent } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import {
-    ScrollProgress,
-    CustomCursor,
-    BackToTop,
     FloatingParticles,
 } from "@/components/animations/AnimationUtils";
 
@@ -39,18 +33,12 @@ const AboutPage = () => {
     const heroRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="min-h-screen bg-background">
-            <ScrollProgress />
-            <CustomCursor />
-            <BackToTop />
-
-            <header>
-                <TopBar />
-                <HeaderBar />
-                <Navbar />
-            </header>
-
-            <main>
+        <>
+            <Helmet>
+                <title>About Us | Godka Tours</title>
+                <meta name="description" content="Learn about Godka Tours' history, values, and our commitment to wildlife conservation in East Africa." />
+            </Helmet>
+            <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-64 md:h-80 overflow-hidden">
                     <img
@@ -312,10 +300,8 @@ const AboutPage = () => {
                         </div>
                     </div>
                 </section>
-            </main>
-
-            <FooterSection />
-        </div>
+            </div>
+        </>
     );
 };
 

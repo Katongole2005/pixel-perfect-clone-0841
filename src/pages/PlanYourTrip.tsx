@@ -5,10 +5,7 @@ import { Calendar as CalendarIcon, Users, Compass, User, Send, ChevronRight, Che
 import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -133,23 +130,19 @@ const PlanYourTrip = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-background">
-        <header><TopBar /><HeaderBar /><Navbar /></header>
-        <main className="max-w-2xl mx-auto py-24 px-4 text-center">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
-            <div className="w-24 h-24 rounded-full bg-godka-gold/20 flex items-center justify-center mx-auto mb-8 animate-pulse-glow">
-              <Check className="w-12 h-12 text-secondary" />
-            </div>
-            <h1 className="text-4xl font-display font-bold text-foreground mb-4">Thank You!</h1>
-            <p className="text-muted-foreground font-body text-lg mb-10 max-w-md mx-auto leading-relaxed">
-              Your trip request has been submitted. Our safari experts will craft a personalized itinerary and get back to you within <strong className="text-foreground">24 hours</strong>.
-            </p>
-            <Button onClick={() => navigate("/")} className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold px-8 h-12 text-base">
-              Back to Home
-            </Button>
-          </motion.div>
-        </main>
-        <FooterSection />
+      <div className="max-w-2xl mx-auto py-24 px-4 text-center">
+        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
+          <div className="w-24 h-24 rounded-full bg-godka-gold/20 flex items-center justify-center mx-auto mb-8 animate-pulse-glow">
+            <Check className="w-12 h-12 text-secondary" />
+          </div>
+          <h1 className="text-4xl font-display font-bold text-foreground mb-4">Thank You!</h1>
+          <p className="text-muted-foreground font-body text-lg mb-10 max-w-md mx-auto leading-relaxed">
+            Your trip request has been submitted. Our safari experts will craft a personalized itinerary and get back to you within <strong className="text-foreground">24 hours</strong>.
+          </p>
+          <Button onClick={() => navigate("/")} className="bg-primary text-primary-foreground hover:bg-primary/90 font-body font-semibold px-8 h-12 text-base">
+            Back to Home
+          </Button>
+        </motion.div>
       </div>
     );
   }
@@ -157,9 +150,12 @@ const PlanYourTrip = () => {
   const progress = ((step - 1) / (STEPS.length - 1)) * 100;
 
   return (
-    <div className="min-h-screen bg-background">
-      <header><TopBar /><HeaderBar /><Navbar /></header>
-      <main>
+    <>
+      <Helmet>
+        <title>Plan Your Trip | Godka Tours</title>
+        <meta name="description" content="Plan your dream safari in Africa with our customizable trip planner." />
+      </Helmet>
+      <div className="bg-background">
         {/* Hero */}
         <div className="relative overflow-hidden bg-primary py-16 md:py-20 px-4">
           <div className="absolute inset-0 opacity-15">
@@ -195,11 +191,10 @@ const PlanYourTrip = () => {
                     onClick={() => { if (isDone) setStep(s.number); }}
                     className={`flex items-center gap-3 transition-all duration-300 ${isDone ? "cursor-pointer" : "cursor-default"}`}
                   >
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                      isActive ? "bg-secondary text-white shadow-md scale-110" :
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-500 ${isActive ? "bg-secondary text-white shadow-md scale-110" :
                       isDone ? "bg-secondary/20 text-secondary" :
-                      "bg-muted text-muted-foreground"
-                    }`}>
+                        "bg-muted text-muted-foreground"
+                      }`}>
                       {isDone ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                     </div>
                     <div className="hidden sm:block text-left">
@@ -276,9 +271,8 @@ const PlanYourTrip = () => {
             )}
           </div>
         </div>
-      </main>
-      <FooterSection />
-    </div>
+      </div>
+    </>
   );
 };
 
@@ -436,7 +430,7 @@ const StepThree = ({ name, setName, email, setEmail, phone, setPhone, message, s
 /* ─── Reusable Field Wrapper ─── */
 const FieldWrapper = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
   <div className="space-y-2">
-  <Label className="font-body font-semibold text-foreground text-[13px] tracking-wide uppercase">
+    <Label className="font-body font-semibold text-foreground text-[13px] tracking-wide uppercase">
       {label} {required && <span className="text-destructive">*</span>}
     </Label>
     {children}
@@ -458,11 +452,10 @@ const PillGroup = ({
             type="button"
             onClick={() => onToggle(item.label)}
             whileTap={{ scale: 0.95 }}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-body font-medium border-2 transition-all duration-300 ${
-              isSelected
-                ? "bg-secondary/15 border-secondary text-foreground shadow-sm"
-                : "bg-muted/50 border-transparent text-muted-foreground hover:border-secondary/30 hover:text-foreground hover:bg-muted"
-            }`}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-body font-medium border-2 transition-all duration-300 ${isSelected
+              ? "bg-secondary/15 border-secondary text-foreground shadow-sm"
+              : "bg-muted/50 border-transparent text-muted-foreground hover:border-secondary/30 hover:text-foreground hover:bg-muted"
+              }`}
           >
             <span className="text-base">{item.icon}</span>
             {item.label}

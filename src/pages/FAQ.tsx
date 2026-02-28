@@ -1,15 +1,9 @@
 import { motion } from "framer-motion";
 import { MessageCircle, Bed, FileText, Compass } from "lucide-react";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import { FaqAccordion } from "@/components/ui/faq-chat-accordion";
 import { ShaderBackground } from "@/components/ui/background-paper-shaders";
 import {
-    ScrollProgress,
-    CustomCursor,
-    BackToTop,
     SplitTextReveal,
     ClipReveal,
     FloatingParticles,
@@ -204,18 +198,12 @@ const categories = [
 
 const FAQPage = () => {
     return (
-        <div className="min-h-screen bg-background">
-            <ScrollProgress />
-            <CustomCursor />
-            <BackToTop />
-
-            <header>
-                <TopBar />
-                <HeaderBar />
-                <Navbar />
-            </header>
-
-            <main>
+        <>
+            <Helmet>
+                <title>Frequently Asked Questions | Godka Tours</title>
+                <meta name="description" content="Find answers to common questions about booking, trekking, and safari details with Godka Tours." />
+            </Helmet>
+            <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-64 md:h-80 overflow-hidden">
                     <img
@@ -343,10 +331,8 @@ const FAQPage = () => {
                         </motion.a>
                     </div>
                 </section>
-            </main>
-
-            <FooterSection />
-        </div>
+            </div>
+        </>
     );
 };
 

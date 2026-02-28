@@ -589,9 +589,13 @@ export const CustomCursor = () => {
         width: size,
         height: size,
         backgroundColor: isHovering
-          ? "hsl(38 75% 55% / 0.9)"
+          ? "hsl(var(--secondary) / 0.9)"
           : "hsl(var(--foreground) / 0.7)",
-        transition: "width 0.2s ease, height 0.2s ease, background-color 0.2s ease",
+      }}
+      transition={{
+        width: { type: "spring", stiffness: 300, damping: 20 },
+        height: { type: "spring", stiffness: 300, damping: 20 },
+        backgroundColor: { duration: 0.2 }
       }}
     />
   );

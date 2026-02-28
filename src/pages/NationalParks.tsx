@@ -2,15 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, ChevronDown, Trees, Mountain, Waves, Bird, Star, Globe } from "lucide-react";
-import TopBar from "@/components/TopBar";
-import HeaderBar from "@/components/HeaderBar";
-import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import { Helmet } from "react-helmet-async";
 import { ShaderBackground } from "@/components/ui/background-paper-shaders";
 import {
-    ScrollProgress,
-    CustomCursor,
-    BackToTop,
     FloatingParticles,
 } from "@/components/animations/AnimationUtils";
 
@@ -345,19 +339,13 @@ const NationalParksPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-background">
-            <ScrollProgress />
-            <CustomCursor />
-            <BackToTop />
-            <ParkModal park={selectedPark} onClose={() => setSelectedPark(null)} />
-
-            <header>
-                <TopBar />
-                <HeaderBar />
-                <Navbar />
-            </header>
-
-            <main>
+        <>
+            <Helmet>
+                <title>National Parks & Attractions | Godka Tours</title>
+                <meta name="description" content="Discover the magnificent national parks and attractions of Uganda and Rwanda." />
+            </Helmet>
+            <div className="bg-background">
+                <ParkModal park={selectedPark} onClose={() => setSelectedPark(null)} />
                 {/* ══════════════════════════════════════════════
             HERO — Full-screen parallax with live shader
         ══════════════════════════════════════════════ */}
@@ -796,10 +784,8 @@ const NationalParksPage = () => {
                         </motion.div>
                     </div>
                 </section>
-            </main>
-
-            <FooterSection />
-        </div>
+            </div>
+        </>
     );
 };
 

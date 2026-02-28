@@ -65,7 +65,8 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Removed scroll-behavior: smooth for Lenis compatibility */
+    overflow-x: hidden;
   }
 
   body {
@@ -272,7 +273,9 @@
 
 /* Utility classes for animations */
 .animate-ken-burns {
-  animation: ken-burns 25s ease-in-out infinite alternate;
+  animation: ken-burns 30s ease-in-out infinite alternate;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-shimmer {
@@ -282,6 +285,7 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-pulse-glow {
