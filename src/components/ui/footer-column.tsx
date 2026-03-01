@@ -9,79 +9,83 @@ import {
     Twitter,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from "@/assets/brand-logo";
-
-const data = {
-    facebookLink: 'https://facebook.com/freshtracksafrica',
-    instaLink: 'https://instagram.com/freshtracksafrica',
-    twitterLink: 'https://twitter.com/freshtracksafrica',
-    githubLink: 'https://github.com/freshtracksafrica',
-    dribbbleLink: 'https://dribbble.com/freshtracksafrica',
-    services: {
-        gorilla: '/gorilla-trekking',
-        national_parks: '/national-parks',
-        cultural: '/cultural-tours',
-        adventure: '/adventure-safaris',
-    },
-    about: {
-        history: '/about',
-        team: '/about#team',
-        reviews: '/reviews',
-        careers: '/careers',
-    },
-    help: {
-        faqs: '/faq',
-        support: '/contact',
-        booking: '/plan-your-trip',
-    },
-    contact: {
-        email: 'info@freshtracksafrica.com',
-        phone: '+256 753 171457',
-        address: 'Kampala, Uganda',
-    },
-    company: {
-        name: 'Fresh Tracks Africa',
-        description:
-            'Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda and Rwanda.',
-        logo: logo,
-    },
-};
-
-const socialLinks = [
-    { icon: Facebook, label: 'Facebook', href: data.facebookLink },
-    { icon: Instagram, label: 'Instagram', href: data.instaLink },
-    { icon: Twitter, label: 'Twitter', href: data.twitterLink },
-    { icon: Github, label: 'GitHub', href: data.githubLink },
-    { icon: Dribbble, label: 'Dribbble', href: data.dribbbleLink },
-];
-
-const aboutLinks = [
-    { text: 'Company History', href: data.about.history },
-    { text: 'Meet the Team', href: data.about.team },
-    { text: 'Customer Reviews', href: data.about.reviews },
-    { text: 'Careers', href: data.about.careers },
-];
-
-const serviceLinks = [
-    { text: 'Gorilla Trekking', href: data.services.gorilla },
-    { text: 'National Parks', href: data.services.national_parks },
-    { text: 'Cultural Tours', href: data.services.cultural },
-    { text: 'Adventure Safaris', href: data.services.adventure },
-];
-
-const helpfulLinks = [
-    { text: 'FAQs', href: data.help.faqs },
-    { text: 'Contact Support', href: data.help.support },
-    { text: 'Plan Your Trip', href: data.help.booking, hasIndicator: true },
-];
-
-const contactInfo = [
-    { icon: Mail, text: data.contact.email },
-    { icon: Phone, text: data.contact.phone },
-    { icon: MapPin, text: data.contact.address, isAddress: true },
-];
+import logoFallback from "@/assets/brand-logo";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 export function Footer4Col() {
+    const { settings } = useSiteSettings();
+    const { contact, images, about } = settings;
+
+    const data = {
+        facebookLink: 'https://facebook.com/freshtracksafrica',
+        instaLink: 'https://instagram.com/freshtracksafrica',
+        twitterLink: 'https://twitter.com/freshtracksafrica',
+        githubLink: 'https://github.com/freshtracksafrica',
+        dribbbleLink: 'https://dribbble.com/freshtracksafrica',
+        services: {
+            gorilla: '/gorilla-trekking',
+            national_parks: '/national-parks',
+            cultural: '/cultural-tours',
+            adventure: '/adventure-safaris',
+        },
+        about: {
+            history: '/about',
+            team: '/about#team',
+            reviews: '/reviews',
+            careers: '/careers',
+        },
+        help: {
+            faqs: '/faq',
+            support: '/contact',
+            booking: '/plan-your-trip',
+        },
+        contact: {
+            email: contact.email || 'info@freshtracksafrica.com',
+            phone: contact.phone || '+256 753 171457',
+            address: contact.address || 'Kampala, Uganda',
+        },
+        company: {
+            name: 'Fresh Tracks Africa',
+            description:
+                'Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda and Rwanda.',
+            logo: images.logo_footer || images.logo_main || logoFallback,
+        },
+    };
+
+    const socialLinks = [
+        { icon: Facebook, label: 'Facebook', href: data.facebookLink },
+        { icon: Instagram, label: 'Instagram', href: data.instaLink },
+        { icon: Twitter, label: 'Twitter', href: data.twitterLink },
+        { icon: Github, label: 'GitHub', href: data.githubLink },
+        { icon: Dribbble, label: 'Dribbble', href: data.dribbbleLink },
+    ];
+
+    const aboutLinks = [
+        { text: 'Company History', href: data.about.history },
+        { text: 'Meet the Team', href: data.about.team },
+        { text: 'Customer Reviews', href: data.about.reviews },
+        { text: 'Careers', href: data.about.careers },
+    ];
+
+    const serviceLinks = [
+        { text: 'Gorilla Trekking', href: data.services.gorilla },
+        { text: 'National Parks', href: data.services.national_parks },
+        { text: 'Cultural Tours', href: data.services.cultural },
+        { text: 'Adventure Safaris', href: data.services.adventure },
+    ];
+
+    const helpfulLinks = [
+        { text: 'FAQs', href: data.help.faqs },
+        { text: 'Contact Support', href: data.help.support },
+        { text: 'Plan Your Trip', href: data.help.booking, hasIndicator: true },
+    ];
+
+    const contactInfo = [
+        { icon: Mail, text: data.contact.email },
+        { icon: Phone, text: data.contact.phone },
+        { icon: MapPin, text: data.contact.address, isAddress: true },
+    ];
+
     return (
         <footer className="bg-secondary/10 dark:bg-secondary/20 mt-16 w-full place-self-end rounded-t-xl" aria-label="Site footer — Fresh Tracks Africa Tours & Travel">
             <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
@@ -223,3 +227,4 @@ export function Footer4Col() {
         </footer>
     );
 }
+

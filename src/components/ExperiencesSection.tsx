@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import gorillaImg from "@/assets/gorilla-trekking.jpg";
 import adventureImg from "@/assets/adventure.jpg";
@@ -11,8 +11,18 @@ import {
   LineDraw,
   MagneticHover,
 } from "./animations/AnimationUtils";
+import { supabase } from "@/integrations/supabase/client";
 
-const experiences = [
+interface Experience {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  num: string;
+  href: string;
+}
+
+const STATIC_FALLBACKS: Experience[] = [
   {
     title: "Mountain Gorilla Trekking",
     subtitle: "UNESCO World Heritage",
@@ -44,12 +54,55 @@ const experiences = [
 
 const ExperiencesSection = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const [experiences, setExperiences] = useState<Experience[]>(STATIC_FALLBACKS);
+  const [isLoading, setIsLoading] = useState(true);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const smoothBgY = useSpring(bgY, { stiffness: 60, damping: 20 });
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("managed_travel_topics")
+          .select("*")
+          .eq("is_published", true)
+          .order("sort_order", { ascending: true })
+          .limit(3);
+
+        if (error) throw error;
+        if (data && data.length > 0) {
+          const mapped: Experience[] = data.map((item, idx) => ({
+            title: item.title,
+            subtitle: item.trip_count ? `${item.trip_count} Specialized Trips` : "Unforgettable Adventure",
+            description: item.description || "",
+            image: item.image_url || [gorillaImg, adventureImg, culturalImg][idx % 3],
+            num: `0${idx + 1}`,
+            href: item.slug ? `/trip-search?topic=${item.slug}` : "/travel-topics",
+          }));
+          setExperiences(mapped);
+        }
+      } catch (err) {
+        console.error("Error fetching experiences:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="py-24 flex items-center justify-center bg-background">
+        <div className="w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <section
@@ -175,3 +228,4 @@ const ExperiencesSection = () => {
 };
 
 export default ExperiencesSection;
+

@@ -60,6 +60,7 @@ const statCards = [
 const quickActions = [
   { label: "Trip Requests", desc: "View & manage incoming trip inquiries", icon: Plane, path: "/admin/trip-requests", accent: "bg-secondary/10 text-secondary" },
   { label: "Manage Trips", desc: "Add, edit or remove safari packages", icon: Map, path: "/admin/trips", accent: "bg-primary/10 text-primary" },
+  { label: "Site Settings", desc: "Manage logos, hero content & contact info", icon: Mountain, path: "/admin/settings", accent: "bg-secondary/10 text-secondary" },
   { label: "Reviews", desc: "Manage guest reviews and ratings", icon: Star, path: "/admin/reviews", accent: "bg-secondary/10 text-secondary" },
   { label: "Travel Topics", desc: "Edit travel category cards", icon: Mountain, path: "/admin/travel-topics", accent: "bg-primary/10 text-primary" },
   { label: "News & Updates", desc: "Publish articles and press releases", icon: Newspaper, path: "/admin/news", accent: "bg-muted-foreground/10 text-muted-foreground" },

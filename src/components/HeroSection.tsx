@@ -1,10 +1,14 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import gorillaImg from "@/assets/gorilla-trekking.jpg";
+import gorillaImgFallback from "@/assets/gorilla-trekking.jpg";
 import { SplitTextReveal, ClipReveal, FloatingParticles, MagneticHover } from "./animations/AnimationUtils";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const HeroSection = () => {
+  const { settings } = useSiteSettings();
+  const { hero } = settings;
   const ref = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -26,7 +30,7 @@ const HeroSection = () => {
         className="absolute inset-0"
       >
         <img
-          src={gorillaImg}
+          src={hero.image_url || gorillaImgFallback}
           alt="Mountain gorilla in Bwindi Impenetrable Forest, Uganda — gorilla trekking safari"
           className="w-full h-full object-cover animate-ken-burns"
           loading="eager"
@@ -75,10 +79,10 @@ const HeroSection = () => {
 
         {/* Main heading with staggered reveals */}
         <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-semibold leading-[1.1] tracking-tight mb-3">
-          <SplitTextReveal delay={0.5}>Gorilla Trekking</SplitTextReveal>
+          <SplitTextReveal delay={0.5}>{hero.title}</SplitTextReveal>
           <br />
           <span className="text-secondary">
-            <SplitTextReveal delay={0.8}>& Safari Tours</SplitTextReveal>
+            <SplitTextReveal delay={0.8}>{hero.subtitle}</SplitTextReveal>
           </span>
           <motion.span
             className="text-white/80 block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display italic mt-2 mb-6"
@@ -108,7 +112,7 @@ const HeroSection = () => {
         >
           <MagneticHover>
             <a
-              href="/travel-topics"
+              href={hero.cta_link}
               className="group relative inline-flex items-center gap-3 px-12 py-5 text-sm font-body font-bold uppercase tracking-widest overflow-hidden"
               aria-label="Discover our gorilla trekking and safari tour packages"
             >
@@ -117,7 +121,7 @@ const HeroSection = () => {
               {/* Hover sweep effect */}
               <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
               <span className="relative text-secondary-foreground group-hover:text-primary transition-colors duration-500">
-                Discover Our Tours
+                {hero.cta_text}
               </span>
               <span className="relative">
                 <svg
@@ -178,3 +182,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

@@ -9,6 +9,7 @@ import {
   LineDraw,
   MagneticHover,
 } from "./animations/AnimationUtils";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const values = [
   { icon: Globe, title: "Global Expertise", desc: "International travel standards with deep local knowledge", num: "01" },
@@ -20,6 +21,8 @@ const values = [
 ];
 
 const AboutSection = () => {
+  const { settings } = useSiteSettings();
+  const { about } = settings;
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -47,12 +50,11 @@ const AboutSection = () => {
             </p>
           </ClipReveal>
           <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground mb-5">
-            <SplitTextReveal>Mission & Vision</SplitTextReveal>
+            <SplitTextReveal>{about.mission_title || "Mission & Vision"}</SplitTextReveal>
           </h2>
           <ClipReveal delay={0.3}>
             <p className="text-muted-foreground font-body max-w-xl mx-auto text-[15px] leading-relaxed">
-              We believe in responsible tourism that benefits local communities
-              while providing authentic, transformative experiences.
+              {about.mission_text || "We believe in responsible tourism that benefits local communities while providing authentic, transformative experiences."}
             </p>
           </ClipReveal>
         </div>
@@ -104,3 +106,4 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
