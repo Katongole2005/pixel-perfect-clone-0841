@@ -63,7 +63,7 @@ const DestinationMap = () => {
   };
 
   return (
-    <section className="relative py-24 md:py-32 bg-background overflow-hidden">
+    <section className="relative py-24 md:py-32 bg-brand-charcoal overflow-hidden">
       {/* Background texture */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -73,29 +73,29 @@ const DestinationMap = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <ClipReveal>
-            <span className="inline-block text-sm font-semibold tracking-[0.2em] uppercase text-secondary mb-4">
+            <span className="inline-block text-sm font-semibold tracking-[0.2em] uppercase text-brand-earth-light mb-4">
               Explore Destinations
             </span>
           </ClipReveal>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-cream mb-4">
             <SplitTextReveal>Choose Your Adventure</SplitTextReveal>
           </h2>
           <ClipReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto text-lg mb-8">
+            <p className="text-brand-cream/60 max-w-xl mx-auto text-lg mb-8">
               Select a country, then click a destination to explore safari packages
             </p>
           </ClipReveal>
 
           {/* Country tabs */}
-          <div className="inline-flex items-center bg-muted rounded-full p-1.5 gap-1">
+          <div className="inline-flex items-center bg-brand-cream/10 rounded-full p-1.5 gap-1">
             {(["uganda", "rwanda"] as Country[]).map((country) => (
               <button
                 key={country}
                 onClick={() => handleCountrySwitch(country)}
                 className={`relative px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 ${
                   activeCountry === country
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-secondary text-secondary-foreground shadow-md"
+                    : "text-brand-cream/50 hover:text-brand-cream"
                 }`}
               >
                 {country === "uganda" ? "🇺🇬 Uganda" : "🇷🇼 Rwanda"}
@@ -196,7 +196,7 @@ const DestinationMap = () => {
                           y={dest.cy + (isActive ? 36 : 26)}
                           textAnchor="middle"
                           className={`text-[12px] font-semibold transition-all duration-300 select-none ${
-                            isActive ? `fill-${color}` : "fill-foreground/50"
+                            isActive ? `fill-${color}` : "fill-brand-cream/60"
                           }`}
                           fill={isActive ? `hsl(var(--${color}))` : undefined}
                         >
@@ -226,8 +226,8 @@ const DestinationMap = () => {
                       <MapPin className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-2xl text-foreground">{activeDest.label}</h3>
-                      <p className="text-sm text-muted-foreground capitalize">
+                      <h3 className="font-serif text-2xl text-brand-cream">{activeDest.label}</h3>
+                      <p className="text-sm text-brand-cream/50 capitalize">
                         {activeDest.country} · {activeDest.tripCount} trip{activeDest.tripCount !== 1 ? "s" : ""} available
                       </p>
                     </div>
@@ -243,19 +243,19 @@ const DestinationMap = () => {
                       >
                         <Link
                           to={`/trip-search?destination=${trip.destination}`}
-                          className="group flex gap-4 p-4 rounded-xl border border-border/50 bg-card hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
+                          className="group flex gap-4 p-4 rounded-xl border border-brand-cream/10 bg-brand-cream/5 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
                         >
                           <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
                             <img src={trip.image} alt={trip.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-foreground group-hover:text-secondary transition-colors line-clamp-1">{trip.title}</h4>
-                            <div className="flex items-center gap-3 mt-1.5 text-sm text-muted-foreground">
+                            <h4 className="font-semibold text-brand-cream group-hover:text-secondary transition-colors line-clamp-1">{trip.title}</h4>
+                            <div className="flex items-center gap-3 mt-1.5 text-sm text-brand-cream/50">
                               <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{trip.duration} days</span>
                               <span className="flex items-center gap-1"><Star className="w-3.5 h-3.5 fill-secondary text-secondary" />{trip.rating}</span>
                             </div>
                             <div className="flex items-center justify-between mt-2">
-                              <span className="text-sm font-bold text-foreground">From ${trip.price.toLocaleString()}</span>
+                              <span className="text-sm font-bold text-brand-cream">From ${trip.price.toLocaleString()}</span>
                               <ArrowRight className="w-4 h-4 text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                             </div>
                           </div>
@@ -280,13 +280,13 @@ const DestinationMap = () => {
                   exit={{ opacity: 0 }}
                   className="flex flex-col items-center justify-center h-full min-h-[400px] text-center"
                 >
-                  <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-                    <MapPin className="w-7 h-7 text-muted-foreground" />
+                  <div className="w-16 h-16 rounded-full bg-brand-cream/10 flex items-center justify-center mb-4">
+                    <MapPin className="w-7 h-7 text-brand-cream/40" />
                   </div>
-                  <h3 className="font-serif text-xl text-foreground mb-2">
+                  <h3 className="font-serif text-xl text-brand-cream mb-2">
                     Explore {activeCountry === "uganda" ? "Uganda" : "Rwanda"}
                   </h3>
-                  <p className="text-muted-foreground text-sm max-w-xs">
+                  <p className="text-brand-cream/50 text-sm max-w-xs">
                     Click on any pin on the map to discover available safari packages for that destination
                   </p>
                 </motion.div>
