@@ -89,7 +89,7 @@ export default function AdminLayout() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 src={logo}
-                alt="Godka"
+                alt="Fresh Tracks Africa"
                 className="h-8"
               />
             )}
