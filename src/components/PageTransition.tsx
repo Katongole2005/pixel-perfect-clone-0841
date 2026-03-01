@@ -2,9 +2,24 @@ import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
 const variants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
+  initial: {
+    opacity: 0,
+    y: 40,
+    scale: 0.98,
+    filter: "blur(6px)",
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    scale: 1.01,
+    filter: "blur(4px)",
+  },
 };
 
 const PageTransition = ({ children }: { children: ReactNode }) => (
@@ -13,7 +28,7 @@ const PageTransition = ({ children }: { children: ReactNode }) => (
     initial="initial"
     animate="animate"
     exit="exit"
-    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
   >
     {children}
   </motion.div>
