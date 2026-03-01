@@ -35,15 +35,15 @@ const AboutPage = () => {
     return (
         <>
             <Helmet>
-                <title>About Us | Godka Tours</title>
-                <meta name="description" content="Learn about Godka Tours' history, values, and our commitment to wildlife conservation in East Africa." />
+                <title>About Us | Fresh Tracks Africa</title>
+                <meta name="description" content="Learn about Fresh Tracks Africa's history, values, and our commitment to wildlife conservation in East Africa." />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-64 md:h-80 overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=1600&auto=format&fit=crop"
-                        alt="Godka Tours - About Us"
+                        alt="Fresh Tracks Africa - About Us"
                         className="w-full h-full object-cover animate-ken-burns"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/85" />
@@ -218,7 +218,7 @@ const AboutPage = () => {
                                     className="grid md:grid-cols-2 gap-8 text-gray-600"
                                 >
                                     <p className="leading-relaxed text-sm md:text-base text-justify font-body">
-                                        Founded in Kampala, Godka Tours has spent over 15 years guiding travellers deep into the forests of Bwindi, the plains of Queen Elizabeth, and the misty peaks of the Rwenzori — crafting journeys that leave a lasting mark on every soul who joins us.
+                                        Founded in Kampala, Fresh Tracks Africa has spent over 15 years guiding travellers deep into the forests of Bwindi, the plains of Queen Elizabeth, and the misty peaks of the Rwenzori — crafting journeys that leave a lasting mark on every soul who joins us.
                                     </p>
                                     <p className="leading-relaxed text-sm md:text-base text-justify font-body">
                                         We believe travel should be transformative. Every gorilla permit we secure, every trail we lead, contributes directly to the conservation of Uganda's incredible biodiversity and the livelihoods of the communities that call these wild places home.
@@ -236,7 +236,7 @@ const AboutPage = () => {
                                         customVariants={revealVariants}
                                         className="text-secondary text-2xl font-display font-bold mb-1"
                                     >
-                                        GODKA TOURS
+                                        FRESH TRACKS AFRICA
                                     </TimelineContent>
                                     <TimelineContent
                                         as="div"

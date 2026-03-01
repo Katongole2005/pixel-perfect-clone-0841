@@ -8,7 +8,7 @@ const HeaderBar = () => (
       <a href="/" className="flex-shrink-0">
         <img
           src={logo}
-          alt="Godka Tours and Travels Ltd. — Uganda & Rwanda safari tour operator"
+          alt="Fresh Tracks Africa Tours & Travel Ltd. — Uganda & Rwanda safari tour operator"
           className="h-16 sm:h-20 lg:h-24 w-auto object-contain"
           width="120"
           height="96"
@@ -32,7 +32,7 @@ const HeaderBar = () => (
           </div>
           <div>
             <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-body font-semibold">Email Us</p>
-            <p className="text-sm font-bold text-foreground font-body">info@godkatours.com</p>
+            <p className="text-sm font-bold text-foreground font-body">info@freshtracksafrica.com</p>
           </div>
         </div>
       </div>

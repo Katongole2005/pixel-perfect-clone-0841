@@ -32,7 +32,7 @@ const testimonials = [
     },
     {
         quote:
-            "The whole experience from permit booking to the trek itself was flawlessly organized by Godka Tours. Our ranger guide knew every gorilla by name!",
+            "The whole experience from permit booking to the trek itself was flawlessly organized by Fresh Tracks Africa. Our ranger guide knew every gorilla by name!",
         name: "Yuki Tanaka",
         designation: "Travel Blogger, Japan",
         src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=800&auto=format&fit=crop",
@@ -140,8 +140,8 @@ const GorillaTrekkingPage = () => {
     return (
         <>
             <Helmet>
-                <title>Gorilla Trekking Packages | Godka Tours</title>
-                <meta name="description" content="Experience thrilling gorilla trekking in Uganda and Rwanda. Book an unforgettable wildlife encounter with Godka Tours." />
+                <title>Gorilla Trekking Packages | Fresh Tracks Africa</title>
+                <meta name="description" content="Experience thrilling gorilla trekking in Uganda and Rwanda. Book an unforgettable wildlife encounter with Fresh Tracks Africa." />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero ── */}
@@ -360,7 +360,7 @@ const GorillaTrekkingPage = () => {
                             </p>
                         </ClipReveal>
                         <motion.a
-                            href="mailto:info@godkatours.com"
+                            href="mailto:info@freshtracksafrica.com"
                             className="group relative inline-flex items-center gap-3 px-12 py-5 overflow-hidden"
                             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
                         >

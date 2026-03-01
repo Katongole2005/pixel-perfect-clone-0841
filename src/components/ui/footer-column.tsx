@@ -12,11 +12,11 @@ import { Link } from 'react-router-dom';
 import logo from "@/assets/logo.png";
 
 const data = {
-    facebookLink: 'https://facebook.com/godkatours',
-    instaLink: 'https://instagram.com/godkatours',
-    twitterLink: 'https://twitter.com/godkatours',
-    githubLink: 'https://github.com/godkatours',
-    dribbbleLink: 'https://dribbble.com/godkatours',
+    facebookLink: 'https://facebook.com/freshtracksafrica',
+    instaLink: 'https://instagram.com/freshtracksafrica',
+    twitterLink: 'https://twitter.com/freshtracksafrica',
+    githubLink: 'https://github.com/freshtracksafrica',
+    dribbbleLink: 'https://dribbble.com/freshtracksafrica',
     services: {
         gorilla: '/gorilla-trekking',
         national_parks: '/national-parks',
@@ -35,12 +35,12 @@ const data = {
         booking: '/plan-your-trip',
     },
     contact: {
-        email: 'info@godkatours.com',
+        email: 'info@freshtracksafrica.com',
         phone: '+256 753 171457',
         address: 'Kampala, Uganda',
     },
     company: {
-        name: 'Godka Tours',
+        name: 'Fresh Tracks Africa',
         description:
             'Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda & Rwanda.',
         logo: logo,
@@ -90,7 +90,7 @@ export function Footer4Col() {
                         <div className="text-secondary flex justify-center gap-2 sm:justify-start">
                             <img
                                 src={data.company.logo}
-                                alt="Godka Tours logo"
+                                alt="Fresh Tracks Africa logo"
                                 className="h-20 sm:h-24 lg:h-28 w-auto object-contain"
                             />
                             <span className="text-2xl font-semibold flex items-center">

@@ -152,7 +152,7 @@ const PlanYourTrip = () => {
   return (
     <>
       <Helmet>
-        <title>Plan Your Trip | Godka Tours</title>
+        <title>Plan Your Trip | Fresh Tracks Africa</title>
         <meta name="description" content="Plan your dream safari in Africa with our customizable trip planner." />
       </Helmet>
       <div className="bg-background">

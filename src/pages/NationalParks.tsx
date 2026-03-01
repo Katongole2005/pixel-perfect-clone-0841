@@ -341,7 +341,7 @@ const NationalParksPage = () => {
     return (
         <>
             <Helmet>
-                <title>National Parks & Attractions | Godka Tours</title>
+                <title>National Parks & Attractions | Fresh Tracks Africa</title>
                 <meta name="description" content="Discover the magnificent national parks and attractions of Uganda and Rwanda." />
             </Helmet>
             <div className="bg-background">

@@ -14,9 +14,9 @@ import {
 const aboutFAQ = [
     {
         id: 1,
-        question: "Who is Godka Tours?",
+        question: "Who is Fresh Tracks Africa?",
         answer:
-            "Godka Tours is your trusted local tour operator based in Kampala, Uganda. We specialise in gorilla trekking, wildlife safaris, chimpanzee tracking, and adventure travel across Uganda and Rwanda. All our tours are personally curated and led by UWA-certified guides.",
+            "Fresh Tracks Africa is your trusted local tour operator based in Kampala, Uganda. We specialise in gorilla trekking, wildlife safaris, chimpanzee tracking, and adventure travel across Uganda and Rwanda. All our tours are personally curated and led by UWA-certified guides.",
         icon: "🦍",
         iconPosition: "right" as const,
     },
@@ -30,13 +30,13 @@ const aboutFAQ = [
         id: 3,
         question: "Are your guides certified and English-speaking?",
         answer:
-            "Yes. All Godka Tours guides are certified by the Uganda Wildlife Authority (UWA), experienced in the field, and fluent in English. Many also speak French and Swahili.",
+            "Yes. All Fresh Tracks Africa guides are certified by the Uganda Wildlife Authority (UWA), experienced in the field, and fluent in English. Many also speak French and Swahili.",
     },
     {
         id: 4,
-        question: "Is Godka Tours a licensed operator?",
+        question: "Is Fresh Tracks Africa a licensed operator?",
         answer:
-            "Yes. Godka Tours is fully licensed by the Uganda Tourism Board (UTB) and is a member of the Association of Uganda Tour Operators (AUTO). We work exclusively with partners who share our commitment to sustainability and responsible tourism.",
+            "Yes. Fresh Tracks Africa is fully licensed by the Uganda Tourism Board (UTB) and is a member of the Association of Uganda Tour Operators (AUTO). We work exclusively with partners who share our commitment to sustainability and responsible tourism.",
     },
     {
         id: 5,
@@ -66,7 +66,7 @@ const aboutFAQ = [
     },
     {
         id: 9,
-        question: "Does Godka Tours offer group discounts?",
+        question: "Does Fresh Tracks Africa offer group discounts?",
         answer:
             "Yes, we regularly offer early-bird and group pricing. Contact us with your travel dates and group size to get a tailored quote. Gorilla permit discounts are not available as prices are fixed by the UWA.",
     },
@@ -165,7 +165,7 @@ const categories = [
     {
         id: "about",
         icon: MessageCircle,
-        label: "About Godka Tours",
+        label: "About Fresh Tracks Africa",
         emoji: "🦍",
         data: aboutFAQ,
         timestamp: "Questions about our company & bookings",
@@ -200,15 +200,15 @@ const FAQPage = () => {
     return (
         <>
             <Helmet>
-                <title>Frequently Asked Questions | Godka Tours</title>
-                <meta name="description" content="Find answers to common questions about booking, trekking, and safari details with Godka Tours." />
+                <title>Frequently Asked Questions | Fresh Tracks Africa</title>
+                <meta name="description" content="Find answers to common questions about booking, trekking, and safari details with Fresh Tracks Africa." />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-64 md:h-80 overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=1600&auto=format&fit=crop"
-                        alt="Godka Tours FAQ - Uganda Safari"
+                        alt="Fresh Tracks Africa FAQ - Uganda Safari"
                         className="w-full h-full object-cover animate-ken-burns"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/85" />
@@ -227,7 +227,7 @@ const FAQPage = () => {
                         </h1>
                         <ClipReveal delay={0.7}>
                             <p className="text-white/60 font-body max-w-lg text-sm md:text-base">
-                                Everything you need to know about booking a gorilla trek or safari with Godka Tours.
+                                Everything you need to know about booking a gorilla trek or safari with Fresh Tracks Africa.
                             </p>
                         </ClipReveal>
                     </div>
