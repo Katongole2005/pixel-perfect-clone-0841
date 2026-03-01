@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Globe, ChevronDown } from "lucide-react";
 
-const SUPPORTED_CODES = ["en", "ar", "nl", "fr", "de", "it", "pt", "ru", "es"];
+const SUPPORTED_CODES = ["en", "ar", "nl", "fr", "de", "it", "pt", "ru", "es"] as const;
+type SupportedCode = (typeof SUPPORTED_CODES)[number];
 
-const LANGUAGES = [
+const STORAGE_KEY = "fta-preferred-lang";
+
+const LANGUAGES: Array<{ code: SupportedCode; label: string; flag: string }> = [
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "ar", label: "العربية", flag: "🇸🇦" },
   { code: "nl", label: "Nederlands", flag: "🇳🇱" },
@@ -15,19 +18,72 @@ const LANGUAGES = [
   { code: "es", label: "Español", flag: "🇪🇸" },
 ];
 
-const STORAGE_KEY = "fta-preferred-lang";
+function isSupportedLanguage(code: string): code is SupportedCode {
+  return SUPPORTED_CODES.includes(code as SupportedCode);
+}
 
-/** Get the language to use: user's saved choice > browser detection */
-function getInitialLanguage(): string {
+function getSavedLanguage(): SupportedCode | null {
   const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved && SUPPORTED_CODES.includes(saved)) return saved;
-  // First visit: detect from browser
+  if (saved && isSupportedLanguage(saved)) return saved;
+  return null;
+}
+
+function detectBrowserLanguage(): SupportedCode {
   const browserLangs = navigator.languages || [navigator.language];
   for (const lang of browserLangs) {
     const code = lang.split("-")[0].toLowerCase();
-    if (SUPPORTED_CODES.includes(code)) return code;
+    if (isSupportedLanguage(code)) return code;
   }
   return "en";
+}
+
+function getCookieDomains(hostname: string): string[] {
+  const domains = new Set<string>([hostname, `.${hostname}`]);
+
+  const parts = hostname.split(".");
+  for (let i = 1; i < parts.length - 1; i++) {
+    domains.add(`.${parts.slice(i).join(".")}`);
+  }
+
+  if (hostname.endsWith("lovable.app")) {
+    domains.add(".lovable.app");
+  }
+
+  return Array.from(domains);
+}
+
+function setGoogTransCookie(code: SupportedCode) {
+  const value = `/en/${code}`;
+  const maxAge = 60 * 60 * 24 * 365; // 1 year
+
+  document.cookie = `googtrans=${value}; path=/; max-age=${maxAge}; SameSite=Lax`;
+
+  for (const domain of getCookieDomains(window.location.hostname)) {
+    document.cookie = `googtrans=${value}; path=/; domain=${domain}; max-age=${maxAge}; SameSite=Lax`;
+  }
+}
+
+function applyGoogleLanguage(code: SupportedCode) {
+  setGoogTransCookie(code);
+
+  let attempts = 0;
+  const maxAttempts = 20;
+
+  const tryApply = () => {
+    const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+    if (selectEl) {
+      selectEl.value = code;
+      selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+      return;
+    }
+
+    attempts += 1;
+    if (attempts < maxAttempts) {
+      setTimeout(tryApply, 120);
+    }
+  };
+
+  tryApply();
 }
 
 declare global {
@@ -41,21 +97,18 @@ declare global {
   }
 }
 
-/**
- * Compact language selector that triggers Google Translate.
- * The native Google Translate widget is hidden via CSS;
- * we drive it programmatically from our own dropdown.
- */
 const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
-  const initialLang = useRef(getInitialLanguage());
-  const [current, setCurrent] = useState(initialLang.current);
+  const savedLangRef = useRef<SupportedCode | null>(getSavedLanguage());
+  const initialLangRef = useRef<SupportedCode>(savedLangRef.current ?? detectBrowserLanguage());
+  const [current, setCurrent] = useState<SupportedCode>(initialLangRef.current);
   const ref = useRef<HTMLDivElement>(null);
-  const autoTriggered = useRef(false);
 
-  /* ── Load Google Translate script once ── */
   useEffect(() => {
-    if (document.getElementById("google-translate-script")) return;
+    const initial = initialLangRef.current;
+
+    // Force preferred language cookie immediately to avoid stale-language flashes.
+    setGoogTransCookie(initial);
 
     window.googleTranslateElementInit = () => {
       new window.google!.translate!.TranslateElement(
@@ -67,31 +120,21 @@ const LanguageSelector = () => {
         "google_translate_element"
       );
 
-      // Auto-translate on first visit if browser lang differs from English
-      if (initialLang.current !== "en" && !autoTriggered.current) {
-        autoTriggered.current = true;
-        setTimeout(() => {
-          const code = initialLang.current;
-          document.cookie = `googtrans=/en/${code}; path=/;`;
-          document.cookie = `googtrans=/en/${code}; path=/; domain=.${window.location.hostname}`;
-          const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-          if (selectEl) {
-            selectEl.value = code;
-            selectEl.dispatchEvent(new Event("change"));
-          }
-        }, 500);
-      }
+      applyGoogleLanguage(initial);
     };
+
+    if (document.getElementById("google-translate-script")) {
+      applyGoogleLanguage(initial);
+      return;
+    }
 
     const script = document.createElement("script");
     script.id = "google-translate-script";
-    script.src =
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     script.async = true;
     document.body.appendChild(script);
   }, []);
 
-  /* ── Close dropdown on outside click ── */
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
@@ -100,55 +143,17 @@ const LanguageSelector = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  /* ── Trigger Google Translate language change ── */
-  const selectLanguage = (code: string) => {
+  const selectLanguage = (code: SupportedCode) => {
     setCurrent(code);
     setOpen(false);
     localStorage.setItem(STORAGE_KEY, code);
-    if (code === "en") {
-      // Reset to original
-      const frame = document.querySelector<HTMLIFrameElement>(
-        ".goog-te-banner-frame"
-      );
-      if (frame) {
-        const innerDoc = frame.contentDocument || frame.contentWindow?.document;
-        const restoreBtn = innerDoc?.querySelector<HTMLButtonElement>(
-          "button.goog-te-banner-frame-close"
-        );
-        if (restoreBtn) restoreBtn.click();
-      }
-      // Also try cookie reset
-      document.cookie =
-        "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie =
-        "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=." +
-        window.location.hostname;
-      window.location.reload();
-      return;
-    }
-
-    // Set cookie and trigger
-    document.cookie = `googtrans=/en/${code}; path=/;`;
-    document.cookie = `googtrans=/en/${code}; path=/; domain=.${window.location.hostname}`;
-
-    // Try to trigger the select element Google Translate creates
-    const selectEl = document.querySelector<HTMLSelectElement>(
-      ".goog-te-combo"
-    );
-    if (selectEl) {
-      selectEl.value = code;
-      selectEl.dispatchEvent(new Event("change"));
-    } else {
-      // If widget hasn't loaded yet, reload
-      window.location.reload();
-    }
+    applyGoogleLanguage(code);
   };
 
   const activeLang = LANGUAGES.find((l) => l.code === current) || LANGUAGES[0];
 
   return (
     <div ref={ref} className="relative notranslate" translate="no">
-      {/* Hidden Google Translate container */}
       <div id="google_translate_element" className="hidden" />
 
       <button
