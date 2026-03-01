@@ -227,10 +227,10 @@ export const ScrollProgress = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-secondary via-godka-gold-light to-secondary origin-left z-[100]"
+      className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-secondary via-brand-earth-light to-secondary origin-left z-[100]"
       style={{
         scaleX,
-        background: "linear-gradient(90deg, hsl(38 75% 55%), hsl(38 80% 70%), hsl(30 70% 48%), hsl(38 75% 55%))",
+        background: "linear-gradient(90deg, hsl(35 65% 50%), hsl(35 70% 65%), hsl(25 35% 28%), hsl(35 65% 50%))",
         backgroundSize: "200% 100%",
         animation: "gradient-shift 3s ease infinite",
       }}
@@ -365,7 +365,7 @@ export const TextShimmer = ({
   <span
     className={`bg-clip-text text-transparent bg-gradient-to-r from-current via-secondary to-current animate-shimmer ${className}`}
     style={{
-      backgroundImage: "linear-gradient(90deg, hsl(var(--secondary)), hsl(var(--godka-gold-light)), hsl(var(--secondary)))",
+      backgroundImage: "linear-gradient(90deg, hsl(var(--secondary)), hsl(var(--brand-earth-light)), hsl(var(--secondary)))",
       backgroundSize: "200% auto",
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
