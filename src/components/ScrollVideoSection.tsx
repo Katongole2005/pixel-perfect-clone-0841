@@ -1,10 +1,10 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import { useScroll, useSpring, useTransform, motion } from "framer-motion";
 
 const TOTAL_FRAMES = 192;
 const PRIORITY_FRAMES = 30;
 
-// Module-level: build URLs and start preloading immediately on import
+// Module-level: build URLs only (no preloading on import)
 const frameUrls = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
   const frameIndex = (i + 1).toString().padStart(3, "0");
   return `/videos/squence/ezgif-frame-${frameIndex}.jpg`;
@@ -43,14 +43,30 @@ function startGlobalPreload() {
   })();
 }
 
-// Start preloading the moment this module is imported
-startGlobalPreload();
+// Defer preloading until the section is near the viewport
 
 const ScrollVideoSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
   const lastFrameRef = useRef<number>(-1);
+
+  // Start preloading frames only when section is near viewport
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startGlobalPreload();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "800px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,

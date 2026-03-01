@@ -246,7 +246,7 @@ const DestinationMap = () => {
                           className="group flex gap-4 p-4 rounded-xl border border-brand-cream/10 bg-brand-cream/5 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5 transition-all duration-300"
                         >
                           <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src={trip.image} alt={trip.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            <img src={trip.image} alt={trip.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="font-semibold text-brand-cream group-hover:text-secondary transition-colors line-clamp-1">{trip.title}</h4>
