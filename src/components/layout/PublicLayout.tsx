@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
@@ -14,6 +14,8 @@ import {
 
 const PublicLayout = () => {
     const { pathname } = useLocation();
+    const lenisRef = useRef<Lenis | null>(null);
+    const rafIdRef = useRef<number | null>(null);
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -27,19 +29,28 @@ const PublicLayout = () => {
             infinite: false,
         });
 
-        function raf(time: number) {
+        lenisRef.current = lenis;
+
+        const raf = (time: number) => {
             lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+            rafIdRef.current = requestAnimationFrame(raf);
+        };
 
-        requestAnimationFrame(raf);
-
-        // Reset scroll on route change
-        lenis.scrollTo(0, { immediate: true });
+        rafIdRef.current = requestAnimationFrame(raf);
 
         return () => {
+            if (rafIdRef.current !== null) {
+                cancelAnimationFrame(rafIdRef.current);
+            }
             lenis.destroy();
+            lenisRef.current = null;
+            rafIdRef.current = null;
         };
+    }, []);
+
+    // Reset scroll on route change without re-creating the Lenis loop
+    useEffect(() => {
+        lenisRef.current?.scrollTo(0, { immediate: true });
     }, [pathname]);
 
     return (
