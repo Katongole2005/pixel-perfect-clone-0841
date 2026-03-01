@@ -74,9 +74,9 @@ const TripSearchSection = () => {
     <section className="relative z-10 -mt-20 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="bg-card border border-border rounded-lg shadow-xl p-6 md:p-8">
-          <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6 text-center">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground mb-6 text-center">
             Search for a Trip
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
             {/* Destination */}

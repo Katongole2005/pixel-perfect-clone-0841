@@ -162,6 +162,8 @@ const ScrollVideoSection = () => {
             ref={canvasRef}
             className="w-full h-full"
             style={{ willChange: "contents" }}
+            role="img"
+            aria-label="Scroll-driven video sequence showcasing Uganda's stunning landscapes and wildlife"
           />
         </motion.div>
 

@@ -83,7 +83,7 @@ const contactInfo = [
 
 export function Footer4Col() {
     return (
-        <footer className="bg-secondary/10 dark:bg-secondary/20 mt-16 w-full place-self-end rounded-t-xl">
+        <footer className="bg-secondary/10 dark:bg-secondary/20 mt-16 w-full place-self-end rounded-t-xl" aria-label="Site footer — Fresh Tracks Africa Tours & Travel">
             <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                     <div>
@@ -117,9 +117,9 @@ export function Footer4Col() {
                         </ul>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
+                    <nav className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2" aria-label="Footer navigation">
                         <div className="text-center sm:text-left">
-                            <p className="text-lg font-medium">About Us</p>
+                            <h4 className="text-lg font-medium">About Us</h4>
                             <ul className="mt-8 space-y-4 text-sm">
                                 {aboutLinks.map(({ text, href }) => (
                                     <li key={text}>
@@ -135,7 +135,7 @@ export function Footer4Col() {
                         </div>
 
                         <div className="text-center sm:text-left">
-                            <p className="text-lg font-medium">Our Services</p>
+                            <h4 className="text-lg font-medium">Our Services</h4>
                             <ul className="mt-8 space-y-4 text-sm">
                                 {serviceLinks.map(({ text, href }) => (
                                     <li key={text}>
@@ -151,7 +151,7 @@ export function Footer4Col() {
                         </div>
 
                         <div className="text-center sm:text-left">
-                            <p className="text-lg font-medium">Helpful Links</p>
+                            <h4 className="text-lg font-medium">Helpful Links</h4>
                             <ul className="mt-8 space-y-4 text-sm">
                                 {helpfulLinks.map(({ text, href, hasIndicator }) => (
                                     <li key={text}>
@@ -177,7 +177,7 @@ export function Footer4Col() {
                         </div>
 
                         <div className="text-center sm:text-left">
-                            <p className="text-lg font-medium">Contact Us</p>
+                            <h4 className="text-lg font-medium">Contact Us</h4>
                             <ul className="mt-8 space-y-4 text-sm">
                                 {contactInfo.map(({ icon: Icon, text, isAddress }) => (
                                     <li key={text}>
@@ -197,7 +197,7 @@ export function Footer4Col() {
                                 ))}
                             </ul>
                         </div>
-                    </div>
+                    </nav>
                 </div>
 
                 <div className="mt-12 border-t border-secondary/20 pt-6">
