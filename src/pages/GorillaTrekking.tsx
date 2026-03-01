@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Mountain, Clock, Users, Star, Shield, Camera } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import StylizedAmpersand from "@/components/StylizedAmpersand";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import {
     SplitTextReveal,
@@ -168,7 +167,7 @@ const GorillaTrekkingPage = () => {
                             className="text-secondary text-xs md:text-sm font-body font-bold uppercase tracking-[0.4em] mb-5"
                             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3 }}
                         >
-                            Uganda <StylizedAmpersand size="sm" /> Rwanda
+                            Uganda & Rwanda
                         </motion.p>
                         <h1 className="text-white text-4xl sm:text-5xl md:text-7xl font-display font-semibold leading-tight mb-5">
                             <SplitTextReveal delay={0.5}>Gorilla Trekking</SplitTextReveal>

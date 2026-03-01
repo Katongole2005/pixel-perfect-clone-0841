@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import pressImg from "@/assets/press-release.jpg";
 import gorillaImg from "@/assets/gorilla-trekking.jpg";
 import { ArrowRight } from "lucide-react";
-import StylizedAmpersand from "./StylizedAmpersand";
 import {
   SplitTextReveal,
   ClipReveal,
@@ -111,7 +110,7 @@ const PressRelease = () => {
 
             <ClipReveal delay={0.4}>
               <p className="text-muted-foreground font-body leading-[2] text-[15px] mb-5">
-                Fresh Tracks Africa Tours <StylizedAmpersand /> Travel Ltd. is your trusted partner for
+                Fresh Tracks Africa Tours & Travel Ltd. is your trusted partner for
                 unforgettable adventures in Uganda and Rwanda. We specialize in
                 personalized gorilla trekking expeditions, wildlife safaris, and
                 cultural heritage tours.
