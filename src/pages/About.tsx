@@ -37,6 +37,13 @@ const AboutPage = () => {
             <Helmet>
                 <title>About Us | Fresh Tracks Africa</title>
                 <meta name="description" content="Learn about Fresh Tracks Africa's history, values, and our commitment to wildlife conservation in East Africa." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/about" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/about" />
+                <meta property="og:title" content="About Us | Fresh Tracks Africa" />
+                <meta property="og:description" content="15+ years guiding travellers into Uganda's forests, plains, and misty peaks. Learn our story." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}

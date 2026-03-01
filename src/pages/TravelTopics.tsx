@@ -78,8 +78,15 @@ const TravelTopicsPage: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Reisethemen & Adventures in Uganda & Rwanda | Fresh Tracks Africa</title>
+                <title>Travel Topics & Adventures in Uganda & Rwanda | Fresh Tracks Africa</title>
                 <meta name="description" content="Discover the diversity of Uganda & Rwanda: Safari, Trekking, Gorilla-Trekking, Fly-in Safari, eBike Mountainbike Safari, Active and Nature Travel." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/travel-topics" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/travel-topics" />
+                <meta property="og:title" content="Travel Topics & Adventures | Fresh Tracks Africa" />
+                <meta property="og:description" content="Safari, Trekking, Gorilla-Trekking, Fly-in Safari, eBike & more in Uganda & Rwanda." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
             <div className="bg-background min-h-screen">

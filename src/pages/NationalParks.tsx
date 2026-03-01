@@ -342,7 +342,14 @@ const NationalParksPage = () => {
         <>
             <Helmet>
                 <title>National Parks & Attractions | Fresh Tracks Africa</title>
-                <meta name="description" content="Discover the magnificent national parks and attractions of Uganda and Rwanda." />
+                <meta name="description" content="Discover the magnificent national parks and attractions of Uganda and Rwanda. Bwindi, Queen Elizabeth, Murchison Falls, and more." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/national-parks" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/national-parks" />
+                <meta property="og:title" content="National Parks & Attractions | Fresh Tracks Africa" />
+                <meta property="og:description" content="Discover Uganda & Rwanda's magnificent national parks — Bwindi, Queen Elizabeth, Murchison Falls, and more." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
             <div className="bg-background">
                 <ParkModal park={selectedPark} onClose={() => setSelectedPark(null)} />

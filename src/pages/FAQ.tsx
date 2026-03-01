@@ -201,7 +201,14 @@ const FAQPage = () => {
         <>
             <Helmet>
                 <title>Frequently Asked Questions | Fresh Tracks Africa</title>
-                <meta name="description" content="Find answers to common questions about booking, trekking, and safari details with Fresh Tracks Africa." />
+                <meta name="description" content="Find answers to common questions about booking, trekking, permits, safety, and safari details with Fresh Tracks Africa." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/faq" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/faq" />
+                <meta property="og:title" content="FAQ | Fresh Tracks Africa" />
+                <meta property="og:description" content="Common questions about gorilla trekking, safari bookings, permits, and more — answered." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary" />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}

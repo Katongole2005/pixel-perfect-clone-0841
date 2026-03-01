@@ -101,7 +101,14 @@ const ReviewsPage: React.FC = () => {
         <>
             <Helmet>
                 <title>Guest Reviews & Testimonials | Fresh Tracks Africa</title>
-                <meta name="description" content="Read authentic experiences from our guests who explored Uganda and Rwanda with Fresh Tracks Africa." />
+                <meta name="description" content="Read authentic reviews from guests who explored Uganda and Rwanda with Fresh Tracks Africa. Rated 5/5 by 500+ travelers." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/reviews" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/reviews" />
+                <meta property="og:title" content="Guest Reviews & Testimonials | Fresh Tracks Africa" />
+                <meta property="og:description" content="Rated 5/5 by 500+ travelers. Read authentic reviews from guests who explored Uganda and Rwanda." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary" />
             </Helmet>
 
             <div className="bg-background min-h-screen">

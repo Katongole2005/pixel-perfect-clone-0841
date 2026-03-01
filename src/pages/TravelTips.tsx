@@ -99,6 +99,23 @@ const TravelTipsPage: React.FC = () => {
       <Helmet>
         <title>Travel Tips for Uganda & Rwanda | Fresh Tracks Africa</title>
         <meta name="description" content="Essential travel tips for visiting Uganda and Rwanda — visa info, packing lists, health advice, currency, safety, and more from Fresh Tracks Africa." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/travel-tips" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/travel-tips" />
+        <meta property="og:title" content="Travel Tips for Uganda & Rwanda | Fresh Tracks Africa" />
+        <meta property="og:description" content="Essential visa info, packing lists, health advice, currency, safety tips and more for your Uganda & Rwanda trip." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Travel Tips for Uganda & Rwanda | Fresh Tracks Africa" />
+        <meta name="twitter:description" content="Essential visa info, packing lists, health advice, currency, safety tips and more for your Uganda & Rwanda trip." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Travel Tips for Uganda & Rwanda",
+          "description": "Essential travel tips for visiting Uganda and Rwanda — visa info, packing lists, health advice, currency, safety.",
+          "author": { "@type": "Organization", "name": "Fresh Tracks Africa Tours & Travel Ltd." },
+          "publisher": { "@type": "Organization", "name": "Fresh Tracks Africa Tours & Travel Ltd.", "url": "https://pixel-perfect-clone-0841.lovable.app" }
+        })}</script>
       </Helmet>
 
       <div className="bg-background min-h-screen">

@@ -58,6 +58,27 @@ const AdventureSafarisPage: React.FC = () => {
       <Helmet>
         <title>Adventure Safaris in Uganda | Fresh Tracks Africa</title>
         <meta name="description" content="Experience thrilling adventure safaris in Uganda — white water rafting, mountain biking, Rwenzori trekking, bungee jumping, and more. Book your adventure today." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/adventure-safaris" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/adventure-safaris" />
+        <meta property="og:title" content="Adventure Safaris in Uganda | Fresh Tracks Africa" />
+        <meta property="og:description" content="Thrilling adventure safaris — white water rafting, mountain biking, Rwenzori trekking, bungee jumping, and more." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Adventure Safaris in Uganda | Fresh Tracks Africa" />
+        <meta name="twitter:description" content="Thrilling adventure safaris — white water rafting, mountain biking, Rwenzori trekking, bungee jumping, and more." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TouristTrip",
+          "name": "Adventure Safaris in Uganda",
+          "description": "Experience thrilling adventure safaris including white water rafting, mountain biking, Rwenzori trekking, and bungee jumping.",
+          "touristType": "Adventure",
+          "provider": {
+            "@type": "TravelAgency",
+            "name": "Fresh Tracks Africa Tours & Travel Ltd.",
+            "url": "https://pixel-perfect-clone-0841.lovable.app"
+          }
+        })}</script>
       </Helmet>
 
       <div className="bg-background">

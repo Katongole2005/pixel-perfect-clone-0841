@@ -142,6 +142,21 @@ const GorillaTrekkingPage = () => {
             <Helmet>
                 <title>Gorilla Trekking Packages | Fresh Tracks Africa</title>
                 <meta name="description" content="Experience thrilling gorilla trekking in Uganda and Rwanda. Book an unforgettable wildlife encounter with Fresh Tracks Africa." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/gorilla-trekking" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/gorilla-trekking" />
+                <meta property="og:title" content="Gorilla Trekking Packages | Fresh Tracks Africa" />
+                <meta property="og:description" content="Experience thrilling gorilla trekking in Uganda and Rwanda. Unforgettable wildlife encounters." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <script type="application/ld+json">{JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "TouristTrip",
+                    "name": "Gorilla Trekking in Uganda & Rwanda",
+                    "description": "Trek through Bwindi Impenetrable Forest to meet endangered mountain gorillas in their natural habitat.",
+                    "touristType": "Wildlife Safari",
+                    "provider": { "@type": "TravelAgency", "name": "Fresh Tracks Africa Tours & Travel Ltd.", "url": "https://pixel-perfect-clone-0841.lovable.app" }
+                })}</script>
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero ── */}
