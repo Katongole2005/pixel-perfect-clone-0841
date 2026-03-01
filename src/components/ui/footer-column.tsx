@@ -87,17 +87,14 @@ export function Footer4Col() {
             <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                     <div>
-                        <div className="text-secondary flex justify-center gap-2 sm:justify-start">
+                        <div className="flex justify-center sm:justify-start">
                             <img
                                 src={data.company.logo}
-                                alt="Fresh Tracks Africa logo"
-                                className="h-20 sm:h-24 lg:h-28 w-auto object-contain"
+                                alt="Fresh Tracks Africa Tours & Travel Ltd. logo"
+                                className="h-20 sm:h-24 lg:h-28 w-auto object-contain bg-white rounded-lg p-1"
                                 loading="lazy"
                                 decoding="async"
                             />
-                            <span className="text-2xl font-semibold flex items-center">
-                                {data.company.name}
-                            </span>
                         </div>
 
                         <p className="text-foreground/70 mt-6 max-w-md text-center leading-relaxed sm:max-w-xs sm:text-left">

@@ -9,7 +9,7 @@ const HeaderBar = () => (
         <img
           src={logo}
           alt="Fresh Tracks Africa Tours & Travel Ltd. — Uganda & Rwanda safari tour operator"
-          className="h-16 sm:h-20 lg:h-24 w-auto object-contain"
+          className="h-16 sm:h-20 lg:h-24 w-auto object-contain bg-transparent"
           width="120"
           height="96"
           decoding="async"
