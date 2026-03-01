@@ -1,2 +1,2 @@
-import logo from "@/assets/logo.webp";
+import logo from "@/assets/logo.png";
 export default logo;

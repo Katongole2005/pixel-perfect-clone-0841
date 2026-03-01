@@ -91,7 +91,7 @@ export function Footer4Col() {
                             <img
                                 src={data.company.logo}
                                 alt="Fresh Tracks Africa Tours & Travel Ltd. logo"
-                                className="h-20 sm:h-24 lg:h-28 w-auto object-contain bg-white rounded-lg p-1"
+                                className="h-20 sm:h-24 lg:h-28 w-auto object-contain"
                                 loading="lazy"
                                 decoding="async"
                             />
