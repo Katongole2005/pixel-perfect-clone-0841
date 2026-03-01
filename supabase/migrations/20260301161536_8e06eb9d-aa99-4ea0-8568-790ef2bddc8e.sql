@@ -1,0 +1,1 @@
+ALTER TABLE public.trip_requests ADD COLUMN pickup_time TEXT;
