@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { MapPin, Clock, DollarSign, Star, ArrowLeft, Search, SlidersHorizontal, X, Compass, Calendar } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { trips, type Trip } from "@/data/trips";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,7 +62,9 @@ const sortOptions = [
   { value: "rating", label: "Highest Rated" },
 ];
 
-const TripCard = ({ trip, index }: { trip: Trip; index: number }) => (
+const TripCard = ({ trip, index }: { trip: Trip; index: number }) => {
+  const { convert, symbol } = useCurrency();
+  return (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
@@ -79,7 +82,7 @@ const TripCard = ({ trip, index }: { trip: Trip; index: number }) => (
         {trip.themeLabel}
       </div>
       <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-sm text-foreground text-sm font-body font-bold px-3 py-1 rounded-sm">
-        ${trip.price.toLocaleString()}
+        {symbol}{convert(trip.price)}
       </div>
     </div>
     <div className="p-5">
@@ -118,7 +121,8 @@ const TripCard = ({ trip, index }: { trip: Trip; index: number }) => (
       </Link>
     </div>
   </motion.div>
-);
+  );
+};
 
 const TripSearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();

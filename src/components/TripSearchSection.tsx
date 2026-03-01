@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapPin, Compass, Clock, DollarSign, Calendar, Search } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import {
   Select,
   SelectContent,
@@ -51,6 +52,7 @@ const travelMonths = [
 ];
 
 const TripSearchSection = () => {
+  const { convert, symbol } = useCurrency();
   const navigate = useNavigate();
   const [destination, setDestination] = useState("");
   const [theme, setTheme] = useState("");
@@ -174,8 +176,8 @@ const TripSearchSection = () => {
                 className="mt-2"
               />
               <div className="flex justify-between text-xs font-body text-muted-foreground">
-                <span>${budget[0].toLocaleString()}</span>
-                <span>${budget[1].toLocaleString()}</span>
+                <span>{symbol}{convert(budget[0])}</span>
+                <span>{symbol}{convert(budget[1])}</span>
               </div>
             </div>
 
