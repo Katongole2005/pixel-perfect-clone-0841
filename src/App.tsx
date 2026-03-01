@@ -20,6 +20,11 @@ const TripSearchResults = lazy(() => import("./pages/TripSearchResults"));
 const PlanYourTrip = lazy(() => import("./pages/PlanYourTrip"));
 const ReviewsPage = lazy(() => import("./pages/Reviews"));
 const TravelTopicsPage = lazy(() => import("./pages/TravelTopics"));
+const CulturalToursPage = lazy(() => import("./pages/CulturalTours"));
+const AdventureSafarisPage = lazy(() => import("./pages/AdventureSafaris"));
+const TravelTipsPage = lazy(() => import("./pages/TravelTips"));
+const TrekkingInfoPage = lazy(() => import("./pages/TrekkingInfo"));
+const CareersPage = lazy(() => import("./pages/Careers"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
@@ -65,6 +70,11 @@ const App = () => (
                     <Route path="/plan-your-trip" element={<PlanYourTrip />} />
                     <Route path="/reviews" element={<ReviewsPage />} />
                     <Route path="/travel-topics" element={<TravelTopicsPage />} />
+                    <Route path="/cultural-tours" element={<CulturalToursPage />} />
+                    <Route path="/adventure-safaris" element={<AdventureSafarisPage />} />
+                    <Route path="/travel-tips" element={<TravelTipsPage />} />
+                    <Route path="/trekking-info" element={<TrekkingInfoPage />} />
+                    <Route path="/careers" element={<CareersPage />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
 

@@ -18,13 +18,13 @@ const navItems: NavItem[] = [
     dropdown: [
       {
         label: "Travel Tips",
-        href: "#",
+        href: "/travel-tips",
         icon: BookOpen,
         description: "Packing lists, visa info & health advice",
       },
       {
         label: "Trekking Info",
-        href: "#",
+        href: "/trekking-info",
         icon: Map,
         description: "What to expect on a gorilla or chimp trek",
       },
@@ -83,9 +83,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-12">
         {/* Mobile left: social */}
         <div className="flex lg:hidden items-center gap-3">
-          <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Facebook className="w-4 h-4" /></a>
-          <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Instagram className="w-4 h-4" /></a>
-          <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Twitter className="w-4 h-4" /></a>
+          <a href="https://facebook.com/freshtracksafrica" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Facebook className="w-4 h-4" /></a>
+          <a href="https://instagram.com/freshtracksafrica" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Instagram className="w-4 h-4" /></a>
+          <a href="https://twitter.com/freshtracksafrica" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/60 hover:text-secondary transition-colors"><Twitter className="w-4 h-4" /></a>
         </div>
 
         {/* Mobile right: menu toggle */}
@@ -200,10 +200,16 @@ const Navbar = () => {
 
         {/* Desktop social */}
         <div className="hidden lg:flex items-center gap-4">
-          {[Facebook, Instagram, Twitter].map((Icon, i) => (
+          {[
+            { Icon: Facebook, href: "https://facebook.com/freshtracksafrica" },
+            { Icon: Instagram, href: "https://instagram.com/freshtracksafrica" },
+            { Icon: Twitter, href: "https://twitter.com/freshtracksafrica" },
+          ].map(({ Icon, href }, i) => (
             <motion.a
               key={i}
-              href="#"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-primary-foreground/50 hover:text-secondary transition-colors"
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}

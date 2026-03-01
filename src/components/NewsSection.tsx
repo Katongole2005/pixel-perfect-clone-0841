@@ -148,14 +148,14 @@ const NewsSection = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center mt-14"
         >
-          <div className="inline-flex items-center gap-3 text-primary-foreground/40 font-body text-sm border border-primary-foreground/10 px-6 py-3">
+          <a href="/reviews" className="inline-flex items-center gap-3 text-primary-foreground/40 font-body text-sm border border-primary-foreground/10 px-6 py-3 hover:border-secondary/50 hover:text-primary-foreground/60 transition-all duration-300">
             <div className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, j) => (
                 <Star key={j} className="w-3 h-3 text-secondary fill-secondary" />
               ))}
             </div>
             <span>Rated 5/5 on Google Reviews</span>
-          </div>
+          </a>
         </motion.div>
       </div>
     </section>

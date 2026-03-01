@@ -127,7 +127,7 @@ const PressRelease = () => {
             <ClipReveal delay={0.6}>
               <MagneticHover className="inline-block">
                 <a
-                  href="#"
+                  href="/about"
                   className="group relative inline-flex items-center gap-3 bg-primary text-primary-foreground px-10 py-5 text-sm font-body font-bold uppercase tracking-wider overflow-hidden"
                 >
                   <span className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />

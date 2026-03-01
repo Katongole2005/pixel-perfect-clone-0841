@@ -108,7 +108,7 @@ const HeroSection = () => {
         >
           <MagneticHover>
             <a
-              href="#"
+              href="/travel-topics"
               className="group relative inline-flex items-center gap-3 px-12 py-5 text-sm font-body font-bold uppercase tracking-widest overflow-hidden"
               aria-label="Discover our gorilla trekking and safari tour packages"
             >
