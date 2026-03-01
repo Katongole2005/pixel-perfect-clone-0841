@@ -11,6 +11,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence } from "framer-motion";
 import PublicLayout from "./components/layout/PublicLayout";
 import Preloader from "./components/Preloader";
+import CookieConsent from "./components/CookieConsent";
 
 const Index = lazy(() => import("./pages/Index"));
 const GorillaTrekkingPage = lazy(() => import("./pages/GorillaTrekking"));
@@ -117,6 +118,7 @@ const App = () => {
                   </Routes>
                 </Suspense>
               </BrowserRouter>
+              <CookieConsent />
               </CurrencyProvider>
             </AuthProvider>
           </TooltipProvider>
