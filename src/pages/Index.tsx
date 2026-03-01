@@ -10,6 +10,7 @@ import ExploreSection from "@/components/ExploreSection";
 import ScrollVideoSection from "@/components/ScrollVideoSection";
 import AboutSection from "@/components/AboutSection";
 import PartnersSection from "@/components/PartnersSection";
+import DestinationMap from "@/components/DestinationMap";
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
       <HeroSection />
       <TripSearchSection />
       <ExperiencesSection />
+      <DestinationMap />
       <PressRelease />
       <AfconSection />
       <NewsSection />
