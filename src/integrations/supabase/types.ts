@@ -425,6 +425,7 @@ export type Database = {
           num_children: number
           other_destinations: string[] | null
           phone: string
+          pickup_time: string | null
           privacy_accepted: boolean
           travel_experience: string[] | null
           travel_types: string[] | null
@@ -446,6 +447,7 @@ export type Database = {
           num_children?: number
           other_destinations?: string[] | null
           phone: string
+          pickup_time?: string | null
           privacy_accepted?: boolean
           travel_experience?: string[] | null
           travel_types?: string[] | null
@@ -467,6 +469,7 @@ export type Database = {
           num_children?: number
           other_destinations?: string[] | null
           phone?: string
+          pickup_time?: string | null
           privacy_accepted?: boolean
           travel_experience?: string[] | null
           travel_types?: string[] | null

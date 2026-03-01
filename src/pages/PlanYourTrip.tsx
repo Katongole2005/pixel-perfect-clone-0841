@@ -74,6 +74,7 @@ const PlanYourTrip = () => {
   const [guideLanguage, setGuideLanguage] = useState("English");
   const [numAdults, setNumAdults] = useState("1");
   const [numChildren, setNumChildren] = useState("0");
+  const [pickupTime, setPickupTime] = useState("");
 
   // Step 2
   const [travelTypes, setTravelTypes] = useState<string[]>([]);
@@ -118,6 +119,7 @@ const PlanYourTrip = () => {
       phone,
       message,
       privacy_accepted: privacyAccepted,
+      pickup_time: pickupTime || null,
     });
     setSubmitting(false);
 
@@ -235,7 +237,7 @@ const PlanYourTrip = () => {
               transition={{ duration: 0.35 }}
               className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-xl"
             >
-              {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren }} />}
+              {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime }} />}
               {step === 2 && <StepTwo {...{ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }} />}
               {step === 3 && <StepThree {...{ name, setName, email, setEmail, phone, setPhone, message, setMessage, privacyAccepted, setPrivacyAccepted }} />}
             </motion.div>
@@ -284,7 +286,7 @@ const PlanYourTrip = () => {
 };
 
 /* ─── Step 1: Trip Details ─── */
-const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren }: any) => (
+const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime }: any) => (
   <div className="space-y-7">
     <div>
       <div className="flex items-center gap-3 mb-1">
@@ -366,6 +368,10 @@ const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatest
           <SelectItem value="No preference">No Preference</SelectItem>
         </SelectContent>
       </Select>
+    </FieldWrapper>
+
+    <FieldWrapper label="Preferred Pick-up Time (optional)">
+      <Input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
     </FieldWrapper>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
