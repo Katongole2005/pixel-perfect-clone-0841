@@ -93,7 +93,7 @@ export default function AdminNews() {
                   <p className="text-sm text-muted-foreground truncate">{item.excerpt || "No excerpt"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${item.is_published ? "bg-godka-sage/10 text-godka-sage" : "bg-muted text-muted-foreground"}`}>
+                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${item.is_published ? "bg-brand-sage/10 text-brand-sage" : "bg-muted text-muted-foreground"}`}>
                     {item.is_published ? "Published" : "Draft"}
                   </span>
                   <Button variant="ghost" size="icon" onClick={() => openEdit(item)}><Pencil className="h-4 w-4" /></Button>

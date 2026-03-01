@@ -132,7 +132,7 @@ const PlanYourTrip = () => {
     return (
       <div className="max-w-2xl mx-auto py-24 px-4 text-center">
         <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6, ease: "easeOut" }}>
-          <div className="w-24 h-24 rounded-full bg-godka-gold/20 flex items-center justify-center mx-auto mb-8 animate-pulse-glow">
+          <div className="w-24 h-24 rounded-full bg-brand-earth/20 flex items-center justify-center mx-auto mb-8 animate-pulse-glow">
             <Check className="w-12 h-12 text-secondary" />
           </div>
           <h1 className="text-4xl font-display font-bold text-foreground mb-4">Thank You!</h1>
@@ -404,8 +404,8 @@ const StepThree = ({ name, setName, email, setEmail, phone, setPhone, message, s
   <div className="space-y-6">
     <div>
       <div className="flex items-center gap-3 mb-1">
-        <div className="w-8 h-8 rounded-lg bg-godka-sage/10 flex items-center justify-center">
-          <User className="w-4 h-4 text-godka-sage" />
+        <div className="w-8 h-8 rounded-lg bg-brand-sage/10 flex items-center justify-center">
+          <User className="w-4 h-4 text-brand-sage" />
         </div>
         <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">How Can We Reach You?</h2>
       </div>

@@ -186,7 +186,7 @@ export default function AdminTrips() {
                   <p className="text-sm text-muted-foreground">{trip.destination_label} • {trip.duration} days • ${trip.price}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${trip.is_published ? "bg-godka-sage/10 text-godka-sage" : "bg-muted text-muted-foreground"}`}>
+                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${trip.is_published ? "bg-brand-sage/10 text-brand-sage" : "bg-muted text-muted-foreground"}`}>
                     {trip.is_published ? "Published" : "Draft"}
                   </span>
                   <Button variant="ghost" size="icon" onClick={() => openEdit(trip)}>
