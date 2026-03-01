@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Globe, ChevronDown } from "lucide-react";
 
+const SUPPORTED_CODES = ["en", "ar", "nl", "fr", "de", "it", "pt", "ru", "es"];
+
 const LANGUAGES = [
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "ar", label: "العربية", flag: "🇸🇦" },
@@ -12,6 +14,16 @@ const LANGUAGES = [
   { code: "ru", label: "Русский", flag: "🇷🇺" },
   { code: "es", label: "Español", flag: "🇪🇸" },
 ];
+
+/** Detect the browser's preferred language and match to our supported list */
+function detectBrowserLanguage(): string {
+  const browserLangs = navigator.languages || [navigator.language];
+  for (const lang of browserLangs) {
+    const code = lang.split("-")[0].toLowerCase();
+    if (SUPPORTED_CODES.includes(code)) return code;
+  }
+  return "en";
+}
 
 declare global {
   interface Window {
@@ -31,12 +43,13 @@ declare global {
  */
 const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState("en");
+  const detectedLang = useRef(detectBrowserLanguage());
+  const [current, setCurrent] = useState(detectedLang.current);
   const ref = useRef<HTMLDivElement>(null);
+  const autoTriggered = useRef(false);
 
   /* ── Load Google Translate script once ── */
   useEffect(() => {
-    // Avoid double-loading
     if (document.getElementById("google-translate-script")) return;
 
     window.googleTranslateElementInit = () => {
@@ -48,6 +61,22 @@ const LanguageSelector = () => {
         },
         "google_translate_element"
       );
+
+      // Auto-translate if browser language differs from English
+      if (detectedLang.current !== "en" && !autoTriggered.current) {
+        autoTriggered.current = true;
+        // Small delay to let widget initialize
+        setTimeout(() => {
+          const code = detectedLang.current;
+          document.cookie = `googtrans=/en/${code}; path=/;`;
+          document.cookie = `googtrans=/en/${code}; path=/; domain=.${window.location.hostname}`;
+          const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+          if (selectEl) {
+            selectEl.value = code;
+            selectEl.dispatchEvent(new Event("change"));
+          }
+        }, 500);
+      }
     };
 
     const script = document.createElement("script");
