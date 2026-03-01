@@ -21,6 +21,7 @@ const navItems = [
   { label: "Partners", icon: Handshake, path: "/admin/partners" },
   { label: "Testimonials", icon: BookOpenText, path: "/admin/testimonials" },
   { label: "Messages", icon: MessageSquare, path: "/admin/messages" },
+  { label: "Blog Posts", icon: BookOpenText, path: "/admin/blog" },
   { label: "Site Settings", icon: Settings, path: "/admin/settings" },
 ];
 

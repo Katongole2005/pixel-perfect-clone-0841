@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import TopBar from "@/components/TopBar";
 import HeaderBar from "@/components/HeaderBar";
@@ -63,7 +64,9 @@ const PublicLayout = () => {
             </header>
 
             <main id="main-content" className="flex-1">
-                <Outlet />
+                <AnimatePresence mode="wait">
+                    <Outlet key={pathname} />
+                </AnimatePresence>
             </main>
 
             <FooterSection />

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { ThemeProvider } from "next-themes";
 import { Suspense, lazy } from "react";
 import { HelmetProvider } from "react-helmet-async";
@@ -25,6 +26,8 @@ const AdventureSafarisPage = lazy(() => import("./pages/AdventureSafaris"));
 const TravelTipsPage = lazy(() => import("./pages/TravelTips"));
 const TrekkingInfoPage = lazy(() => import("./pages/TrekkingInfo"));
 const CareersPage = lazy(() => import("./pages/Careers"));
+const BlogPage = lazy(() => import("./pages/Blog"));
+const BlogPostPage = lazy(() => import("./pages/BlogPost"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
@@ -38,6 +41,7 @@ const AdminTripRequests = lazy(() => import("./pages/admin/AdminTripRequests"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminReviews = lazy(() => import("./pages/admin/AdminReviews"));
 const AdminTravelTopics = lazy(() => import("./pages/admin/AdminTravelTopics"));
+const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 
 const queryClient = new QueryClient();
 
@@ -53,6 +57,7 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <AuthProvider>
+            <CurrencyProvider>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -75,6 +80,8 @@ const App = () => (
                     <Route path="/travel-tips" element={<TravelTipsPage />} />
                     <Route path="/trekking-info" element={<TrekkingInfoPage />} />
                     <Route path="/careers" element={<CareersPage />} />
+                    <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/blog/:slug" element={<BlogPostPage />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
 
@@ -91,10 +98,12 @@ const App = () => (
                     <Route path="trip-requests" element={<AdminTripRequests />} />
                     <Route path="messages" element={<AdminMessages />} />
                     <Route path="settings" element={<AdminSettings />} />
+                    <Route path="blog" element={<AdminBlog />} />
                   </Route>
                 </Routes>
               </Suspense>
             </BrowserRouter>
+            </CurrencyProvider>
           </AuthProvider>
         </TooltipProvider>
       </QueryClientProvider>

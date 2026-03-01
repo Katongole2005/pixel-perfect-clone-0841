@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { ChevronDown, Search, Facebook, Instagram, Twitter, Menu, X, Mail, BookOpen, Info, HelpCircle, Map } from "lucide-react";
+import { ChevronDown, Search, Facebook, Instagram, Twitter, Menu, X, Mail, BookOpen, Info, HelpCircle, Map, Pen } from "lucide-react";
+import CurrencyToggle from "@/components/CurrencyToggle";
 
 /* ── Nav structure ── */
 type DropdownItem = { label: string; href: string; icon?: React.ElementType; description?: string };
@@ -49,6 +50,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: "Reviews", href: "/reviews" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const Navbar = () => {
@@ -198,8 +200,9 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Desktop social */}
+        {/* Desktop social + currency */}
         <div className="hidden lg:flex items-center gap-4">
+          <CurrencyToggle />
           {[
             { Icon: Facebook, href: "https://facebook.com/freshtracksafrica" },
             { Icon: Instagram, href: "https://instagram.com/freshtracksafrica" },

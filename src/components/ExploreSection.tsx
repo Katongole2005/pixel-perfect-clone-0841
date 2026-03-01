@@ -10,18 +10,19 @@ import {
   LineDraw,
   MagneticHover,
 } from "./animations/AnimationUtils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const safaris = [
   {
     title: "3-Day Gorilla Trek",
-    price: "1,500",
+    priceUsd: 1500,
     duration: "3 Days / 2 Nights",
     image: exploreImg,
     highlights: ["Bwindi Forest", "Gorilla Permit Included", "Luxury Lodge"],
   },
   {
     title: "5-Day Uganda Safari",
-    price: "2,200",
+    priceUsd: 2200,
     duration: "5 Days / 4 Nights",
     image: adventureImg,
     highlights: ["Queen Elizabeth NP", "Game Drives", "Boat Safari"],
@@ -29,6 +30,7 @@ const safaris = [
 ];
 
 const ExploreSection = () => {
+  const { convert, symbol } = useCurrency();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -108,7 +110,7 @@ const ExploreSection = () => {
                     <div className="relative sm:w-2/5 overflow-hidden">
                       <motion.img
                         src={safari.image}
-                        alt={`${safari.title} — ${safari.duration} starting from $${safari.price} per person`}
+                        alt={`${safari.title} — ${safari.duration} starting from ${symbol}${convert(safari.priceUsd)} per person`}
                         className="w-full h-60 sm:h-full object-cover"
                         loading="lazy"
                         whileHover={{ scale: 1.05 }}
@@ -127,7 +129,7 @@ const ExploreSection = () => {
                       </h3>
                       <p className="text-secondary font-display font-bold text-2xl flex items-baseline gap-1 mb-5">
                         <span className="text-sm font-body text-muted-foreground">From</span>
-                        ${safari.price}
+                        {symbol}{convert(safari.priceUsd)}
                         <span className="text-muted-foreground text-xs font-body font-normal">
                           /person
                         </span>
