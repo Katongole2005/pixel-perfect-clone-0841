@@ -1,5 +1,5 @@
 import { Phone, Mail } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/brand-logo";
 
 const HeaderBar = () => (
   <div className="bg-card py-3 px-4 border-b border-border">
@@ -12,6 +12,8 @@ const HeaderBar = () => (
           className="h-16 sm:h-20 lg:h-24 w-auto object-contain"
           width="120"
           height="96"
+          decoding="async"
+          fetchPriority="high"
         />
       </a>
 

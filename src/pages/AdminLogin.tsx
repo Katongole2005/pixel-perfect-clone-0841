@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { SignInCard } from "@/components/ui/sign-in-card-2";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/brand-logo";
 
 const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
