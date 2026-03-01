@@ -58,6 +58,7 @@ export default {
           cream: "hsl(var(--brand-cream))",
           sage: "hsl(var(--brand-sage))",
           "warm-gray": "hsl(var(--brand-warm-gray))",
+          charcoal: "hsl(var(--brand-charcoal))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
