@@ -42,7 +42,7 @@ const data = {
     company: {
         name: 'Fresh Tracks Africa',
         description:
-            'Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda & Rwanda.',
+            'Your trusted partner for unforgettable East African adventures since 2015. We specialize in gorilla trekking, wildlife safaris, and cultural tours across Uganda and Rwanda.',
         logo: logo,
     },
 };
