@@ -114,7 +114,7 @@ const LanguageSelector = () => {
   const activeLang = LANGUAGES.find((l) => l.code === current) || LANGUAGES[0];
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative notranslate" translate="no">
       {/* Hidden Google Translate container */}
       <div id="google_translate_element" className="hidden" />
 
