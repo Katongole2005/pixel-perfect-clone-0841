@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionV
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, ChevronDown, Trees, Mountain, Waves, Bird, Star, Globe } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import StylizedAmpersand from "@/components/StylizedAmpersand";
 import { ShaderBackground } from "@/components/ui/background-paper-shaders";
 import {
     FloatingParticles,
@@ -376,7 +375,7 @@ const NationalParksPage = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            ── Uganda <StylizedAmpersand size="sm" /> Rwanda · 10 Parks
+                            ── Uganda & Rwanda · 10 Parks
                         </motion.p>
 
                         <div className="overflow-hidden mb-4">
