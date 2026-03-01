@@ -409,9 +409,11 @@ export type Database = {
       }
       trip_requests: {
         Row: {
+          accommodation_preference: string | null
           animals: string[] | null
           budget_per_person: number
           created_at: string
+          dietary_requirements: string[] | null
           duration_days: number
           earliest_arrival: string
           email: string
@@ -427,13 +429,16 @@ export type Database = {
           phone: string
           pickup_time: string | null
           privacy_accepted: boolean
+          special_occasion: string | null
           travel_experience: string[] | null
           travel_types: string[] | null
         }
         Insert: {
+          accommodation_preference?: string | null
           animals?: string[] | null
           budget_per_person: number
           created_at?: string
+          dietary_requirements?: string[] | null
           duration_days: number
           earliest_arrival: string
           email: string
@@ -449,13 +454,16 @@ export type Database = {
           phone: string
           pickup_time?: string | null
           privacy_accepted?: boolean
+          special_occasion?: string | null
           travel_experience?: string[] | null
           travel_types?: string[] | null
         }
         Update: {
+          accommodation_preference?: string | null
           animals?: string[] | null
           budget_per_person?: number
           created_at?: string
+          dietary_requirements?: string[] | null
           duration_days?: number
           earliest_arrival?: string
           email?: string
@@ -471,6 +479,7 @@ export type Database = {
           phone?: string
           pickup_time?: string | null
           privacy_accepted?: boolean
+          special_occasion?: string | null
           travel_experience?: string[] | null
           travel_types?: string[] | null
         }
