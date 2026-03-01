@@ -208,6 +208,14 @@ export function Footer4Col() {
                         <p className="text-foreground/70 mt-4 text-sm transition sm:order-first sm:mt-0">
                             &copy; 2026 {data.company.name}
                         </p>
+
+                        <Link
+                            to="/admin/login"
+                            className="text-foreground/30 hover:text-foreground/60 text-xs transition-colors mt-4 sm:mt-0"
+                            aria-label="Admin login"
+                        >
+                            Admin
+                        </Link>
                     </div>
                 </div>
             </div>
