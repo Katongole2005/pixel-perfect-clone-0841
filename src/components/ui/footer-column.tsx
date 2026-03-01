@@ -199,19 +199,20 @@ export function Footer4Col() {
                     </nav>
                 </div>
 
-                <div className="mt-12 border-t border-secondary/20 pt-6">
-                    <div className="text-center sm:flex sm:justify-between sm:text-left">
-                        <p className="text-sm text-foreground/70">
-                            <span className="block sm:inline">All rights reserved.</span>
-                        </p>
-
+                <div className="mt-12 border-t border-secondary/20 pt-6 pb-2">
+                    <div className="text-center sm:flex sm:justify-between sm:text-left items-center">
                         <p className="text-foreground/70 mt-4 text-sm transition sm:order-first sm:mt-0">
                             &copy; 2026 {data.company.name}
                         </p>
 
+                        <p className="text-sm text-foreground/70">
+                            <span className="block sm:inline">All rights reserved.</span>
+                        </p>
+                    </div>
+                    <div className="text-center mt-4">
                         <Link
                             to="/admin/login"
-                            className="text-foreground/30 hover:text-foreground/60 text-xs transition-colors mt-4 sm:mt-0"
+                            className="text-foreground/30 hover:text-foreground/60 text-xs transition-colors"
                             aria-label="Admin login"
                         >
                             Admin
