@@ -25,6 +25,20 @@ const CareersPage: React.FC = () => {
       <Helmet>
         <title>Careers at Fresh Tracks Africa | Join Our Team</title>
         <meta name="description" content="Join the Fresh Tracks Africa team. We're looking for passionate people who love travel, wildlife, and creating unforgettable experiences." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/careers" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/careers" />
+        <meta property="og:title" content="Careers at Fresh Tracks Africa | Join Our Team" />
+        <meta property="og:description" content="Join our passionate team creating unforgettable East African adventures. Explore career opportunities." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Careers at Fresh Tracks Africa | Join Our Team" />
+        <meta name="twitter:description" content="Join our passionate team creating unforgettable East African adventures." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EmployerAggregateRating",
+          "itemReviewed": { "@type": "Organization", "name": "Fresh Tracks Africa Tours & Travel Ltd.", "url": "https://pixel-perfect-clone-0841.lovable.app" }
+        })}</script>
       </Helmet>
 
       <div className="bg-background min-h-screen">

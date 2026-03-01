@@ -63,6 +63,23 @@ const TrekkingInfoPage: React.FC = () => {
       <Helmet>
         <title>Gorilla & Chimp Trekking Guide | Fresh Tracks Africa</title>
         <meta name="description" content="Complete guide to gorilla and chimpanzee trekking in Uganda and Rwanda — what to expect, fitness requirements, permits, rules, and tips from Fresh Tracks Africa." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/trekking-info" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/trekking-info" />
+        <meta property="og:title" content="Gorilla & Chimp Trekking Guide | Fresh Tracks Africa" />
+        <meta property="og:description" content="Everything you need to know about gorilla and chimpanzee trekking — permits, fitness, photography rules, and what to wear." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gorilla & Chimp Trekking Guide | Fresh Tracks Africa" />
+        <meta name="twitter:description" content="Everything you need to know about gorilla and chimpanzee trekking — permits, fitness, photography rules, and what to wear." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Gorilla & Chimpanzee Trekking Guide",
+          "description": "Complete guide to gorilla and chimpanzee trekking in Uganda and Rwanda.",
+          "author": { "@type": "Organization", "name": "Fresh Tracks Africa Tours & Travel Ltd." },
+          "publisher": { "@type": "Organization", "name": "Fresh Tracks Africa Tours & Travel Ltd.", "url": "https://pixel-perfect-clone-0841.lovable.app" }
+        })}</script>
       </Helmet>
 
       <div className="bg-background min-h-screen">

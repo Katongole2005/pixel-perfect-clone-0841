@@ -17,7 +17,14 @@ const ContactPage = () => {
         <>
             <Helmet>
                 <title>Contact Us | Fresh Tracks Africa</title>
-                <meta name="description" content="Get in touch with Fresh Tracks Africa to plan your next African safari adventure." />
+                <meta name="description" content="Get in touch with Fresh Tracks Africa to plan your next African safari adventure. Call, email, or fill out our contact form." />
+                <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/contact" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/contact" />
+                <meta property="og:title" content="Contact Us | Fresh Tracks Africa" />
+                <meta property="og:description" content="Get in touch to plan your next African safari adventure." />
+                <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+                <meta name="twitter:card" content="summary" />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}

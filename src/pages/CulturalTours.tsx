@@ -53,6 +53,27 @@ const CulturalToursPage: React.FC = () => {
       <Helmet>
         <title>Cultural Heritage Tours in Uganda | Fresh Tracks Africa</title>
         <meta name="description" content="Explore Uganda's rich cultural heritage with village homestays, traditional dance performances, culinary experiences, and community projects. Book your cultural tour today." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/cultural-tours" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/cultural-tours" />
+        <meta property="og:title" content="Cultural Heritage Tours in Uganda | Fresh Tracks Africa" />
+        <meta property="og:description" content="Immerse yourself in Uganda's vibrant traditions — village homestays, traditional dance, culinary experiences, and community projects." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Cultural Heritage Tours in Uganda | Fresh Tracks Africa" />
+        <meta name="twitter:description" content="Immerse yourself in Uganda's vibrant traditions — village homestays, traditional dance, culinary experiences, and community projects." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TouristTrip",
+          "name": "Cultural Heritage Tours in Uganda",
+          "description": "Explore Uganda's rich cultural diversity with village homestays, traditional dance, culinary experiences, and community projects.",
+          "touristType": "Cultural Tourism",
+          "provider": {
+            "@type": "TravelAgency",
+            "name": "Fresh Tracks Africa Tours & Travel Ltd.",
+            "url": "https://pixel-perfect-clone-0841.lovable.app"
+          }
+        })}</script>
       </Helmet>
 
       <div className="bg-background">

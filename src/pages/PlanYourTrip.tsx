@@ -153,7 +153,14 @@ const PlanYourTrip = () => {
     <>
       <Helmet>
         <title>Plan Your Trip | Fresh Tracks Africa</title>
-        <meta name="description" content="Plan your dream safari in Africa with our customizable trip planner." />
+        <meta name="description" content="Plan your dream safari in Uganda & Rwanda. Tell us your preferences and we'll craft a personalized itinerary." />
+        <link rel="canonical" href="https://pixel-perfect-clone-0841.lovable.app/plan-your-trip" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pixel-perfect-clone-0841.lovable.app/plan-your-trip" />
+        <meta property="og:title" content="Plan Your Trip | Fresh Tracks Africa" />
+        <meta property="og:description" content="Tell us your preferences and we'll craft a personalized safari itinerary for Uganda & Rwanda." />
+        <meta property="og:site_name" content="Fresh Tracks Africa Tours & Travel" />
+        <meta name="twitter:card" content="summary" />
       </Helmet>
       <div className="bg-background">
         {/* Hero */}
