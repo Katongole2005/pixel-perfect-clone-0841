@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-mot
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Mountain, Clock, Users, Star, Shield, Camera } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { Helmet } from "react-helmet-async";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import {
@@ -92,7 +93,7 @@ const packages = [
     {
         title: "1-Day Express Trek",
         duration: "1 Day",
-        price: "From $800",
+        priceUsd: 800,
         description: "A focused gorilla trekking experience in Bwindi. Ideal for tight schedules — permit, ranger, and park fees included.",
         highlights: ["Gorilla permit included", "Expert ranger guide", "Park entry fees", "Packed lunch"],
         img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop",
@@ -100,7 +101,7 @@ const packages = [
     {
         title: "3-Day Bwindi Safari",
         duration: "3 Days / 2 Nights",
-        price: "From $1,850",
+        priceUsd: 1850,
         description: "Gorilla trekking combined with scenic forest walks, birdwatching, and community village tours.",
         highlights: ["Gorilla permit included", "Lodge accommodation", "Forest nature walk", "Village cultural tour"],
         img: "https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=800&auto=format&fit=crop",
@@ -108,7 +109,7 @@ const packages = [
     {
         title: "7-Day Ultimate Uganda",
         duration: "7 Days / 6 Nights",
-        price: "From $3,500",
+        priceUsd: 3500,
         description: "The complete Uganda experience — gorilla trekking, Queen Elizabeth NP wildlife drives, and Lake Bunyonyi.",
         highlights: ["Gorilla permit included", "Big Five game drives", "Chimpanzee tracking", "Lake Bunyonyi cruise"],
         img: "https://images.unsplash.com/photo-1504173010664-32509107de5d?q=80&w=800&auto=format&fit=crop",
@@ -116,6 +117,7 @@ const packages = [
 ];
 
 const GorillaTrekkingPage = () => {
+    const { convert, symbol } = useCurrency();
     const heroRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
     const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
@@ -299,7 +301,7 @@ const GorillaTrekkingPage = () => {
                                                 ))}
                                             </ul>
                                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
-                                                <span className="text-lg font-display font-bold text-foreground">{pkg.price}</span>
+                                                <span className="text-lg font-display font-bold text-foreground">From {symbol}{convert(pkg.priceUsd)}</span>
                                                 <a href="#contact"
                                                     className="group/btn flex items-center gap-1 text-secondary font-body font-bold text-sm hover:gap-2 transition-all">
                                                     Book Now
