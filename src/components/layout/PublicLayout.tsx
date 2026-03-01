@@ -43,6 +43,14 @@ const PublicLayout = () => {
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
+            {/* Skip to content link for accessibility */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-secondary focus:text-secondary-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-bold"
+            >
+                Skip to main content
+            </a>
+
             {/* Global UI overlays */}
             <ScrollProgress />
             <CustomCursor />
@@ -54,7 +62,7 @@ const PublicLayout = () => {
                 <Navbar />
             </header>
 
-            <main className="flex-1">
+            <main id="main-content" className="flex-1">
                 <Outlet />
             </main>
 
