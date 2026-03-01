@@ -20,6 +20,7 @@ const experiences = [
       "Trek through Bwindi Impenetrable Forest to meet endangered mountain gorillas in their natural habitat.",
     image: gorillaImg,
     num: "01",
+    href: "/gorilla-trekking",
   },
   {
     title: "Adventure Safaris",
@@ -28,6 +29,7 @@ const experiences = [
       "From rafting the Nile to hiking the Rwenzori Mountains — Uganda is an adventurer's paradise.",
     image: adventureImg,
     num: "02",
+    href: "/adventure-safaris",
   },
   {
     title: "Cultural Heritage Tours",
@@ -36,6 +38,7 @@ const experiences = [
       "Explore Uganda's rich cultural diversity with traditional kingdoms, historical sites, and authentic community experiences.",
     image: culturalImg,
     num: "03",
+    href: "/cultural-tours",
   },
 ];
 
@@ -95,7 +98,7 @@ const ExperiencesSection = () => {
 
           <MagneticHover className="shrink-0">
             <a
-              href="#"
+              href="/travel-topics"
               className="group inline-flex items-center gap-4 text-sm font-body font-bold uppercase tracking-wider text-foreground hover:text-secondary transition-colors duration-500"
             >
               <span>All Experiences</span>
@@ -112,7 +115,7 @@ const ExperiencesSection = () => {
           {experiences.map((exp, i) => {
             const colStart = i === 0 ? "lg:col-span-4" : i === 1 ? "lg:col-span-4 lg:mt-20" : "lg:col-span-4 lg:mt-40";
             return (
-              <div key={exp.title} className={`group cursor-pointer ${colStart}`}>
+              <a key={exp.title} href={exp.href} className={`group cursor-pointer block ${colStart}`}>
                 {/* Number */}
                 <ClipReveal delay={i * 0.15}>
                   <span className="text-[80px] md:text-[100px] lg:text-[130px] font-display font-bold leading-none text-foreground/[0.04] block -mb-8 md:-mb-10 lg:-mb-14">
@@ -162,7 +165,7 @@ const ExperiencesSection = () => {
                     Explore <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </ClipReveal>
-              </div>
+              </a>
             );
           })}
         </div>

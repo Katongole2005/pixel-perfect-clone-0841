@@ -62,7 +62,7 @@ const AfconSection = () => {
         <StaggerGrid className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {parks.map((park) => (
             <StaggerItem key={park.name}>
-              <div className="group relative overflow-hidden cursor-pointer">
+              <a href="/national-parks" className="group relative overflow-hidden cursor-pointer block">
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <motion.img
                     src={park.image}
@@ -117,7 +117,7 @@ const AfconSection = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </a>
             </StaggerItem>
           ))}
         </StaggerGrid>
