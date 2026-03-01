@@ -11,6 +11,7 @@ import {
     CustomCursor,
     BackToTop,
 } from "@/components/animations/AnimationUtils";
+import StickyCtaBar from "@/components/StickyCtaBar";
 
 const PublicLayout = () => {
     const { pathname } = useLocation();
@@ -67,6 +68,7 @@ const PublicLayout = () => {
             <ScrollProgress />
             <CustomCursor />
             <BackToTop />
+            <StickyCtaBar />
 
             <header>
                 <TopBar />
