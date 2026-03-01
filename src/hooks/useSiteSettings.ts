@@ -38,7 +38,7 @@ export function useSiteSettings() {
         about: AboutSettings;
     }>({
         hero: { title: "Gorilla Trekking", subtitle: "& Safari Tours", cta_text: "Discover Our Tours", cta_link: "/travel-topics" },
-        contact: { email: "info@freshtracksafrica.com", phone: "+256 753 171457", address: "", whatsapp: "" },
+        contact: { email: "info@freshtracksafrica.com", phone: "+256 755 843097 / +256 746 718350", address: "", whatsapp: "" },
         images: { logo_main: "", logo_footer: "", about_image: "" },
         about: { mission_title: "Mission & Vision", mission_text: "We believe in responsible tourism...", vision_title: "", vision_text: "" }
     });

@@ -78,7 +78,7 @@ const ContactPage = () => {
                                 {
                                     icon: PhoneIcon,
                                     label: "Phone",
-                                    value: "+256 753 171457",
+                                    value: "+256 755 843097 / +256 746 718350",
                                 },
                                 {
                                     icon: MapPinIcon,
@@ -161,7 +161,7 @@ const ContactPage = () => {
                 <section className="py-16 px-4 bg-muted">
                     <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-8 text-center">
                         {[
-                            { icon: PhoneIcon, label: "Call Us", value: "+256 753 171457", sub: "Mon–Sat, 8am–6pm EAT" },
+                            { icon: PhoneIcon, label: "Call Us", value: "+256 755 843097 / +256 746 718350", sub: "Mon–Sat, 8am–6pm EAT" },
                             { icon: MailIcon, label: "Email Us", value: "info@freshtracksafrica.com", sub: "We reply within 1 business day" },
                             { icon: MapPinIcon, label: "Find Us", value: "Kampala, Uganda", sub: "East Africa's safari capital" },
                         ].map(({ icon: Icon, label, value, sub }, i) => (
