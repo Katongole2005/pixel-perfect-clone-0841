@@ -262,7 +262,7 @@ const TripSearchResults = () => {
   return (
     <>
       <Helmet>
-        <title>Trip Search Results | Godka Tours</title>
+        <title>Trip Search Results | Fresh Tracks Africa</title>
         <meta name="description" content="Find the best safari packages and gorilla trekking tours." />
       </Helmet>
       <div className="bg-background pt-8 pb-16">
