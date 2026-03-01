@@ -63,8 +63,20 @@ function setGoogTransCookie(code: SupportedCode) {
   }
 }
 
+function clearGoogTransCookie() {
+  document.cookie = "googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+
+  for (const domain of getCookieDomains(window.location.hostname)) {
+    document.cookie = `googtrans=; path=/; domain=${domain}; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+  }
+}
+
 function applyGoogleLanguage(code: SupportedCode) {
-  setGoogTransCookie(code);
+  if (code === "en") {
+    clearGoogTransCookie();
+  } else {
+    setGoogTransCookie(code);
+  }
 
   let attempts = 0;
   const maxAttempts = 20;
@@ -72,8 +84,13 @@ function applyGoogleLanguage(code: SupportedCode) {
   const tryApply = () => {
     const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
     if (selectEl) {
-      selectEl.value = code;
+      selectEl.value = code === "en" ? "" : code;
       selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+
+      if (code === "en") {
+        document.documentElement.classList.remove("translated-ltr", "translated-rtl");
+        document.body.classList.remove("translated-ltr", "translated-rtl");
+      }
       return;
     }
 
@@ -107,8 +124,12 @@ const LanguageSelector = () => {
   useEffect(() => {
     const initial = initialLangRef.current;
 
-    // Force preferred language cookie immediately to avoid stale-language flashes.
-    setGoogTransCookie(initial);
+    // English must clear cookie (not /en/en) to avoid wrong-language fallback.
+    if (initial === "en") {
+      clearGoogTransCookie();
+    } else {
+      setGoogTransCookie(initial);
+    }
 
     window.googleTranslateElementInit = () => {
       new window.google!.translate!.TranslateElement(
