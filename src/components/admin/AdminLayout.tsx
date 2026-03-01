@@ -7,7 +7,7 @@ import {
   ChevronLeft, Globe, Star, Handshake, Plane, Mountain, BookOpenText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/brand-logo";
 import { cn } from "@/lib/utils";
 import AdminThemeToggle from "./AdminThemeToggle";
 

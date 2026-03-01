@@ -9,7 +9,7 @@ import {
     Twitter,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from "@/assets/logo.png";
+import logo from "@/assets/brand-logo";
 
 const data = {
     facebookLink: 'https://facebook.com/freshtracksafrica',
@@ -92,6 +92,8 @@ export function Footer4Col() {
                                 src={data.company.logo}
                                 alt="Fresh Tracks Africa logo"
                                 className="h-20 sm:h-24 lg:h-28 w-auto object-contain"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <span className="text-2xl font-semibold flex items-center">
                                 {data.company.name}
