@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gorillaImg from "@/assets/gorilla-trekking.jpg";
 import { SplitTextReveal, ClipReveal, FloatingParticles, MagneticHover } from "./animations/AnimationUtils";
+import StylizedAmpersand from "./StylizedAmpersand";
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -86,7 +87,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            in Uganda & Rwanda
+            in Uganda <StylizedAmpersand size="lg" /> Rwanda
           </motion.span>
         </h1>
 
