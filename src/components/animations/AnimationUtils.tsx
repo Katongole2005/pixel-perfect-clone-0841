@@ -513,16 +513,12 @@ export const FloatingParticles = ({
   );
 };
 
-/* ─── Custom Cursor — minimal trailing dot ─── */
+/* ─── Custom Cursor — crisp ring that expands on hover ─── */
 export const CustomCursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const smoothX = useSpring(cursorX, { stiffness: 300, damping: 28 });
-  const smoothY = useSpring(cursorY, { stiffness: 300, damping: 28 });
-
   const [isHovering, setIsHovering] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -532,14 +528,9 @@ export const CustomCursor = () => {
 
     const handleHoverStart = () => setIsHovering(true);
     const handleHoverEnd = () => setIsHovering(false);
-    const handleDown = () => setIsPressed(true);
-    const handleUp = () => setIsPressed(false);
 
     window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mousedown", handleDown);
-    window.addEventListener("mouseup", handleUp);
 
-    // Use MutationObserver to keep interactive listeners up-to-date
     const addListeners = () => {
       const els = document.querySelectorAll("a, button, [role='button'], input, textarea, select");
       els.forEach((el) => {
@@ -555,8 +546,6 @@ export const CustomCursor = () => {
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mousedown", handleDown);
-      window.removeEventListener("mouseup", handleUp);
       els.forEach((el) => {
         el.removeEventListener("mouseenter", handleHoverStart);
         el.removeEventListener("mouseleave", handleHoverEnd);
@@ -576,28 +565,51 @@ export const CustomCursor = () => {
 
   if (isMobile) return null;
 
-  const size = isPressed ? 6 : isHovering ? 14 : 10;
-
   return (
-    <motion.div
-      className="fixed top-0 left-0 z-[10000] pointer-events-none rounded-full"
-      style={{
-        x: smoothX,
-        y: smoothY,
-        translateX: "-50%",
-        translateY: "-50%",
-        width: size,
-        height: size,
-        backgroundColor: isHovering
-          ? "hsl(var(--secondary) / 0.9)"
-          : "hsl(var(--foreground) / 0.7)",
-      }}
-      transition={{
-        width: { type: "spring", stiffness: 300, damping: 20 },
-        height: { type: "spring", stiffness: 300, damping: 20 },
-        backgroundColor: { duration: 0.2 }
-      }}
-    />
+    <>
+      {/* Outer ring — expands on hover */}
+      <motion.div
+        className="fixed top-0 left-0 z-[10000] pointer-events-none rounded-full border-2 mix-blend-difference"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          width: isHovering ? 40 : 24,
+          height: isHovering ? 40 : 24,
+          borderColor: isHovering
+            ? "hsl(var(--secondary))"
+            : "hsla(0, 0%, 100%, 0.6)",
+          opacity: isHovering ? 1 : 0.7,
+        }}
+        transition={{
+          width: { type: "spring", stiffness: 500, damping: 30 },
+          height: { type: "spring", stiffness: 500, damping: 30 },
+          borderColor: { duration: 0.15 },
+          opacity: { duration: 0.15 },
+        }}
+      />
+      {/* Center dot — always crisp */}
+      <motion.div
+        className="fixed top-0 left-0 z-[10001] pointer-events-none rounded-full mix-blend-difference"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          width: isHovering ? 4 : 4,
+          height: isHovering ? 4 : 4,
+          backgroundColor: isHovering
+            ? "hsl(var(--secondary))"
+            : "rgba(255,255,255,0.8)",
+        }}
+        transition={{ duration: 0.15 }}
+      />
+    </>
   );
 };
 
