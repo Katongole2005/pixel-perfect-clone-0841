@@ -75,6 +75,9 @@ const PlanYourTrip = () => {
   const [numAdults, setNumAdults] = useState("1");
   const [numChildren, setNumChildren] = useState("0");
   const [pickupTime, setPickupTime] = useState("");
+  const [accommodationPreference, setAccommodationPreference] = useState("");
+  const [dietaryRequirements, setDietaryRequirements] = useState<string[]>([]);
+  const [specialOccasion, setSpecialOccasion] = useState("");
 
   // Step 2
   const [travelTypes, setTravelTypes] = useState<string[]>([]);
@@ -120,6 +123,9 @@ const PlanYourTrip = () => {
       message,
       privacy_accepted: privacyAccepted,
       pickup_time: pickupTime || null,
+      accommodation_preference: accommodationPreference || null,
+      dietary_requirements: dietaryRequirements,
+      special_occasion: specialOccasion || null,
     });
     setSubmitting(false);
 
@@ -237,8 +243,8 @@ const PlanYourTrip = () => {
               transition={{ duration: 0.35 }}
               className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-xl"
             >
-              {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime }} />}
-              {step === 2 && <StepTwo {...{ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }} />}
+              {step === 1 && <StepOne {...{ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime, accommodationPreference, setAccommodationPreference }} />}
+              {step === 2 && <StepTwo {...{ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray, dietaryRequirements, setDietaryRequirements, specialOccasion, setSpecialOccasion }} />}
               {step === 3 && <StepThree {...{ name, setName, email, setEmail, phone, setPhone, message, setMessage, privacyAccepted, setPrivacyAccepted }} />}
             </motion.div>
           </AnimatePresence>
@@ -286,7 +292,7 @@ const PlanYourTrip = () => {
 };
 
 /* ─── Step 1: Trip Details ─── */
-const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime }: any) => (
+const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime, accommodationPreference, setAccommodationPreference }: any) => (
   <div className="space-y-7">
     <div>
       <div className="flex items-center gap-3 mb-1">
@@ -374,6 +380,19 @@ const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatest
       <Input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
     </FieldWrapper>
 
+    <FieldWrapper label="Accommodation Preference (optional)">
+      <Select value={accommodationPreference} onValueChange={setAccommodationPreference}>
+        <SelectTrigger className="h-12 rounded-xl bg-background border-border font-body"><SelectValue placeholder="Select preference" /></SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Budget camping">🏕️ Budget Camping</SelectItem>
+          <SelectItem value="Mid-range lodge">🏡 Mid-range Lodge</SelectItem>
+          <SelectItem value="Luxury lodge">✨ Luxury Lodge</SelectItem>
+          <SelectItem value="Mix of both">🔀 Mix of Both</SelectItem>
+          <SelectItem value="No preference">🤷 No Preference</SelectItem>
+        </SelectContent>
+      </Select>
+    </FieldWrapper>
+
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <FieldWrapper label="Number of Adults" required>
         <Input type="number" min={1} value={numAdults} onChange={(e) => setNumAdults(e.target.value)} className="h-12 rounded-xl bg-background border-border font-body" />
@@ -386,7 +405,24 @@ const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatest
 );
 
 /* ─── Step 2: Preferences ─── */
-const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray }: any) => (
+const DIETARY_OPTIONS = [
+  { label: "Vegetarian", icon: "🥗" },
+  { label: "Vegan", icon: "🌱" },
+  { label: "Halal", icon: "🍖" },
+  { label: "Gluten-free", icon: "🌾" },
+  { label: "Lactose-free", icon: "🥛" },
+  { label: "No restrictions", icon: "✅" },
+];
+
+const SPECIAL_OCCASIONS = [
+  { value: "Honeymoon", label: "🥂 Honeymoon" },
+  { value: "Anniversary", label: "💍 Anniversary" },
+  { value: "Birthday", label: "🎂 Birthday" },
+  { value: "Family reunion", label: "👨‍👩‍👧‍👦 Family Reunion" },
+  { value: "None", label: "— None" },
+];
+
+const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray, dietaryRequirements, setDietaryRequirements, specialOccasion, setSpecialOccasion }: any) => (
   <div className="space-y-8">
     <div>
       <div className="flex items-center gap-3 mb-1">
@@ -402,6 +438,19 @@ const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences
     <PillGroup label="Which animals would you like to see?" items={ANIMALS} selected={animals} onToggle={(v: string) => toggleArray(animals, v, setAnimals)} />
     <PillGroup label="What kind of travel experience?" items={EXPERIENCES} selected={experiences} onToggle={(v: string) => toggleArray(experiences, v, setExperiences)} />
     <PillGroup label="Other destinations besides Uganda?" items={OTHER_DESTINATIONS} selected={otherDestinations} onToggle={(v: string) => toggleArray(otherDestinations, v, setOtherDestinations)} />
+
+    <PillGroup label="Any dietary requirements?" items={DIETARY_OPTIONS} selected={dietaryRequirements} onToggle={(v: string) => toggleArray(dietaryRequirements, v, setDietaryRequirements)} />
+
+    <FieldWrapper label="Celebrating a special occasion? (optional)">
+      <Select value={specialOccasion} onValueChange={setSpecialOccasion}>
+        <SelectTrigger className="h-12 rounded-xl bg-background border-border font-body"><SelectValue placeholder="Select occasion" /></SelectTrigger>
+        <SelectContent>
+          {SPECIAL_OCCASIONS.map((o) => (
+            <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </FieldWrapper>
   </div>
 );
 
