@@ -15,8 +15,13 @@ const LANGUAGES = [
   { code: "es", label: "Español", flag: "🇪🇸" },
 ];
 
-/** Detect the browser's preferred language and match to our supported list */
-function detectBrowserLanguage(): string {
+const STORAGE_KEY = "fta-preferred-lang";
+
+/** Get the language to use: user's saved choice > browser detection */
+function getInitialLanguage(): string {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && SUPPORTED_CODES.includes(saved)) return saved;
+  // First visit: detect from browser
   const browserLangs = navigator.languages || [navigator.language];
   for (const lang of browserLangs) {
     const code = lang.split("-")[0].toLowerCase();
@@ -43,8 +48,8 @@ declare global {
  */
 const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
-  const detectedLang = useRef(detectBrowserLanguage());
-  const [current, setCurrent] = useState(detectedLang.current);
+  const initialLang = useRef(getInitialLanguage());
+  const [current, setCurrent] = useState(initialLang.current);
   const ref = useRef<HTMLDivElement>(null);
   const autoTriggered = useRef(false);
 
@@ -62,12 +67,11 @@ const LanguageSelector = () => {
         "google_translate_element"
       );
 
-      // Auto-translate if browser language differs from English
-      if (detectedLang.current !== "en" && !autoTriggered.current) {
+      // Auto-translate on first visit if browser lang differs from English
+      if (initialLang.current !== "en" && !autoTriggered.current) {
         autoTriggered.current = true;
-        // Small delay to let widget initialize
         setTimeout(() => {
-          const code = detectedLang.current;
+          const code = initialLang.current;
           document.cookie = `googtrans=/en/${code}; path=/;`;
           document.cookie = `googtrans=/en/${code}; path=/; domain=.${window.location.hostname}`;
           const selectEl = document.querySelector<HTMLSelectElement>(".goog-te-combo");
@@ -100,7 +104,7 @@ const LanguageSelector = () => {
   const selectLanguage = (code: string) => {
     setCurrent(code);
     setOpen(false);
-
+    localStorage.setItem(STORAGE_KEY, code);
     if (code === "en") {
       // Reset to original
       const frame = document.querySelector<HTMLIFrameElement>(
