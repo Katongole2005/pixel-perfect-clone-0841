@@ -53,7 +53,7 @@ const PartnersSection = () => (
             >
               <img
                 src={p.logo}
-                alt={`${p.name} logo — Godka Tours partner`}
+                alt={`${p.name} logo — Fresh Tracks Africa partner`}
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               />
@@ -77,7 +77,7 @@ const PartnersSection = () => (
             >
               <img
                 src={p.logo}
-                alt={`${p.name} logo — Godka Tours partner`}
+                alt={`${p.name} logo — Fresh Tracks Africa partner`}
                 className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               />

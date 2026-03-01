@@ -28,7 +28,7 @@ const AboutSection = () => {
   const bgX = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section ref={ref} className="py-32 px-4 bg-background relative overflow-hidden" aria-label="Why choose Godka Tours — mission, values, and certifications">
+    <section ref={ref} className="py-32 px-4 bg-background relative overflow-hidden" aria-label="Why choose Fresh Tracks Africa — mission, values, and certifications">
       {/* Moving background text */}
       <motion.div
         style={{ x: bgX }}

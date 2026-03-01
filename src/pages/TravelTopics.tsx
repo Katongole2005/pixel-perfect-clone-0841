@@ -78,7 +78,7 @@ const TravelTopicsPage: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Reisethemen & Adventures in Uganda & Rwanda | Godka Tours</title>
+                <title>Reisethemen & Adventures in Uganda & Rwanda | Fresh Tracks Africa</title>
                 <meta name="description" content="Discover the diversity of Uganda & Rwanda: Safari, Trekking, Gorilla-Trekking, Fly-in Safari, eBike Mountainbike Safari, Active and Nature Travel." />
             </Helmet>
 

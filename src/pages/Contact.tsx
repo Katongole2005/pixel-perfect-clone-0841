@@ -16,15 +16,15 @@ const ContactPage = () => {
     return (
         <>
             <Helmet>
-                <title>Contact Us | Godka Tours</title>
-                <meta name="description" content="Get in touch with Godka Tours to plan your next African safari adventure." />
+                <title>Contact Us | Fresh Tracks Africa</title>
+                <meta name="description" content="Get in touch with Fresh Tracks Africa to plan your next African safari adventure." />
             </Helmet>
             <div className="bg-background">
                 {/* ── Hero Banner ── */}
                 <div className="relative h-72 md:h-96 overflow-hidden">
                     <img
                         src="https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1600&auto=format&fit=crop"
-                        alt="Contact Godka Tours"
+                        alt="Contact Fresh Tracks Africa"
                         className="w-full h-full object-cover animate-ken-burns"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
@@ -66,7 +66,7 @@ const ContactPage = () => {
                                 {
                                     icon: MailIcon,
                                     label: "Email",
-                                    value: "info@godkatours.com",
+                                    value: "info@freshtracksafrica.com",
                                 },
                                 {
                                     icon: PhoneIcon,
@@ -155,7 +155,7 @@ const ContactPage = () => {
                     <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-8 text-center">
                         {[
                             { icon: PhoneIcon, label: "Call Us", value: "+256 753 171457", sub: "Mon–Sat, 8am–6pm EAT" },
-                            { icon: MailIcon, label: "Email Us", value: "info@godkatours.com", sub: "We reply within 1 business day" },
+                            { icon: MailIcon, label: "Email Us", value: "info@freshtracksafrica.com", sub: "We reply within 1 business day" },
                             { icon: MapPinIcon, label: "Find Us", value: "Kampala, Uganda", sub: "East Africa's safari capital" },
                         ].map(({ icon: Icon, label, value, sub }, i) => (
                             <motion.div

@@ -13,14 +13,14 @@ const reviews = [
   {
     name: "Sarah M.",
     location: "London, UK",
-    text: "Godka Tours made our gorilla trekking dream a reality. Every detail was perfectly arranged. The guides were knowledgeable and passionate.",
+    text: "Fresh Tracks Africa made our gorilla trekking dream a reality. Every detail was perfectly arranged. The guides were knowledgeable and passionate.",
     rating: 5,
     initial: "S",
   },
   {
     name: "David K.",
     location: "New York, USA",
-    text: "An incredible safari experience through Queen Elizabeth National Park. We saw the tree-climbing lions! Highly recommend Godka Tours.",
+    text: "An incredible safari experience through Queen Elizabeth National Park. We saw the tree-climbing lions! Highly recommend Fresh Tracks Africa.",
     rating: 5,
     initial: "D",
   },

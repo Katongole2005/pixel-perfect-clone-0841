@@ -34,7 +34,7 @@ const PressRelease = () => {
     <section
       ref={sectionRef}
       className="py-32 px-4 bg-muted relative overflow-hidden"
-      aria-label="About Godka Tours — 10+ years creating unforgettable safari experiences"
+      aria-label="About Fresh Tracks Africa — 10+ years creating unforgettable safari experiences"
     >
       {/* Decorative floating elements */}
       <motion.div
@@ -92,7 +92,7 @@ const PressRelease = () => {
           <div className="lg:col-span-6 lg:pl-8">
             <ClipReveal>
               <p className="text-secondary text-xs font-body font-bold uppercase tracking-[0.4em] mb-5">
-                ── Welcome to Godka Tours
+                ── Welcome to Fresh Tracks Africa
               </p>
             </ClipReveal>
 
@@ -110,7 +110,7 @@ const PressRelease = () => {
 
             <ClipReveal delay={0.4}>
               <p className="text-muted-foreground font-body leading-[2] text-[15px] mb-5">
-                Godka Tours and Travels Ltd. is your trusted partner for
+                Fresh Tracks Africa Tours & Travel Ltd. is your trusted partner for
                 unforgettable adventures in Uganda and Rwanda. We specialize in
                 personalized gorilla trekking expeditions, wildlife safaris, and
                 cultural heritage tours.

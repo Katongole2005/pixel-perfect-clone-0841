@@ -100,8 +100,8 @@ const ReviewsPage: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Guest Reviews & Testimonials | Godka Tours</title>
-                <meta name="description" content="Read authentic experiences from our guests who explored Uganda and Rwanda with Godka Tours." />
+                <title>Guest Reviews & Testimonials | Fresh Tracks Africa</title>
+                <meta name="description" content="Read authentic experiences from our guests who explored Uganda and Rwanda with Fresh Tracks Africa." />
             </Helmet>
 
             <div className="bg-background min-h-screen">
@@ -125,7 +125,7 @@ const ReviewsPage: React.FC = () => {
                                     The Pearl of Africa
                                 </h1>
                                 <p className="text-xl text-muted-foreground font-body max-w-lg mb-8 leading-relaxed">
-                                    Discover why travelers from across the globe choose Godka Tours for their ultimate African adventure. Authentic reviews from real explorers.
+                                    Discover why travelers from across the globe choose Fresh Tracks Africa for their ultimate African adventure. Authentic reviews from real explorers.
                                 </p>
                                 <div className="flex flex-wrap gap-4">
                                     <Button size="lg" className="bg-godka-gold hover:bg-godka-gold/90 text-primary font-body font-bold rounded-full px-8 h-14 shadow-xl shadow-godka-gold/20">

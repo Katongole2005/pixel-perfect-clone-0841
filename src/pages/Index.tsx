@@ -15,8 +15,8 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Godka Tours & Travels | Gorilla Trekking & Safari Tours Uganda & Rwanda</title>
-        <meta name="description" content="Book gorilla trekking, wildlife safaris & cultural tours in Uganda and Rwanda with Godka Tours. ATTA-certified operator with 10+ years experience. Get a free quote today." />
+        <title>Fresh Tracks Africa Tours & Travel | Gorilla Trekking & Safari Tours Uganda & Rwanda</title>
+        <meta name="description" content="Book gorilla trekking, wildlife safaris & cultural tours in Uganda and Rwanda with Fresh Tracks Africa. ATTA-certified operator with 10+ years experience. Get a free quote today." />
       </Helmet>
       <HeroSection />
       <TripSearchSection />
