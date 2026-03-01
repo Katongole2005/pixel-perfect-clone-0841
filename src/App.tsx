@@ -53,8 +53,12 @@ const PageLoader = () => (
 );
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false);
-  const handlePreloaderComplete = useCallback(() => setLoaded(true), []);
+  const hasSeenPreloader = sessionStorage.getItem("fta-preloader-seen") === "true";
+  const [loaded, setLoaded] = useState(hasSeenPreloader);
+  const handlePreloaderComplete = useCallback(() => {
+    sessionStorage.setItem("fta-preloader-seen", "true");
+    setLoaded(true);
+  }, []);
 
   return (
     <HelmetProvider>
