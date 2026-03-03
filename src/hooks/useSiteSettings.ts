@@ -30,18 +30,23 @@ export interface AboutSettings {
     vision_text: string;
 }
 
+const defaultSettings: {
+    hero: HeroSettings;
+    contact: ContactSettings;
+    images: SiteImages;
+    about: AboutSettings;
+} = {
+    hero: { title: "Gorilla Trekking", subtitle: "& Safari Tours", cta_text: "Discover Our Tours", cta_link: "/travel-topics" },
+    contact: { email: "info@freshtracksafricatours&travelltd.com", phone: "+256 755 843097 / +256 746 718350", address: "", whatsapp: "" },
+    images: { logo_main: "", logo_footer: "", about_image: "" },
+    about: { mission_title: "Mission & Vision", mission_text: "We believe in responsible tourism...", vision_title: "", vision_text: "" },
+};
+
+const isJsonObject = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
 export function useSiteSettings() {
-    const [settings, setSettings] = useState<{
-        hero: HeroSettings;
-        contact: ContactSettings;
-        images: SiteImages;
-        about: AboutSettings;
-    }>({
-        hero: { title: "Gorilla Trekking", subtitle: "& Safari Tours", cta_text: "Discover Our Tours", cta_link: "/travel-topics" },
-        contact: { email: "info@freshtracksafricatours&travelltd.com", phone: "+256 755 843097 / +256 746 718350", address: "", whatsapp: "" },
-        images: { logo_main: "", logo_footer: "", about_image: "" },
-        about: { mission_title: "Mission & Vision", mission_text: "We believe in responsible tourism...", vision_title: "", vision_text: "" }
-    });
+    const [settings, setSettings] = useState(defaultSettings);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -51,14 +56,15 @@ export function useSiteSettings() {
                 if (error) throw error;
 
                 if (data) {
-                    const newSettings = { ...settings };
+                    const nextSettings = { ...defaultSettings };
                     data.forEach((row) => {
-                        if (row.setting_key === "hero") newSettings.hero = { ...newSettings.hero, ...row.setting_value };
-                        if (row.setting_key === "contact") newSettings.contact = { ...newSettings.contact, ...row.setting_value };
-                        if (row.setting_key === "images") newSettings.images = { ...newSettings.images, ...row.setting_value };
-                        if (row.setting_key === "about") newSettings.about = { ...newSettings.about, ...row.setting_value };
+                        if (!isJsonObject(row.setting_value)) return;
+                        if (row.setting_key === "hero") nextSettings.hero = { ...nextSettings.hero, ...(row.setting_value as Partial<HeroSettings>) };
+                        if (row.setting_key === "contact") nextSettings.contact = { ...nextSettings.contact, ...(row.setting_value as Partial<ContactSettings>) };
+                        if (row.setting_key === "images") nextSettings.images = { ...nextSettings.images, ...(row.setting_value as Partial<SiteImages>) };
+                        if (row.setting_key === "about") nextSettings.about = { ...nextSettings.about, ...(row.setting_value as Partial<AboutSettings>) };
                     });
-                    setSettings(newSettings);
+                    setSettings(nextSettings);
                 }
             } catch (err) {
                 console.error("Error fetching site settings:", err);
@@ -68,7 +74,6 @@ export function useSiteSettings() {
         }
 
         fetchSettings();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { settings, loading };
