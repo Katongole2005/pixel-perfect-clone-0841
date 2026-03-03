@@ -22,7 +22,7 @@ import {
 
 import { supabase } from "@/integrations/supabase/client";
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
     Trees,
     Mountain,
     Bike,

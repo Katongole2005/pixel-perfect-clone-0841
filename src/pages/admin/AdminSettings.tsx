@@ -48,7 +48,7 @@ export default function AdminSettings() {
     const fetch_ = async () => {
       const { data } = await supabase.from("site_settings").select("*");
       if (data) {
-        data.forEach((row: any) => {
+        data.forEach((row) => {
           if (row.setting_key === "hero") setHero(row.setting_value as HeroSettings);
           if (row.setting_key === "contact") setContact(row.setting_value as ContactSettings);
           if (row.setting_key === "images") setImages(row.setting_value as SiteImages);
@@ -59,6 +59,7 @@ export default function AdminSettings() {
     fetch_();
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const saveSetting = async (key: string, value: any) => {
     setSaving(true);
     const { data: existing } = await supabase.from("site_settings").select("id").eq("setting_key", key).maybeSingle();

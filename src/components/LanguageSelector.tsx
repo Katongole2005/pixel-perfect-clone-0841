@@ -107,6 +107,7 @@ declare global {
   interface Window {
     google?: {
       translate?: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         TranslateElement: any;
       };
     };
@@ -194,11 +195,10 @@ const LanguageSelector = () => {
             <button
               key={lang.code}
               onClick={() => selectLanguage(lang.code)}
-              className={`w-full text-left px-3 py-2 text-sm font-body flex items-center gap-2.5 transition-colors hover:bg-muted ${
-                current === lang.code
+              className={`w-full text-left px-3 py-2 text-sm font-body flex items-center gap-2.5 transition-colors hover:bg-muted ${current === lang.code
                   ? "text-foreground font-semibold bg-muted/50"
                   : "text-muted-foreground"
-              }`}
+                }`}
             >
               <span className="text-base">{lang.flag}</span>
               <span>{lang.label}</span>

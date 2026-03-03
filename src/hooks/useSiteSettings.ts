@@ -52,7 +52,7 @@ export function useSiteSettings() {
 
                 if (data) {
                     const newSettings = { ...settings };
-                    data.forEach((row: any) => {
+                    data.forEach((row) => {
                         if (row.setting_key === "hero") newSettings.hero = { ...newSettings.hero, ...row.setting_value };
                         if (row.setting_key === "contact") newSettings.contact = { ...newSettings.contact, ...row.setting_value };
                         if (row.setting_key === "images") newSettings.images = { ...newSettings.images, ...row.setting_value };
@@ -68,6 +68,7 @@ export function useSiteSettings() {
         }
 
         fetchSettings();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { settings, loading };

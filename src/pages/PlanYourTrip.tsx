@@ -304,6 +304,7 @@ const PlanYourTrip = () => {
 };
 
 /* ─── Step 1: Trip Details ─── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StepOne = ({ earliestArrival, setEarliestArrival, latestArrival, setLatestArrival, duration, setDuration, budget, setBudget, guideLanguage, setGuideLanguage, numAdults, setNumAdults, numChildren, setNumChildren, pickupTime, setPickupTime, accommodationPreference, setAccommodationPreference }: any) => (
   <div className="space-y-7">
     <div>
@@ -434,6 +435,7 @@ const SPECIAL_OCCASIONS = [
   { value: "None", label: "— None" },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences, setExperiences, otherDestinations, setOtherDestinations, toggleArray, dietaryRequirements, setDietaryRequirements, specialOccasion, setSpecialOccasion }: any) => (
   <div className="space-y-8">
     <div>
@@ -467,6 +469,7 @@ const StepTwo = ({ travelTypes, setTravelTypes, animals, setAnimals, experiences
 );
 
 /* ─── Step 3: Contact Info ─── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StepThree = ({ name, setName, email, setEmail, phone, setPhone, message, setMessage, privacyAccepted, setPrivacyAccepted }: any) => (
   <div className="space-y-6">
     <div>
