@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowRight, Bike, Mountain, Waves, Wind, Compass, Tent } from "lucide-react";
-import adventureImg from "@/assets/adventure.jpg";
+import adventureImg from "@/assets/adventure.webp";
 import {
   SplitTextReveal,
   ClipReveal,

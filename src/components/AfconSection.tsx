@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import news1 from "@/assets/news-1.jpg";
-import news2 from "@/assets/news-2.jpg";
-import news3 from "@/assets/news-3.jpg";
-import news4 from "@/assets/news-4.jpg";
+import news1 from "@/assets/news-1.webp";
+import news2 from "@/assets/news-2.webp";
+import news3 from "@/assets/news-3.webp";
+import news4 from "@/assets/news-4.webp";
 import { ArrowUpRight } from "lucide-react";
 import {
   SplitTextReveal,

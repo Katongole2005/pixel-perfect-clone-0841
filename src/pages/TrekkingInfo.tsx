@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowRight, Mountain, Clock, Users, Shield, TreePine, Camera, Heart, Footprints } from "lucide-react";
-import gorillaImg from "@/assets/gorilla-trekking.jpg";
+import gorillaImg from "@/assets/gorilla-trekking.webp";
 import {
   SplitTextReveal,
   ClipReveal,

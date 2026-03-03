@@ -7,7 +7,7 @@ const PRIORITY_FRAMES = 30;
 // Module-level: build URLs only (no preloading on import)
 const frameUrls = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
   const frameIndex = (i + 1).toString().padStart(3, "0");
-  return `/videos/squence/ezgif-frame-${frameIndex}.jpg`;
+  return `/videos/squence/ezgif-frame-${frameIndex}.webp`;
 });
 
 const globalImages: HTMLImageElement[] = [];

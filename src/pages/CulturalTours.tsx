@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, Music, Utensils, Landmark, Heart, MapPin } from "lucide-react";
-import culturalImg from "@/assets/cultural-heritage.jpg";
+import culturalImg from "@/assets/cultural-heritage.webp";
 import {
   SplitTextReveal,
   ClipReveal,

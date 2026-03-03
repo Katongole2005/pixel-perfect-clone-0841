@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import gorillaImgFallback from "@/assets/gorilla-trekking.jpg";
+import gorillaImgFallback from "@/assets/gorilla-trekking.webp";
 import { SplitTextReveal, ClipReveal, FloatingParticles, MagneticHover } from "./animations/AnimationUtils";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 

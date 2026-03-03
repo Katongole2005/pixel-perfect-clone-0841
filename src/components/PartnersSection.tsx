@@ -1,15 +1,15 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import mtwaLogo from "@/assets/partners/mtwa-logo.jpg";
-import uwaLogo from "@/assets/partners/uwa-logo.jpg";
-import uwecLogo from "@/assets/partners/uwec-logo.png";
-import uhoaLogo from "@/assets/partners/uhoa-logo.png";
-import autoLogo from "@/assets/partners/auto-logo.png";
-import uiaLogo from "@/assets/partners/uia-logo.png";
-import tugataLogo from "@/assets/partners/tugata-logo.png";
-import utbLogo from "@/assets/partners/utb-logo.png";
-import eacLogo from "@/assets/partners/eac-logo.png";
-import attaLogo from "@/assets/partners/atta-logo.png";
+import mtwaLogo from "@/assets/partners/mtwa-logo.webp";
+import uwaLogo from "@/assets/partners/uwa-logo.webp";
+import uwecLogo from "@/assets/partners/uwec-logo.webp";
+import uhoaLogo from "@/assets/partners/uhoa-logo.webp";
+import autoLogo from "@/assets/partners/auto-logo.webp";
+import uiaLogo from "@/assets/partners/uia-logo.webp";
+import tugataLogo from "@/assets/partners/tugata-logo.webp";
+import utbLogo from "@/assets/partners/utb-logo.webp";
+import eacLogo from "@/assets/partners/eac-logo.webp";
+import attaLogo from "@/assets/partners/atta-logo.webp";
 import { ClipReveal, SplitTextReveal, GlowCard } from "./animations/AnimationUtils";
 
 const partners = [

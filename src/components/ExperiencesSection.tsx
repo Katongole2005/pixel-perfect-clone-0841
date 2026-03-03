@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import gorillaImg from "@/assets/gorilla-trekking.jpg";
-import adventureImg from "@/assets/adventure.jpg";
-import culturalImg from "@/assets/cultural-heritage.jpg";
+import gorillaImg from "@/assets/gorilla-trekking.webp";
+import adventureImg from "@/assets/adventure.webp";
+import culturalImg from "@/assets/cultural-heritage.webp";
 import { ArrowRight } from "lucide-react";
 import {
   SplitTextReveal,

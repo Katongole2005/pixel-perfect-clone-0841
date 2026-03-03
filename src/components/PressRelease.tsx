@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import pressImg from "@/assets/press-release.jpg";
-import gorillaImg from "@/assets/gorilla-trekking.jpg";
+import pressImg from "@/assets/press-release.webp";
+import gorillaImg from "@/assets/gorilla-trekking.webp";
 import { ArrowRight } from "lucide-react";
 import {
   SplitTextReveal,

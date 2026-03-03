@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);

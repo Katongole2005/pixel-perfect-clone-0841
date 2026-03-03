@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import exploreImg from "@/assets/explore-uganda.jpg";
-import adventureImg from "@/assets/adventure.jpg";
+import exploreImg from "@/assets/explore-uganda.webp";
+import adventureImg from "@/assets/adventure.webp";
 import { ArrowRight, Calendar, DollarSign, Check } from "lucide-react";
 import {
   SplitTextReveal,
