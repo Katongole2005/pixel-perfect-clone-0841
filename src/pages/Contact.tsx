@@ -12,7 +12,57 @@ import {
     FloatingParticles,
 } from "@/components/animations/AnimationUtils";
 
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+// ... existing code ... 
+
 const ContactPage = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [message, setMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { toast } = useToast();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!name || !email || !message) {
+            toast({ title: "Error", description: "Please fill in all required fields.", variant: "destructive" });
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const { error } = await supabase.from("contact_messages").insert({
+                name,
+                email,
+                phone: phone || null,
+                message,
+                subject: "Contact Form Submission",
+                is_read: false
+            });
+
+            if (error) {
+                console.error("Supabase insert error:", error);
+                toast({ title: "Error", description: `Failed to send message: ${error.message}`, variant: "destructive" });
+            } else {
+                toast({ title: "Success", description: "Your message has been sent successfully!" });
+                setName("");
+                setEmail("");
+                setPhone("");
+                setMessage("");
+            }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            toast({ title: "Error", description: "An unexpected error occurred. Please try again later.", variant: "destructive" });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <>
             <Helmet>
@@ -95,28 +145,34 @@ const ContactPage = () => {
                             ]}
                         >
                             {/* Contact Form */}
-                            <form className="w-full space-y-4">
+                            <form className="w-full space-y-4" onSubmit={handleSubmit}>
                                 <div className="flex flex-col gap-2">
                                     <Label htmlFor="contact-name" className="font-body text-sm font-semibold">
-                                        Full Name
+                                        Full Name *
                                     </Label>
                                     <Input
                                         id="contact-name"
                                         type="text"
                                         placeholder="Jane Smith"
                                         className="font-body"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        required
                                     />
                                 </div>
 
                                 <div className="flex flex-col gap-2">
                                     <Label htmlFor="contact-email" className="font-body text-sm font-semibold">
-                                        Email Address
+                                        Email Address *
                                     </Label>
                                     <Input
                                         id="contact-email"
                                         type="email"
                                         placeholder="jane@example.com"
                                         className="font-body"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
                                     />
                                 </div>
 
@@ -129,27 +185,33 @@ const ContactPage = () => {
                                         type="tel"
                                         placeholder="+1 234 567 890"
                                         className="font-body"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
                                     />
                                 </div>
 
                                 <div className="flex flex-col gap-2">
                                     <Label htmlFor="contact-message" className="font-body text-sm font-semibold">
-                                        Message
+                                        Message *
                                     </Label>
                                     <Textarea
                                         id="contact-message"
                                         placeholder="Tell us about the trip you're planning..."
                                         className="font-body min-h-[100px] resize-none"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        required
                                     />
                                 </div>
 
                                 <Button
-                                    type="button"
+                                    type="submit"
+                                    disabled={isSubmitting}
                                     className="w-full group relative overflow-hidden bg-secondary text-secondary-foreground hover:bg-secondary/90 font-body font-bold uppercase tracking-widest text-sm py-5"
                                 >
                                     <span className="flex items-center gap-2">
-                                        Send Message
-                                        <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                                        {isSubmitting ? "Sending..." : "Send Message"}
+                                        {!isSubmitting && <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />}
                                     </span>
                                 </Button>
                             </form>

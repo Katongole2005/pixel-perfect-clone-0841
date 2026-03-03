@@ -1,4 +1,5 @@
 import { Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import logoFallback from "@/assets/brand-logo";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
@@ -10,7 +11,7 @@ const HeaderBar = () => {
     <div className="bg-card py-3 px-4 border-b border-border">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex-shrink-0">
+        <Link to="/" className="flex-shrink-0">
           <img
             src={images.logo_main || logoFallback}
             alt="Fresh Tracks Africa Tours & Travel Ltd. — Uganda & Rwanda safari tour operator"
@@ -20,7 +21,7 @@ const HeaderBar = () => {
             decoding="async"
             fetchPriority="high"
           />
-        </a>
+        </Link>
 
         {/* Contact info */}
         <div className="hidden md:flex items-center gap-10">
@@ -45,12 +46,12 @@ const HeaderBar = () => {
         </div>
 
         {/* CTA */}
-        <a
-          href="/plan-your-trip"
+        <Link
+          to="/plan-your-trip"
           className="bg-secondary text-secondary-foreground px-5 sm:px-7 py-2.5 sm:py-3 text-xs sm:text-sm font-body font-bold tracking-wide hover:bg-brand-brown transition-colors"
         >
           Plan Your Trip!
-        </a>
+        </Link>
       </div>
     </div>
   );

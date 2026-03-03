@@ -105,34 +105,46 @@ const PlanYourTrip = () => {
 
   const handleSubmit = async () => {
     setSubmitting(true);
-    const { error } = await supabase.from("trip_requests").insert({
-      earliest_arrival: earliestArrival ? format(earliestArrival, "yyyy-MM-dd") : "",
-      latest_arrival: latestArrival ? format(latestArrival, "yyyy-MM-dd") : "",
-      duration_days: parseInt(duration),
-      budget_per_person: parseFloat(budget),
-      guide_language: guideLanguage,
-      num_adults: parseInt(numAdults),
-      num_children: parseInt(numChildren || "0"),
-      travel_types: travelTypes,
-      animals,
-      travel_experience: experiences,
-      other_destinations: otherDestinations,
-      name,
-      email,
-      phone,
-      message,
-      privacy_accepted: privacyAccepted,
-      pickup_time: pickupTime || null,
-      accommodation_preference: accommodationPreference || null,
-      dietary_requirements: dietaryRequirements,
-      special_occasion: specialOccasion || null,
-    });
-    setSubmitting(false);
+    try {
+      // Validate dates to prevent Supabase constraint errors
+      const eArrival = earliestArrival ? format(earliestArrival, "yyyy-MM-dd") : new Date().toISOString().split('T')[0];
+      const lArrival = latestArrival ? format(latestArrival, "yyyy-MM-dd") : new Date().toISOString().split('T')[0];
 
-    if (error) {
-      toast({ title: "Error", description: "Something went wrong. Please try again.", variant: "destructive" });
-    } else {
-      setSubmitted(true);
+      const { error } = await supabase.from("trip_requests").insert({
+        earliest_arrival: eArrival,
+        latest_arrival: lArrival,
+        duration_days: parseInt(duration) || 1,
+        budget_per_person: parseFloat(budget) || 0,
+        guide_language: guideLanguage || "English",
+        num_adults: parseInt(numAdults) || 1,
+        num_children: parseInt(numChildren || "0"),
+        travel_types: travelTypes,
+        animals,
+        travel_experience: experiences,
+        other_destinations: otherDestinations,
+        name,
+        email,
+        phone,
+        message,
+        privacy_accepted: privacyAccepted,
+        pickup_time: pickupTime || null,
+        accommodation_preference: accommodationPreference || null,
+        dietary_requirements: dietaryRequirements,
+        special_occasion: specialOccasion || null,
+      });
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        toast({ title: "Error", description: `Submission failed: ${error.message || "Please try again"}`, variant: "destructive" });
+      } else {
+        setSubmitted(true);
+        toast({ title: "Success", description: "Your trip request has been submitted!" }); // Feedback for user
+      }
+    } catch (err) {
+      console.error("Unexpected submission error:", err);
+      toast({ title: "Error", description: "An unexpected error occurred. Please try again later.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
     }
   };
 

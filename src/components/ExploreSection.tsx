@@ -10,6 +10,7 @@ import {
   LineDraw,
   MagneticHover,
 } from "./animations/AnimationUtils";
+import { Link } from "react-router-dom";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 const safaris = [
@@ -147,9 +148,9 @@ const ExploreSection = () => {
                           </li>
                         ))}
                       </ul>
-                      <a href="/plan-your-trip" className="inline-flex items-center gap-2 text-foreground text-xs font-body font-bold uppercase tracking-wider group-hover:text-secondary group-hover:gap-4 transition-all duration-500">
+                      <Link to="/plan-your-trip" className="inline-flex items-center gap-2 text-foreground text-xs font-body font-bold uppercase tracking-wider group-hover:text-secondary group-hover:gap-4 transition-all duration-500">
                         View Details <ArrowRight className="w-4 h-4" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </motion.div>
