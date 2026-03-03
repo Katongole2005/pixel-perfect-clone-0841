@@ -167,7 +167,7 @@ const ScrollVideoSection = () => {
   const containerOpacity = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]);
 
   return (
-    <div ref={containerRef} className="relative h-[500vh]">
+    <div ref={containerRef} className="relative h-[350vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         <motion.div
