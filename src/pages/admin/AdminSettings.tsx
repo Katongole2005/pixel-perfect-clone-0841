@@ -45,14 +45,20 @@ export default function AdminSettings() {
   const { toast } = useToast();
 
   useEffect(() => {
+    const asRecord = (value: unknown): Record<string, unknown> =>
+      typeof value === "object" && value !== null && !Array.isArray(value)
+        ? (value as Record<string, unknown>)
+        : {};
+
     const fetch_ = async () => {
       const { data } = await supabase.from("site_settings").select("*");
       if (data) {
         data.forEach((row) => {
-          if (row.setting_key === "hero") setHero(row.setting_value as HeroSettings);
-          if (row.setting_key === "contact") setContact(row.setting_value as ContactSettings);
-          if (row.setting_key === "images") setImages(row.setting_value as SiteImages);
-          if (row.setting_key === "about") setAbout(row.setting_value as AboutSettings);
+          const value = asRecord(row.setting_value);
+          if (row.setting_key === "hero") setHero((prev) => ({ ...prev, ...(value as Partial<HeroSettings>) }));
+          if (row.setting_key === "contact") setContact((prev) => ({ ...prev, ...(value as Partial<ContactSettings>) }));
+          if (row.setting_key === "images") setImages((prev) => ({ ...prev, ...(value as Partial<SiteImages>) }));
+          if (row.setting_key === "about") setAbout((prev) => ({ ...prev, ...(value as Partial<AboutSettings>) }));
         });
       }
     };

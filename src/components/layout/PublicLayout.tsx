@@ -28,6 +28,7 @@ const PublicLayout = () => {
             wheelMultiplier: 1,
             touchMultiplier: 2,
             infinite: false,
+            autoResize: true,
         });
 
         lenisRef.current = lenis;
@@ -39,10 +40,20 @@ const PublicLayout = () => {
 
         rafIdRef.current = requestAnimationFrame(raf);
 
+        const resizeObserver = new ResizeObserver(() => {
+            lenis.resize();
+        });
+        resizeObserver.observe(document.body);
+
+        const handleLoad = () => lenis.resize();
+        window.addEventListener("load", handleLoad);
+
         return () => {
             if (rafIdRef.current !== null) {
                 cancelAnimationFrame(rafIdRef.current);
             }
+            window.removeEventListener("load", handleLoad);
+            resizeObserver.disconnect();
             lenis.destroy();
             lenisRef.current = null;
             rafIdRef.current = null;
